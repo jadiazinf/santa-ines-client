@@ -4,7 +4,9 @@ import {store} from './store';
 export const App = () => {
   return (
     <Provider store={store}>
-      <div>Santa Ines</div>
+      <div className="">
+        <p className="text-2xl text-red-400 ">Bienvenido a si gestionador de citas</p>
+      </div>
     </Provider>
   )
 }
