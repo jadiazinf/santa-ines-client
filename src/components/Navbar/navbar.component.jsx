@@ -5,7 +5,7 @@ import { logo_SantaInes, menu, close } from "../../assets"
 const navLinks = [
   {
     id: 'inicio',
-    title:'Inicio'
+    title:'Inicio',
   },
   {
     id: 'somos',
@@ -25,7 +25,7 @@ const navLinks = [
   },
 ]
 
-const Navbar = () => {
+const NavbarComponent = () => {
   const [toggle, setToggle] = useState(false);
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
@@ -54,7 +54,7 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavbarComponent
 
 
 //De esta manera se coloca en el contenedor padre
