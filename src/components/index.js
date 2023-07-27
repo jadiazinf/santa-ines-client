@@ -1,3 +1,1 @@
-import NavbarComponent from './Navbar/navbar.component'
-
-export { NavbarComponent }
+export * from './Navbar/navbar.component'
