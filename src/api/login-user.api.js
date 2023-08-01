@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const registerUserApi = createApi({
-  reducerPath: 'registerUser',
+export const loginUserApi = createApi({
+  reducerPath: 'loginUser',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_SERVER_BASE_URL
   }),
   endpoints: builder => ({
-    registerUser: builder.mutation({
+    loginUser: builder.mutation({
       query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_REGISTER}`,
+        url: `${import.meta.env.VITE_API_USER_LOGIN}`,
         method: 'POST',
         body: data
       })
@@ -16,4 +16,4 @@ export const registerUserApi = createApi({
   })
 });
 
-export const { useRegisterUserMutation } = registerUserApi;
+export const { useLoginUserMutation } = loginUserApi;

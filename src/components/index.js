@@ -6,3 +6,5 @@ export * from './quienes_somos/quienes_somos.component';
 export * from './buttons/filledbutton.component';
 export * from './buttons/unfilledbutton.component';
 export * from './register-form/register-form.component';
+export * from './login-form/login-form.component';
+export * from './checkbox/checkbox.component';
