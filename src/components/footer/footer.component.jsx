@@ -71,8 +71,8 @@ const Info = () =>{
 const MenuOptions = () => {
   return (
     <div className='flex-[1] w-full flex flex-row justify-between flex-wrap mm:mt-6 md:mt-0'>
-      {footerLinks.map((footerLink)=> (
-        <div key={footerLink.key} className='flex flex-col'>
+      {footerLinks.map((footerLink, index)=> (
+        <div key={index} className='flex flex-col'>
           <h4 className='mm:text-[14px] ss:text-[16px] md:text-[18px] font-medium text-[18px] text-white '>
             {footerLink.title}
           </h4>
@@ -92,8 +92,8 @@ const MenuOptions = () => {
 const ContactanosColumn = () => {
   return (
     <div className='flex-[1] w-full flex flex-col justify-between flex-wrap mm:mt-6 md:mt-0 text-white'>
-      {socialMedia.map((mediaLink) => (
-        <div key={mediaLink.key} className='flex flex-col' >
+      {socialMedia.map((mediaLink, index) => (
+        <div key={index} className='flex flex-col' >
           <h4 className='mm:text-[14px] ss:text-[16px] md:text-[18px] font-medium text-[18px]'>
             {mediaLink.title}
           </h4>
