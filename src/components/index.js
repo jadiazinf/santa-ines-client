@@ -8,3 +8,4 @@ export * from './buttons/unfilledbutton.component';
 export * from './register-form/register-form.component';
 export * from './login-form/login-form.component';
 export * from './checkbox/checkbox.component';
+export * from './vanguardia/vanguardia.component';
