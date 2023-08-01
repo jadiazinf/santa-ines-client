@@ -30,7 +30,6 @@ export const IndexPage = () => {
       {/* main */}
       {/* footer */}
       <h1>USER ROLE: { role }</h1>
-      <LoginForm />
     </>
   );
 }
