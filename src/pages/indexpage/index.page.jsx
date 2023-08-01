@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RegisterForm } from "../../components";
+import { LoginForm } from "../../components";
 
 export const IndexPage = () => {
 
@@ -30,6 +30,7 @@ export const IndexPage = () => {
       {/* main */}
       {/* footer */}
       <h1>USER ROLE: { role }</h1>
+      <LoginForm />
     </>
   );
 }
