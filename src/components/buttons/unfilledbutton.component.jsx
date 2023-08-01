@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-function UnfilledButton(props) {
+export const UnfilledButton = props => {
   const buttonClasses = classNames(
     'm-5',
     'bg-dimWhite',
@@ -16,10 +16,8 @@ function UnfilledButton(props) {
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick}>
+    <button className={buttonClasses} onClick={props.onClick} type={props.type}>
       {props.text}
     </button>
   );
 }
-
-export default UnfilledButton;

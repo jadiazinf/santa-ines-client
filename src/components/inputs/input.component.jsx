@@ -1,14 +1,20 @@
 export const InputComponent = (props) => {
 
-  const {name, placeholder, onChange, type} = props;
+  const {id, name, placeholder, onChange, type, onBlur, value} = props;
 
   return (
-    <input className=''
-      name={name}
-      type={type}
-      onChange={onChange}
-      placeholder={placeholder}
-    />
+    <div className=''>
+      <span>{placeholder}</span>
+      <input
+        className=''
+        id={id}
+        name={name}
+        type={type}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+      />
+    </div>
   )
 
 }

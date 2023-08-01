@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { doctorsApi } from "../api";
+import { doctorsApi, registerUserApi } from "../api";
 import userReducer from "./reducers/user.reducer";
 
 export const store = configureStore({
@@ -7,5 +7,6 @@ export const store = configureStore({
     [doctorsApi.reducerPath]: doctorsApi.reducer,
     authenticatedUser: userReducer
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(doctorsApi.middleware)
+  middleware: getDefaultMiddleware => getDefaultMiddleware()
+                                        .concat(doctorsApi.middleware, registerUserApi.middleware)
 });
