@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { RegisterForm } from "../../components";
 
 export const IndexPage = () => {
 

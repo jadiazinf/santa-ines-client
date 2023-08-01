@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-function FilledButton(props) {
+export const FilledButton = props => {
   const buttonClasses = classNames(
     'm-5',
     'bg-primary',
@@ -13,10 +13,8 @@ function FilledButton(props) {
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick}>
+    <button className={buttonClasses} onClick={props.onClick} type={props.type}>
       {props.text}
     </button>
   );
 }
-
-export default FilledButton;
