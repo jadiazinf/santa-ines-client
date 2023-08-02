@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
-import { VanguiardiaComponent } from "../../components";
-import NavbarComponent from "../../components/Navbar/navbar.component";
-import FooterComponent from "../../components/footer/footer.component";
+import { LoginForm } from "../../components";
 
 export const IndexPage = () => {
 
@@ -27,12 +25,11 @@ export const IndexPage = () => {
   // }
 
   return (
-    <div className="px-2">
-      <NavbarComponent/>
+    <>
+      {/* navbar */}
       {/* main */}
-      {/* <h1>USER ROLE: { role }</h1> */}
-      <VanguiardiaComponent/>
-      <FooterComponent/>
-    </div>
+      {/* footer */}
+      <h1>USER ROLE: { role }</h1>
+    </>
   );
 }
