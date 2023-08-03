@@ -1,3 +1,6 @@
+import ServiciosList from "./serviciosCard.component"
+import { arrowNext, section_Qsomos } from "../../assets"
+
 
 
 const ServiciosComponent = () => {
@@ -12,12 +15,8 @@ const ServiciosComponent = () => {
           <p className="text-center text-[14px] font-poppins mb-2">Si requiere más información que no esté publcada en nuestra página web o redes sociales puede llamar de lunes a viernes de 8:00 A.M. a 3:00 P.M. al número local 0212.471.12.66</p>
         </div>
       </div>
-      <div className="flex flex-col">
-          <p className="text-center text-[14px] font-poppins font-bold text-primary text-start mb-2">Consultas</p>
-          <p className="text-center text-[14px] font-poppins font-bold text-primary text-start mb-2">Diagnóstico por imagen</p>
-          <p className="text-center text-[14px] font-poppins font-bold text-primary text-start mb-2">Laboratio</p>
-          <p className="text-center text-[14px] font-poppins font-bold text-primary text-start mb-2">Procedimientos</p>
-          <p className="text-center text-[14px] font-poppins font-bold text-primary text-start mb-2">Rehabilitación</p>
+      <div className="flex flex-col justify-center items-center">
+          <ServiciosList />
       </div>
     </section>
   )
