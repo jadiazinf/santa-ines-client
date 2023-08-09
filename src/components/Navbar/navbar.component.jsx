@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { logo_SantaInes, menu, close } from "../../assets"
+import { useSelector } from "react-redux";
 
 /* eslint-disable no-unused-vars */
 const navLinks = [
@@ -8,7 +9,7 @@ const navLinks = [
     title:'Inicio',
   },
   {
-    id: 'somos',
+    id: 'quienes-somos',
     title:'¿Quiénes Somos?'
   },
   {
@@ -25,7 +26,10 @@ const navLinks = [
   },
 ]
 
-const NavbarComponent = () => {
+export const NavbarComponent = () => {
+
+  const { role } = useSelector(state => state.authenticatedUser);
+
   const [toggle, setToggle] = useState(false);
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
@@ -33,7 +37,12 @@ const NavbarComponent = () => {
       <ul className="list-none md:flex hidden justify-end items-center flex-1">
         {navLinks.map((link, index) => (
           <li key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-4' : 'mr-10'} text-primary`}>
-            <a href={`#${link.id}`} className="text-[17px]">{link.title}</a>
+            {link.title !== 'Iniciar Sesión' 
+              ? <a href={`#${link.id}`} className="text-[17px]">{link.title}</a> 
+              : role === 'not-authenticated'
+                  ?  <a href={`#${link.id}`} className="text-[17px]">{link.title}</a>  
+                  :  null
+            }
           </li>
         ))}
       </ul>
@@ -44,7 +53,12 @@ const NavbarComponent = () => {
           <ul className="list-none flex justify-end items-center flex-1 flex-col">
             {navLinks.map((link, index) => (
               <li key={link.id} className={`font-poppins font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mm:mb-1 ss:mb-3'}`}>
-                <a href={link.id} className="text-primary hover:text-dimYellow  mm:text-[12px] ss:text-[14px] md:text-[16px]">{link.title}</a>
+                {link.title !== 'Iniciar Sesión' 
+                  ?  <a href={`#${link.id}`} className="text-primary hover:text-dimYellow  mm:text-[12px] ss:text-[14px] md:text-[16px]">{link.title}</a>
+                  : role === 'not-authenticated'
+                      ?   <a href={`#${link.id}`} className="text-primary hover:text-dimYellow  mm:text-[12px] ss:text-[14px] md:text-[16px]">{link.title}</a>
+                      :  null
+                }
               </li>
             ))}
           </ul>
@@ -54,7 +68,6 @@ const NavbarComponent = () => {
   )
 }
 
-export default NavbarComponent
 
 
 //De esta manera se coloca en el contenedor padre

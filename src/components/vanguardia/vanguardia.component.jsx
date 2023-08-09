@@ -4,17 +4,18 @@ const buttonsActions =[
   {
     text: "Agenda tu cita",
     icon: calendar,
-    color: "bg-primary mm:left-[15%] "
+    color: "bg-primary mm:left-[15%] ",
   },
   {
     text: "Precios",
     icon: cash,
-    color: "bg-dimBlue mm:left-[60%] ss:left-[75%] "
+    color: "bg-dimBlue mm:left-[60%] ss:left-[75%] ",
+    link:'https://santainesucab.org.ve/servicios/precios/'
   },
   {
     text: "Información",
     icon: teamIcon,
-    color: "bg-dimYellow mm:hidden ss:block ss:left-[45%]"
+    color: "bg-dimYellow mm:hidden ss:block ss:left-[45%]",
   },
 ]
 
@@ -32,9 +33,9 @@ export const VanguiardiaComponent = () => {
           </div>
 
           {/* Esto se deberia cambiar con los botones de Ashley, pero el tamano del margin es muy grande */}
-          <button className="m-4 bg-dimWhite hover:bg-dimWhite border-primary border-2 text-primary font-poppins mm:py-1 mm:px-5 ss:py-3 ss:px-7 ">
+          <a href="https://santainesucab.org.ve/servicios/" target="_blank" className="m-4 bg-dimWhite hover:bg-dimWhite border-primary border-2 text-primary font-poppins mm:py-1 mm:px-5 ss:py-3 ss:px-7 cursor-pointer hover:text-secondary" >
             Servicios
-          </button>
+          </a>
         </div>
         <div >
           <img src={teamSI} alt="footer_img" className="object-cover w-full mm:min-h-[300px] ss:min-h-[400px] md:min-h-[500px] max-h-[500px]" />
@@ -42,7 +43,7 @@ export const VanguiardiaComponent = () => {
       </div>
         <div className="flex flex-row justify-center items-center ">
           {buttonsActions.map((action, index) => (
-            <ActionButton  text={action.text} icon={action.icon} color={`${action.color}`} key={index}/>
+            <ActionButton  text={action.text} icon={action.icon} color={`${action.color}`} key={index} link={action.link}/>
           ))}
         </div>
     </section>
@@ -53,11 +54,11 @@ export const VanguiardiaComponent = () => {
 
 const ActionButton = (props) => {
   return (
-    <button key={props.index} className={`${props.color} absolute z-10 mm:py-3 mm:px-5 text-white mm:text-[12px] ss:text-[16px] md:text-[20px] rounded-[10px] mm:top-[385px] ss:top-[480px] md:top-[580px] hover:animate-bounce`}>
+    <a href={props.link} target="_blank" key={props.index} className={`${props.color} absolute z-10 mm:py-3 mm:px-5 text-white mm:text-[12px] ss:text-[16px] md:text-[20px] rounded-[10px] mm:top-[385px] ss:top-[480px] md:top-[580px] hover:animate-bounce cursor-pointer`}>
       <div className="flex flex-row justify-center items-center">
         <p>{props.text}</p>
         <img src={props.icon} alt="icon"  className="w-[20px] ml-3"/>
       </div>
-    </button>
+    </a>
   );
 };
