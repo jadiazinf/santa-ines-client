@@ -10,6 +10,8 @@ export default {
         dimBlue: "#007AAE",
         dimYellow: "#F9B21C",
         dimWhite: "#FAFAFA",
+        textTitle: '#6f6f6f',
+        textInput: '#007aae',
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
