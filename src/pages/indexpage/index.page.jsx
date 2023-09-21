@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
-import { LoginForm } from "../../components";
+import { LoginForm, NavbarComponent, VanguiardiaComponent, QSomosComponent } from "../../components";
+import ServiciosComponent from "../../components/servicios/servicios.component";
+import FooterComponent from "../../components/footer/footer.component";
 
 export const IndexPage = () => {
 
@@ -25,11 +27,13 @@ export const IndexPage = () => {
   // }
 
   return (
-    <>
-      {/* navbar */}
-      {/* main */}
-      {/* footer */}
-      <h1>USER ROLE: { role }</h1>
-    </>
+    //De esta manera sabremos que renderizar dependiendo del usuario
+    <div className="mx-2 flex flex-col justify-center items-center">
+      <NavbarComponent />
+      {role === 'regular' || role === 'not-authenticated'
+        ? <><VanguiardiaComponent /><QSomosComponent /><ServiciosComponent /><FooterComponent /></>
+        : <LoginForm/>//aca verificamos si es adminUser o superUser
+      }
+    </div>
   );
 }

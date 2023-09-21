@@ -1,4 +1,4 @@
-import { adress_pointer, facebook, footer_SantaInes_2, instagram, linkedin, mail, phone, twitter } from '../../assets'
+import { adress_pointer, facebook, footer_SantaInes_2, instagram, mail, map, phone, twitter } from '../../assets'
 
 export const footerLinks = [
   {
@@ -35,22 +35,22 @@ export const socialMedia = [
       {
         id: "social-media-1",
         icon: instagram,
-        link: "https://www.instagram.com/",
+        link: "https://www.instagram.com/cssi_ucab/",
       },
       {
         id: "social-media-2",
         icon: facebook,
-        link: "https://www.facebook.com/",
+        link: "https://www.facebook.com/centrodesalud.santaines/",
       },
       {
         id: "social-media-3",
         icon: twitter,
-        link: "https://www.twitter.com/",
+        link: "https://twitter.com/cssi_ucab",
       },
       {
         id: "social-media-4",
-        icon: linkedin,
-        link: "https://www.linkedin.com/",
+        icon: map,
+        link: "https://www.google.com/maps/place/Centro+de+Salud+Santa+Inés+UCAB/@10.4663353,-66.9743749,17z/data=!3m1!4b1!4m6!3m5!1s0x8c2a5f8cc121035d:0x75b3a2921a9d8c7c!8m2!3d10.4663353!4d-66.9743749!16s%2Fg%2F1vnnkfy8?entry=ttu",
       },
     ]
   }
@@ -100,9 +100,9 @@ const ContactanosColumn = () => {
           <ul className='list-none mm:mt-3 md:mt-8 flex flex-row'>
             {mediaLink.socialLinks.map((link, index) => (
               <li key={index} className={`e ${index !== mediaLink.socialLinks.length -1 ? 'mb-4' : 'mb-0'}`}>
-                <span className='rounded-full mm:w-10 mm:h-10 md:w-12  md:h-12  flex justify-center items-center mr-3 bg-gray-600 hover:bg-dimYellow'>
+                <a href={link.link} target="_blank" className='rounded-full mm:w-10 mm:h-10 md:w-12  md:h-12  flex justify-center items-center mr-3 bg-gray-600 hover:bg-dimYellow'>
                   <img  src={link.icon} alt='instagram' className={`mm:w-[20px] mm:h-[20px] md:w-[25px] md:h-[25px] object-contain cursor-pointer`}/>
-                </span>
+                </a>
               </li>
             ))}
           </ul>
