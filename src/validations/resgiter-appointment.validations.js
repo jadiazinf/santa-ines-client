@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 export const registerAppointmentSchema = Yup.object({
   descripcion: Yup.string('Solo letras').min(10, 'La descripcion debe ser mayor a 10 caracteres (completa)').required('Campo obligatorio'),
-  fechaCita: Yup.date().min(new Date(), 'La fecha de la cita debe ser posterior a la de hoy').required('Campo obligatorio'),
+  appointmentDate: Yup.date().min(new Date(), 'La fecha de la cita debe ser posterior a la de hoy').required('Campo obligatorio'),
 });
 
 
