@@ -19,7 +19,7 @@ export const AppointmentForm = () => {
     const { value } = e.target;
     if(!errors.descripcion){
       dispatch(descripcionError(false));
-      dispatch(crearCitaDescripcion(value));
+      dispatch(crearCitaDescripcion(value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()));
     } else {
       dispatch(descripcionError(true));
     }
