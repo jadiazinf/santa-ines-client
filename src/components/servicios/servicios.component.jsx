@@ -1,7 +1,4 @@
 import ServiciosList from "./serviciosCard.component"
-import { arrowNext, section_Qsomos } from "../../assets"
-
-
 
 const ServiciosComponent = () => {
   return (
