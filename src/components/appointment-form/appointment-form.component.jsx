@@ -3,6 +3,7 @@ import { InputComponent } from "..";
 import { registerAppointmentSchema } from "../../validations";
 import { useDispatch } from "react-redux";
 import { crearCitaDescripcion, descripcionError } from "../../store/reducers/crearCita.reducer";
+import { capitalizeFirstLetter } from "../../helpers/capitalize.helper";
 
 export const AppointmentForm = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const AppointmentForm = () => {
     const { value } = e.target;
     if(!errors.descripcion){
       dispatch(descripcionError(false));
-      dispatch(crearCitaDescripcion(value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()));
+      dispatch(crearCitaDescripcion(capitalizeFirstLetter(value)));
     } else {
       dispatch(descripcionError(true));
     }

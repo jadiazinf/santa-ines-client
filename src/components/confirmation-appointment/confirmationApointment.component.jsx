@@ -1,5 +1,7 @@
 import React from 'react';
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 
 function ConfirmationComponent({ doctorStored, dateStored, descriptionStored }) {
   var dateObject = new Date(dateStored);
@@ -15,7 +17,13 @@ function ConfirmationComponent({ doctorStored, dateStored, descriptionStored }) 
         </div>
         <div className="flex-1 ml-5">
           <p className="text-sm">Fecha de la cita:</p>
-          <p className="text-base font-medium">{format(dateObject, "dd MMMM yyyy HH:mm")}</p>
+          <p className="text-base font-medium">
+            {capitalizeFirstLetter(
+              format(dateObject, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
+                locale: es,
+              }).toString()
+            )}
+          </p>
         </div>
         <div className="flex-1 ml-5 w-[150px] overflow-clip">
           <p className="text-sm">Descripción:</p>
