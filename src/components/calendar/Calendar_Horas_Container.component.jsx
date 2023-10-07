@@ -27,6 +27,7 @@ import {
   startOfYesterday,
 } from "date-fns"
 import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react"
+import { es } from "date-fns/locale"
 import Horas_disponibles from "./Hour"
 import Calendario from "./Calendario"
 
@@ -314,7 +315,9 @@ export const Calendar = () => {
           <span>
             Horarios disponible para citas el
             <span className="text-orange-950 font-semibold pl-1">
-              {format(selectedDay, "dd MMMM yyyy").toString()}
+              {format(selectedDay, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
+                locale: es,
+              }).toString()}
             </span>
           </span>
         </span>

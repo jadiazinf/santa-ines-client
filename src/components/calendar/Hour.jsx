@@ -47,10 +47,10 @@ const Horas_disponibles = ({ freeTimes}) => {
         ))}
       </div>
       {selectedTime && (
-        <div className="w-full py-2">
-          <span>Cita seleccionada: </span>
+        <div className="w-full flex flex-row justify-end">
+          <span>Hora seleccionada: </span>
           <span className="font-semibold text-rose-950 pl-1">
-            {format(selectedTime, "dd-MMMM-yyyy HH:00:00")}
+            {format(selectedTime, "HH:00")}
           </span>
         </div>
       )}
