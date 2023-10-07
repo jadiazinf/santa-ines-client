@@ -9,13 +9,12 @@ import { crearCitaDate } from "../../store/reducers/crearCita.reducer";
 
 const Horas_disponibles = ({ freeTimes}) => {
   const [selectedTime, setSelectedTime] = useState();
-
   const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col items-center gap-2 p-4">
       <span>
-        Horarios seleccionados:{" "}
+        Horarios disponibles:{" "}
         <span className="font-semibold text-orange-950">
           {freeTimes.length}
         </span>
@@ -33,7 +32,7 @@ const Horas_disponibles = ({ freeTimes}) => {
               )}
               onClick={() => {
                 setSelectedTime(hour)
-                dispatch(crearCitaDate(hour.toString()))
+                dispatch(crearCitaDate(format(hour, "yyyy-MM-dd HH:00:00").toString()))
               }}
             >
               <CheckCircle2
@@ -51,7 +50,7 @@ const Horas_disponibles = ({ freeTimes}) => {
         <div className="w-full py-2">
           <span>Cita seleccionada: </span>
           <span className="font-semibold text-rose-950 pl-1">
-            {format(selectedTime, "dd MMMM yyyy HH:mm")}
+            {format(selectedTime, "dd-MMMM-yyyy HH:00:00")}
           </span>
         </div>
       )}

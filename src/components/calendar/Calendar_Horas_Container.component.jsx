@@ -52,8 +52,8 @@ const citas = {
       "citaId": 1,
       "paciente": "Juan Pérez",
       "doctor": "Dr. García",
-      "fechaCreacion": "Thu Sep 21 2023 09:00:00 GMT-0700 (Pacific Daylight Time)",
-      "fechaCita": "Thu Sep 21 2023 07:00:00 GMT-0700 (Pacific Daylight Time)",
+      "fechaCreacion": "2023-10-09 17:00:00",
+      "fechaCita": "2023-10-09 17:00:00",
       "estado": "Confirmada",
       "descripcion": "Consulta general"
     },
@@ -61,8 +61,8 @@ const citas = {
       "citaId": 2,
       "paciente": "María Gómez",
       "doctor": "Dr. López",
-      "fechaCreacion": "Thu Sep 21 2023 09:00:00 GMT-0700 (Pacific Daylight Time)",
-      "fechaCita": "Thu Sep 21 2023 08:00:00 GMT-0700 (Pacific Daylight Time)",
+      "fechaCreacion": "2023-10-09 13:00:00",
+      "fechaCita": "2023-10-09 13:00:00",
       "estado": "Pendiente",
       "descripcion": "Evaluación médica"
     },
@@ -70,8 +70,8 @@ const citas = {
       "citaId": 3,
       "paciente": "Carlos Ramírez",
       "doctor": "Dra. Martínez",
-      "fechaCreacion": "Thu Sep 21 2023 09:00:00 GMT-0700 (Pacific Daylight Time)",
-      "fechaCita": "Thu Sep 21 2023 09:00:00 GMT-0700 (Pacific Daylight Time)",
+      "fechaCreacion": "2023-10-09 09:00:00",
+      "fechaCita": "2023-10-09 09:00:00",
       "estado": "Confirmada",
       "descripcion": "Seguimiento de tratamiento"
     },
@@ -79,28 +79,18 @@ const citas = {
       "citaId": 4,
       "paciente": "Ana Torres",
       "doctor": "Dr. Sánchez",
-      "fechaCreacion": "Thu Sep 21 2023 09:00:00 GMT-0700 (Pacific Daylight Time)",
-      "fechaCita": "Thu Sep 21 2023 10:00:00 GMT-0700 (Pacific Daylight Time)",
+      "fechaCreacion": "2023-10-09 10:00:00",
+      "fechaCita": "2023-10-09 10:00:00",
       "estado": "Cancelada",
       "descripcion": "Consulta odontológica"
     }
   ]
 }
 
-function recorrerCitas(citas2) {
-  const newArray = []
-  citas2.forEach((cita) => {
-    newArray.push(cita.fechaCita);                            //Como String
-  });
-  return newArray;
-}
-
 const reservations =  recorrerCitas(citas['citas']);
 
 export const Calendar = () => {
-
   const [calendarTouched, setCalendarTouched] = useState(false)
-
   // Dia actual
   let today = startOfToday()
   // Estado mes actual
@@ -152,6 +142,7 @@ export const Calendar = () => {
     let freeTimes = hoursInDay.filter(
       (hour) => !reservations.includes(parseISO(hour.toISOString()).toString())
     )
+
     return (freeTimes)
   }, [selectedDay])
 
@@ -179,6 +170,7 @@ export const Calendar = () => {
         (hour) =>
           !reservations.includes(parseISO(hour.toISOString()).toString())
       )
+
       thisMonthTimesLength.push(freeTimes.length)   // Objeto que tiene la cantida de horas (integer) disponibles por dia
       thisMonthTimesEachDay.push(freeTimes)         // Objeto que contiene arrays por dia, de los objetos tipo date
     })
@@ -341,4 +333,19 @@ let colStartClasses = [
   "col-start-6",
   "col-start-7",
 ]
+
+
+function recorrerCitas(citas2) {
+  const newArray = []
+  citas2.forEach((cita) => {
+    newArray.push(convertirFecha(cita.fechaCita));                            //Como String
+  });
+  return newArray;
+}
+
+function convertirFecha(fecha) {
+  const parsedDate = parseISO(fecha);
+  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
+  return formattedDate;
+}
 
