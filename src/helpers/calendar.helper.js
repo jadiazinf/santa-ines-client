@@ -6,5 +6,5 @@ export function cn(...inputs) {
 }
 
 export const dayNames = [
-  'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+  'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab', 'Dom',
 ]
