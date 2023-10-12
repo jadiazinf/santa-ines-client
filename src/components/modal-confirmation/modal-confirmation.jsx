@@ -1,11 +1,13 @@
 import React from 'react'
-import { delete_icon, edit_icon } from '../../assets'
+import { delete_icon, edit_icon,close } from '../../assets'
 
-export const ModalConfirmationComponent = ({title, accion, handleClick, close}) => {
+export const ModalConfirmationComponent = ({title, accion, handleClick, closeModal}) => {
   return (
     <section className='flex flex-col justify-center items-center px-5 py-10 bg-white rounded-md absolute min-w-[250px] w-2/6  space-y-6'>
       <div>
-        <button onClick={close} className='absolute top-3 right-4 hover:scale-125'>x</button>
+        <button onClick={closeModal} className='absolute w-[15px] top-0 right-0 mt-3 mr-3 hover:scale-105'>
+          <img src={close} alt="closeIcon" className=''/>
+        </button>
         <img src={accion === 'Eliminar' ? delete_icon : edit_icon} alt="accion_icon" className='w-[100px]'/>
       </div>
       <div className='flex flex-col justify-center items-center space-y-6'>
