@@ -15,12 +15,12 @@ import { doctor } from "../../assets"
 
 //DATA PRUEBA
 const cardData = [
-  { id: 1, image: "ruta/doctor.png", name: "Doctor 1", specialty: "Especialidad 1" },
-  { id: 2, image: "ruta/doctor.png" , name: "Doctor 2", specialty: "Especialidad 2" },
-  { id: 3, image: "ruta/doctor.png", name: "Doctor 3", specialty: "Especialidad 3" },
-  { id: 4, image: "ruta/doctor.png", name: "Doctor 4", specialty: "Especialidad 4" },
-  { id: 5, image: "../../assets/png/doctor.png" , name: "Doctor 5", specialty: "Especialidad 5" },
-  { id: 6, image: {doctor}, name: "Doctor 6", specialty: "Especialidad 6" },
+  { id: 1, image: "../../assets/png/doctor.png", name: "Doctor 1", specialty: "Especialidad 1" },
+  { id: 2, image: "../../assets/png/doctor.png", name: "Doctor 2", specialty: "Especialidad 2" },
+  { id: 3, image: "../../assets/png/doctor.png", name: "Doctor 3", specialty: "Especialidad 3" },
+  { id: 4, image: "../../assets/png/doctor.png", name: "Doctor 4", specialty: "Especialidad 4" },
+  { id: 5, image: "../../assets/png/doctor.png", name: "Doctor 5", specialty: "Especialidad 5" },
+  { id: 6, image: "../../assets/png/doctor.png", name: "Doctor 6", specialty: "Especialidad 6" },
 ];
 
 
