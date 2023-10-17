@@ -21,6 +21,7 @@ function ServiciosCard({ svgIcon, title }) {
   );
 }
 
+//Lista de servicios actuales
 function ServiciosList() {
   const cards = [
     {
