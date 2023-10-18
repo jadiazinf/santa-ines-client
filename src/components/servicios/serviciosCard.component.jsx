@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ServicioInfo from './infoServicios';
 
-function ServiciosCard({ svgIcon, title }) {
+function ServiciosCard({ svgIcon, title, onClick, isActive }) {
   const cardStyle =
     'bg-dimWhite border border-gray-300 rounded shadow py-8 transition duration-300 group hover:bg-primary';
+  const activeCardStyle =
+    'bg-primary text-white border-primary';
   const imageStyle =
     'w-full mb-3 group-hover:text-dimWhite';
   const titleStyle =
@@ -11,7 +14,7 @@ function ServiciosCard({ svgIcon, title }) {
     'svg path {fill: #007AAE;} .group:hover svg path {fill: white;}';
 
   return (
-    <div className={cardStyle} style={{ height: '150px', width: '150px' }}>
+    <div className={`${cardStyle} ${isActive ? activeCardStyle : ''}`} style={{ height: '150px', width: '150px' }} onClick={onClick}>
       <div className="flex flex-col justify-center items-center">
         <svg viewBox="0 0 24 24" className={imageStyle} style={{ height: '50px', width: '50px'}} > {svgIcon} </svg>
         <h2 className={titleStyle}>{title} </h2>
@@ -21,8 +24,11 @@ function ServiciosCard({ svgIcon, title }) {
   );
 }
 
-//Lista de servicios actuales
 function ServiciosList() {
+  const [activeCard, setActiveCard] = useState(null);
+  const [showInfo, setShowInfo] = useState(false);
+  const [selectedCardTitle, setSelectedCardTitle] = useState('');
+
   const cards = [
     {
       svgIcon: (
@@ -56,16 +62,27 @@ function ServiciosList() {
     },
   ];
 
+  const handleClick = (title) => {
+    setActiveCard(title);
+    setSelectedCardTitle(title);
+    setShowInfo(true);
+  };
+
   return (
-    <div className="flex flex-wrap">
-      {cards.map((card, index) => (
-        <div className="flex flex-col justify-center items-center mb-4 mr-4" key={index} style={{ flex: '1 0 120px' }}>
-          <ServiciosCard
-            svgIcon={card.svgIcon}
-            title={card.title}
-          />
-        </div>
-      ))}
+    <div>
+      <div className="flex flex-wrap">
+        {cards.map((card, index) => (
+          <div className="flex flex-col justify-center items-center mb-4 mr-4" key={index} style={{ flex: '1 0 120px' }}>
+            <ServiciosCard
+              svgIcon={card.svgIcon}
+              title={card.title}
+              onClick={() => handleClick(card.title)}
+              isActive={activeCard === card.title}
+            />
+          </div>
+        ))}
+      </div>
+      {showInfo && <ServicioInfo activeCard={activeCard} title={selectedCardTitle} />}
     </div>
   );
 }

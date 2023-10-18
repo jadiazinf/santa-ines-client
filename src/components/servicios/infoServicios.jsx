@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import ServiciosComponent from './servicios.component';
 
 // Info específica del servicio
-const ServicioInfo = () => {
+const ServicioInfo = ({ title }) => {
   const [mostrarServicios, setMostrarServicios] = useState(false);
   const handleClick = () => {
     setMostrarServicios(true);
-    console.log('Botón clickeado');
   };
 
   return (
@@ -26,7 +25,7 @@ const ServicioInfo = () => {
 
       {!mostrarServicios && (
         <div className="flex flex-col mb-8">
-          <h1 className="text-dimBlue text-[25px] font-poppins font-bold mb-4">Titulo del servicio</h1>
+          <h1 className="text-dimBlue text-[25px] font-poppins font-bold mb-4">{title}</h1>
           <p className="flex flex-col items-justify text-center text-[14px] font-poppins mb-2">Información detallada del servicio</p>
         </div>
       )}
@@ -41,4 +40,4 @@ const ServicioInfo = () => {
   );
 };
 
-export default ServicioInfo
+export default ServicioInfo;
