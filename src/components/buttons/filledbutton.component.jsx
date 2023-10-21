@@ -3,11 +3,12 @@ import classNames from 'classnames';
 
 export const FilledButton = props => {
   const buttonClasses = classNames(
-    'm-5',
     'bg-primary',
-    'hover:bg-primary',
-    'text-dimWhite',
-    'font-poppins',
+    'hover:bg-green-600',
+    'text-white font-bold',
+    'py-2',
+    'px-4',
+    'rounded',
   );
 
   return (
