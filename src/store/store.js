@@ -5,6 +5,8 @@ import appointmentReducer from "./reducers/crearCita.reducer";
 
 export const store = configureStore({
   reducer: {
+    [loginUserApi.reducerPath]: loginUserApi.reducer,
+    [registerUserApi.reducerPath]: registerUserApi.reducer,
     [doctorsApi.reducerPath]: doctorsApi.reducer,
     authenticatedUser: userReducer,
     createAppointment: appointmentReducer,
