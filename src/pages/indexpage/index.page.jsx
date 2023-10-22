@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
-import { LoginForm, NavbarComponent, VanguiardiaComponent, QSomosComponent, RegisterForm, AppointmentForm, AppointmentFormPrueba, ModalConfirmationComponent } from "../../components";
-import ServiciosComponent from "../../components/servicios/servicios.component";
-import FooterComponent from "../../components/footer/footer.component";
+import { FooterComponent, NavbarComponent, QSomosComponent, ServiciosComponent, VanguiardiaComponent } from "../../components";
 
 export const IndexPage = () => {
 
   const { role } = useSelector(state => state.authenticatedUser);
+  console.log("🚀 ~ file: index.page.jsx:12 ~ IndexPage ~ role:", role)
 
   // let userMain;
 
@@ -27,9 +26,9 @@ export const IndexPage = () => {
   // }
 
   return (
-    <div className="h-screen bg-slate-500 flex flex-col justify-center items-center">
-      {/* <AppointmentFormPrueba /> */}
-      <ModalConfirmationComponent accion={'Editar'} />
+    <div className="flex flex-col justify-center items-center">
+      <NavbarComponent />
+      <><VanguiardiaComponent /><QSomosComponent /><ServiciosComponent /><FooterComponent /></>
     </div>
   );
 }
