@@ -127,7 +127,7 @@ const ContactanosColumn = () => {
 }
 
 
-const FooterComponent = () => {
+export const FooterComponent = () => {
   return (
     <section className="flex justify-center items-center sm:py-16 py-10 w-full relative font-poppins">
       <div className='flex justify-center items-start md:flex-row flex-col my-8 mx-20 w-full z-10'>
@@ -142,8 +142,3 @@ const FooterComponent = () => {
     </section>
   )
 }
-
-
-export default FooterComponent
-
-

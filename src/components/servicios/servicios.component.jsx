@@ -3,7 +3,7 @@ import { arrowNext, section_Qsomos } from "../../assets"
 
 
 
-const ServiciosComponent = () => {
+export const ServiciosComponent = () => {
   return (
     <section id="servicios" className="flex flex-col justify-center mx-10 my-10">
       <div className="flex flex-col justify-center items-center mb-8">
@@ -21,5 +21,3 @@ const ServiciosComponent = () => {
     </section>
   )
 }
-
-export default ServiciosComponent
