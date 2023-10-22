@@ -12,7 +12,7 @@ export const FilledButton = props => {
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}}>
+    <button className={`${buttonClasses} ${props.block ? 'cursor-not-allowed opacity-50' : ''}`} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}} disabled={props.block}>
       {props.text}
     </button>
   );
