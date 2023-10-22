@@ -42,7 +42,7 @@ export const NavbarComponent = () => {
               ? <a href={`#${link.id}`} className="text-[17px]">{link.title}</a>
               : role === 'not-authenticated'
                   ?  <NavLink to='/login' className='text-[17px]'>{link.title}</NavLink>
-                  :  null
+                  :  <NavLink to='/perfil' className='text-[17px]'>Perfil</NavLink>
             }
           </li>
         ))}
