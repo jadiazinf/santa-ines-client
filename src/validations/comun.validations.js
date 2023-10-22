@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 export const firstNameValidation = Yup.string('Solo letras').min(3, 'El nombre debe ser un nombre real').required('Campo obligatorio');
 
-export const usernameValidation = Yup.string().min(8, 'Username debe ser al menos de 8 caracteres').required('Campo obligatorio');
+export const usernameValidation = Yup.string().min(8, 'Nombre de usuario debe ser al menos de 8 caracteres').required('Campo obligatorio');
 
 export const lastNameValidation = Yup.string('Solo letras').min(3, 'El apellido debe ser un apellido real').required('Campo obligatorio');
 
