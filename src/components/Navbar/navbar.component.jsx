@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { logo_SantaInes, menu, close } from "../../assets"
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 /* eslint-disable no-unused-vars */
 const navLinks = [
@@ -37,10 +38,10 @@ export const NavbarComponent = () => {
       <ul className="list-none md:flex hidden justify-end items-center flex-1">
         {navLinks.map((link, index) => (
           <li key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-4' : 'mr-10'} text-primary`}>
-            {link.title !== 'Iniciar Sesión' 
-              ? <a href={`#${link.id}`} className="text-[17px]">{link.title}</a> 
+            {link.title !== 'Iniciar Sesión'
+              ? <a href={`#${link.id}`} className="text-[17px]">{link.title}</a>
               : role === 'not-authenticated'
-                  ?  <a href={`#${link.id}`} className="text-[17px]">{link.title}</a>  
+                  ?  <NavLink to='/login' className='text-[17px]'>{link.title}</NavLink>
                   :  null
             }
           </li>
