@@ -14,3 +14,5 @@ export * from './calendar/Calendar_Horas_Container.component';
 export * from './appointment-form/appointment-form.component';
 export * from './appointment-form/form.component';
 export * from './modal-confirmation/modal-confirmation';
+export * from './servicios/servicios.component';
+export * from './footer/footer.component';
