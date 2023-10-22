@@ -5,7 +5,7 @@ import { notAuthenticatedUserRoutes,
          regularUserRoutes,
          superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
-import { IndexPage, LoginPage } from "./pages";
+import { DashboardPage, IndexPage, LoginPage } from "./pages";
 
 export const App = () => {
 
@@ -36,6 +36,7 @@ export const App = () => {
       <Routes>
         <Route  path="/" element={<IndexPage />} />
         <Route  path="/login" element={<LoginPage />} />
+        <Route  path="/dashboard" element={<DashboardPage />} />
       </Routes>
       <Toaster
         position="top-center"
