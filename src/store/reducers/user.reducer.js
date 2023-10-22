@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   username: '',
-  email: '',
   role: 'not-authenticated'
 }
 
@@ -12,7 +11,6 @@ const userSlice = createSlice({
   reducers: {
     authenticateUser: (state, action) => {
       state.username = action.payload.username;
-      state.email = action.payload.email;
       state.role = action.payload.role
     }
   }
