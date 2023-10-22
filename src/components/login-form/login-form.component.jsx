@@ -1,47 +1,73 @@
 import { useFormik } from "formik";
-import { useLoginUserMutation } from "../../api";
 import { CheckboxComponent, FilledButton, InputComponent, UnfilledButton } from "..";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginUserSchema } from "../../validations";
+import { useLoginUserMutation } from "../../api";
+import { useDispatch } from "react-redux";
+import { authenticateUser } from "../../store/reducers/user.reducer";
+import toast, { useToaster } from "react-hot-toast";
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const toaster = useToaster();
 
   const initialValues = {
-    id: '',
-    password: '',
-    remember: false
+    username: '',
+    password: ''
   }
 
   const [loginUser, { isLoading, isError }] = useLoginUserMutation();
 
   const onSubmit = values => {
-    // loginUser(data);
-    console.log(values);
-    //validate and redirect
+    toast.promise(
+      new Promise((resolve, reject) => {
+        loginUser(values)
+          .then((response) => {
+            if (response.data.value) {
+              dispatch(authenticateUser({
+                username: values.username,
+                role: 'authenticated'
+              }));
+              resolve('¡Bienvenido!'); // Resuelve la promesa si la solicitud es exitosa
+              navigate(`/dashboard`);
+            } else {
+              reject(new Error(response.data.message)); // Rechaza la promesa si las credenciales son incorrectas
+            }
+          })
+          .catch((error) => {
+            reject(new Error(response.data.message)); // Rechaza la promesa si hay un error durante la solicitud
+          })
+      }),
+      {
+        loading: 'Cargando...',
+        success: (message) => message,
+        error: (error) => error.message,
+      }
+    );
+
   }
 
-  const navigate = useNavigate();
   const handleCreateUserClick = e => {
     e.preventDefault();
-    navigate('/register');
+    navigate('/');
   }
 
   const {handleChange, handleBlur, handleSubmit, touched, errors} = useFormik({initialValues, validationSchema: loginUserSchema, onSubmit});
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputComponent id='id' name='id' type='text' placeholder='Cédula' onChange={handleChange} onBlur={handleBlur}/>
-      { touched.id && errors.id ? (<div className="ml-2 mt- mr-2 mb-2 text-red-500">{errors.id}</div>) : null }
-      <InputComponent id='password' name='password' type='password' placeholder='Contraseña' onChange={handleChange} onBlur={handleBlur}/>
-      <div className=''>
-        <CheckboxComponent id='remember' name='remember' text='Recordarme' onChange={handleChange} onBlur={handleBlur} />
-        <NavLink to='/forgot-password' className=''>¿Olvidó su clave?</NavLink>
+      <InputComponent id='username' name='username' type='text' placeholder='Nombre de usuario' onChange={handleChange} onBlur={handleBlur} error={errors.username}/>
+      <InputComponent id='password' name='password' type='password' placeholder='Contraseña' onChange={handleChange} onBlur={handleBlur} error={errors.password}/>
+      <div className='flex flex-col justify-end items-end mt-2 mr-1'>
+        {/* <CheckboxComponent id='remember' name='remember' text='Recordarme' onChange={handleChange} onBlur={handleBlur} /> */}
+        <NavLink to='/recuperar-clave' className='hover:text-primary'>¿Olvidó su clave?</NavLink>
+        <NavLink to='/crear-cuenta' className='hover:text-primary'>Crear cuenta</NavLink>
       </div>
       <div className=''>
-        { isLoading ? <span>Loading</span> : <FilledButton text='Registrar' type='submit'/> }
-        <UnfilledButton text='Crear cuenta' type='button' onClick={handleCreateUserClick} />
+        <FilledButton text={!isLoading ? 'Registrar' : 'Cargando...' } block={isLoading} type='submit'/>
+        <UnfilledButton text='Cancelar' type='button' onClick={handleCreateUserClick} />
       </div>
-      { isError ? <span className="ml-2 mt- mr-2 mb-2 text-red-500">Error al acceder</span> : null}
     </form>
   );
 }
