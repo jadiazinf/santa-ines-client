@@ -47,29 +47,36 @@ export const DashboardPage = () => {
         <div className=''>
           {!isLoading
             ? <DoctorSelector setDoctor={setDoctor} doctores1={doctores}/>
-            : <div className='grid xs:grid-cols-1 smm:grid-cols-2 gap-4 m-10'>
-              {Array.from({ length: 6 }, (_, index) => (
-                <div key={index} className="w-[415px] h-[90px] flex items-center gap-3 animate-pulse bg-gray-100 rounded-xl p-3">
-                  <div className='flex flex-row justify-center items-center space-x-3'>
-                    <div className="flex w-5 h-5 bg-gray-200"/>
-                    <div className="flex rounded-full w-12 h-12 bg-gray-200"/>
-                  </div>
-                  <div className="w-full flex flex-col rounded gap-3">
-                    <div className='flex flex-row justify-between'>
-                      <div className="h-5 w-20 rounded bg-gray-200"/>
-                      <div className="h-5 w-24 rounded bg-gray-200"/>
-                    </div>
-                    <div className='flex flex-row justify-between'>
-                      <div className="h-5 w-28 rounded bg-gray-200"/>
-                      <div className="h-5 w-16 rounded-xl bg-gray-200"/>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            : <SkeletonComponent />
           }
         </div>
       </div>
+    </div>
+  )
+}
+
+
+const SkeletonComponent = () => {
+  return (
+    <div className='grid xs:grid-cols-1 smm:grid-cols-2 gap-4 m-10'>
+      {Array.from({ length: 6 }, (_, index) => (
+        <div key={index} className="w-[415px] h-[90px] flex items-center gap-3 animate-pulse bg-gray-100 rounded-xl p-3">
+          <div className='flex flex-row justify-center items-center space-x-3'>
+            <div className="flex w-5 h-5 bg-gray-200"/>
+            <div className="flex rounded-full w-12 h-12 bg-gray-200"/>
+          </div>
+          <div className="w-full flex flex-col rounded gap-3">
+            <div className='flex flex-row justify-between'>
+              <div className="h-5 w-20 rounded bg-gray-200"/>
+              <div className="h-5 w-24 rounded bg-gray-200"/>
+            </div>
+            <div className='flex flex-row justify-between'>
+              <div className="h-5 w-28 rounded bg-gray-200"/>
+              <div className="h-5 w-16 rounded-xl bg-gray-200"/>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
