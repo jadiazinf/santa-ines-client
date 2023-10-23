@@ -5,7 +5,8 @@ import { notAuthenticatedUserRoutes,
          regularUserRoutes,
          superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
-import { DashboardPage, IndexPage, LoginPage } from "./pages";
+import { DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
+import { NavbarComponent } from "./components";
 
 export const App = () => {
 
@@ -36,12 +37,24 @@ export const App = () => {
       <Routes>
         <Route  path="/" element={<IndexPage />} />
         <Route  path="/login" element={<LoginPage />} />
-        <Route  path="/dashboard" element={<DashboardPage />} />
+        <Route path="/:userName/dashboard/*" element={<DashboardWithNavbar />} />
       </Routes>
       <Toaster
         position="top-center"
         reverseOrder={false}
       />
     </>
+  );
+}
+
+const DashboardWithNavbar = () => {
+  return (
+    <div>
+      <NavbarComponent />
+      <Routes>
+        <Route index element={<DashboardPage />} />
+        <Route path="info-doctor/:doctorName" element={<DoctorInfoPage />} />
+      </Routes>
+    </div>
   );
 }
