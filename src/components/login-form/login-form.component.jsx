@@ -30,7 +30,7 @@ export const LoginForm = () => {
                 role: 'authenticated'
               }));
               resolve('¡Bienvenido!'); // Resuelve la promesa si la solicitud es exitosa
-              navigate(`/dashboard`);
+              navigate(`/${values.username}/dashboard`);
             } else {
               reject(new Error(response.data.message)); // Rechaza la promesa si las credenciales son incorrectas
             }
