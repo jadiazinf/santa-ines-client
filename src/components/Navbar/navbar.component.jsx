@@ -21,10 +21,6 @@ const navLinks = [
     id: 'doctores',
     title:'Doctores'
   },
-  {
-    id: 'sesión',
-    title:'Iniciar Sesión'
-  },
 ]
 
 export const NavbarComponent = () => {
