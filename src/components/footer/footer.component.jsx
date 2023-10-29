@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { adress_pointer, facebook, footer_SantaInes_2, instagram, mail, map, phone, twitter } from '../../assets'
 
 export const footerLinks = [
@@ -5,24 +6,24 @@ export const footerLinks = [
     title: "MENÚ",
     links: [
       {
-        name: "Quienes somos?",
-        link: "https://www.hoobank.com/content/",
+        name: "Inicio",
+        link: "",
+      },
+      {
+        name: "¿Quienes somos?",
+        link: "quienes-somos",
       },
       {
         name: "Servicios",
-        link: "https://www.hoobank.com/how-it-works/",
+        link: "servicios",
       },
       {
         name: "Doctores",
-        link: "https://www.hoobank.com/create/",
-      },
-      {
-        name: "Contacto",
-        link: "https://www.hoobank.com/explore/",
+        link: "doctores",
       },
       {
         name: "Inicio de sesión",
-        link: "https://www.hoobank.com/terms-and-services/",
+        link: "login",
       },
     ],
   },
@@ -77,9 +78,12 @@ const MenuOptions = () => {
             {footerLink.title}
           </h4>
           <ul className='list-none mm:mt-2 md:mt-8 mt-8'>
-            {footerLink.links.map((link, index) => (
+            {footerLink.links.map((item, index) => (
               <li key={index} className={` text-white ${index !== footerLink.links.length -1 ? 'mb-4' : 'mb-0'} hover:text-dimYellow`}>
-                <a href="#" className=' mm:text-[12px] ss:text-[14px] md:text-[18px]'>▸ {link.name}</a>
+                {item.name !== 'Inicio de sesión'
+                  ? <a href={`#${item.link}`} className=' mm:text-[12px] ss:text-[14px] md:text-[18px]'>▸ {item.name}</a>
+                  : <NavLink to={item.link} className=' mm:text-[12px] ss:text-[14px] md:text-[18px]'>▸ {item.name}</NavLink>
+                }
               </li>
             ))}
           </ul>
@@ -100,7 +104,7 @@ const ContactanosColumn = () => {
           <ul className='list-none mm:mt-3 md:mt-8 flex flex-row'>
             {mediaLink.socialLinks.map((link, index) => (
               <li key={index} className={`e ${index !== mediaLink.socialLinks.length -1 ? 'mb-4' : 'mb-0'}`}>
-                <a href={link.link} target="_blank" className='rounded-full mm:w-10 mm:h-10 md:w-12  md:h-12  flex justify-center items-center mr-3 bg-gray-600 hover:bg-dimYellow'>
+                <a href={link.link} target="_blank" className='rounded-full mm:w-10 mm:h-10 md:w-12  md:h-12  flex justify-center items-center mr-3 bg-gray-600 hover:bg-dimYellow' rel="noreferrer">
                   <img  src={link.icon} alt='instagram' className={`mm:w-[20px] mm:h-[20px] md:w-[25px] md:h-[25px] object-contain cursor-pointer`}/>
                 </a>
               </li>
