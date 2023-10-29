@@ -6,6 +6,7 @@ import { notAuthenticatedUserRoutes,
          superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
 import { DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
+import { NavbarRecepcionistaComponent } from "./components/Navbar-recepcionista/navbar_recepcionista.component";
 
 export const App = () => {
 
@@ -36,7 +37,14 @@ export const App = () => {
       <Routes>
         <Route  path="/" element={<IndexPage />} />
         <Route  path="/login" element={<LoginPage />} />
-        <Route path="/:userName/dashboard/*" element={<DashboardWithNavbar />} />
+        <Route
+          path="/:userName/dashboard/*"
+          element={
+            role === 'not-authenticated'
+              ? <LoginPage />
+              : <DashboardWithNavbar />
+          }
+        />
       </Routes>
       <Toaster
         position="top-center"
@@ -49,10 +57,11 @@ export const App = () => {
 const DashboardWithNavbar = () => {
   return (
     <div>
-      {/* <NavbarComponent /> */}
+      <NavbarRecepcionistaComponent />
       <Routes>
         <Route index element={<DashboardPage />} />
         <Route path="info-doctor/:doctorName" element={<DoctorInfoPage />} />
+        <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
       </Routes>
     </div>
   );
