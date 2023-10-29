@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { FooterComponent, NavbarComponent, QSomosComponent, ServiciosComponent, VanguiardiaComponent } from "../../components";
+import { FooterComponent, NavbarAllUsersComponent, QSomosComponent, ServiciosComponent, VanguiardiaComponent } from "../../components";
 
 export const IndexPage = () => {
 
@@ -27,7 +27,7 @@ export const IndexPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <NavbarComponent />
+      <NavbarAllUsersComponent />
       <><VanguiardiaComponent /><QSomosComponent /><ServiciosComponent /><FooterComponent /></>
     </div>
   );

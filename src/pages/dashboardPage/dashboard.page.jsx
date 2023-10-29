@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { DoctorSelector, FilledButton, NavbarComponent } from '../../components'
+import { DoctorSelector, FilledButton } from '../../components'
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useGetDoctors1Mutation } from '../../api';
@@ -16,7 +16,7 @@ export const DashboardPage = () => {
     } else {
       e.preventDefault();
       if(doctor) {
-        navigate(`info-doctor/${doctor.cedula}`);
+        navigate(`/info-doctor/${doctor.cedula}`);
       }
     }
   }
