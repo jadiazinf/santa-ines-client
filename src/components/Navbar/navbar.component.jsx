@@ -29,7 +29,7 @@ const NavbarComponent = () => {
       <ul className="list-none md:flex hidden justify-end items-center flex-1">
         {navLinks.map((link, index) => (
           <li key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mr-10'} text-primary`}>
-            <a href={`#${link.id}`} className="text-[20px]">{link.title}</a>
+             <a href={`#${link.id}`} className="text-[20px]">{link.title}</a>
           </li>
         ))}
       </ul>
@@ -40,7 +40,7 @@ const NavbarComponent = () => {
           <ul className="list-none flex justify-end items-center flex-1 flex-col">
             {navLinks.map((link, index) => (
               <li key={link.id} className={`font-poppins font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mb-5'}`}>
-                <a href={link.id} className="text-primary text-[20px]">{link.title}</a>
+                 <a href={link.id} className="text-primary text-[20px]">{link.title}</a>
               </li>
             ))}
           </ul>
