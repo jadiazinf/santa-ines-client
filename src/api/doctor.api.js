@@ -10,12 +10,19 @@ export const doctorsApi = createApi({
       query: (page) => `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`
     }),
     getDoctors1: builder.mutation({
-        query: (data) => ({
-          url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,
-          method: 'GET',
-        })
-      }),
+      query: (data) => ({
+        url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,
+        method: 'GET',
+      })
+    }),
+    updateDoctor: builder.mutation({
+      query: (data) => ({
+        url: `${import.meta.env.VITE_API_DOCTOR_UPDATE}`,
+        method: 'PUT',
+        body: data
+      })
+    }),
   })
 });
 
-export const { useGetDoctorsMutation, useGetDoctors1Mutation } = doctorsApi;
+export const { useGetDoctorsMutation, useGetDoctors1Mutation, useUpdateDoctorMutation } = doctorsApi;

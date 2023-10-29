@@ -4,11 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useGetDoctors1Mutation } from '../../api';
 
-export const DashboardPage = () => {
+export const DashboardPage = ({ doctores, setDoctores, doctor, setDoctor}) => {
   const navigate = useNavigate();
   const  { userName } = useParams();
-  const [doctor, setDoctor] = React.useState({});
-  const [doctores, setDoctores] = React.useState({});
 
   const onClick = e => {
     if (Object.keys(doctor).length === 0) {
@@ -35,7 +33,7 @@ export const DashboardPage = () => {
 
 
   return (
-    <div className="flex flex-col justify-center items-center m-10">
+    <section className="flex flex-col justify-center items-center m-10">
       <div className='flex flex-col justify-center items-start mt-5'>
         <div className='w-full flex justify-between'>
           <div>
@@ -51,7 +49,7 @@ export const DashboardPage = () => {
           }
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
