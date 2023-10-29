@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { logo_SantaInes, menu, close } from "../../assets"
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 
 /* eslint-disable no-unused-vars */
 const navLinks = [
@@ -23,7 +22,7 @@ const navLinks = [
   },
 ]
 
-export const NavbarComponent = () => {
+export const NavbarAllUsersComponent = () => {
 
   const { role } = useSelector(state => state.authenticatedUser);
 

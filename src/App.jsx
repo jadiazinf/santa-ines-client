@@ -6,7 +6,6 @@ import { notAuthenticatedUserRoutes,
          superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
 import { DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
-import { NavbarComponent } from "./components";
 
 export const App = () => {
 
@@ -50,7 +49,7 @@ export const App = () => {
 const DashboardWithNavbar = () => {
   return (
     <div>
-      <NavbarComponent />
+      {/* <NavbarComponent /> */}
       <Routes>
         <Route index element={<DashboardPage />} />
         <Route path="info-doctor/:doctorName" element={<DoctorInfoPage />} />
