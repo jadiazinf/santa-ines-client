@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx}", "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
   theme: {
     extend: {
@@ -10,12 +10,15 @@ export default {
         dimBlue: "#007AAE",
         dimYellow: "#F9B21C",
         dimWhite: "#FAFAFA",
+        textTitle: '#6f6f6f',
+        textInput: '#007aae',
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
     },
     screens: {
+      mm:"0px",
       xs: "480px",
       ss: "620px",
       sm: "768px",
