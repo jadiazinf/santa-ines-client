@@ -60,7 +60,7 @@ const DashboardWithNavbar = () => {
       <NavbarRecepcionistaComponent />
       <Routes>
         <Route index element={<DashboardPage />} />
-        <Route path="info-doctor/:doctorName" element={<DoctorInfoPage />} />
+        <Route path="info-doctor/:doctor-id" element={<DoctorInfoPage />} />
         <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
       </Routes>
     </div>

@@ -16,7 +16,7 @@ export const DashboardPage = () => {
     } else {
       e.preventDefault();
       if(doctor) {
-        navigate(`/info-doctor/${doctor.cedula}`);
+        navigate(`info-doctor/${doctor.cedula}`);
       }
     }
   }
