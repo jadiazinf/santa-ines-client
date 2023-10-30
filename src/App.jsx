@@ -7,6 +7,7 @@ import { notAuthenticatedUserRoutes,
 import { Toaster } from "react-hot-toast";
 import { DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
 import { NavbarRecepcionistaComponent } from "./components/Navbar-recepcionista/navbar_recepcionista.component";
+import { useState } from "react";
 
 export const App = () => {
 
@@ -55,14 +56,16 @@ export const App = () => {
 }
 
 const DashboardWithNavbar = () => {
+  const [doctores, setDoctores] = useState({});
+  const [doctor, setDoctor] = useState({});
   return (
-    <div>
+    <section className="w-full">
       <NavbarRecepcionistaComponent />
       <Routes>
-        <Route index element={<DashboardPage />} />
-        <Route path="info-doctor/:doctor-id" element={<DoctorInfoPage />} />
+        <Route index element={<DashboardPage doctores={doctores} setDoctores={setDoctores} doctor={doctor} setDoctor={setDoctor} />} />
+        <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage doctor={doctor} />} />
         <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
       </Routes>
-    </div>
+    </section>
   );
 }
