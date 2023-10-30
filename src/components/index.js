@@ -1,4 +1,5 @@
-export * from'./Navbar-recepcionista/navbar_recepcionista.component';
+export * from './tabs-doctor/tabsDoctors.component';
+export * from './Navbar-recepcionista/navbar_recepcionista.component';
 export * from './Navbar-all-users/navbar_all_users.component';
 export * from './datatables/datatable.component';
 export * from './footer/footer.component';
