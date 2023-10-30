@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { CheckboxComponent, FilledButton, InputComponent, UnfilledButton } from "..";
+import { FilledButton, InputComponent, UnfilledButton } from "..";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginUserSchema } from "../../validations";
 import { useLoginUserMutation } from "../../api";
@@ -10,7 +10,6 @@ import toast, { useToaster } from "react-hot-toast";
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toaster = useToaster();
 
   const initialValues = {
     username: '',
@@ -45,7 +44,6 @@ export const LoginForm = () => {
         error: (error) => error.message,
       }
     );
-
   }
 
   const handleCreateUserClick = e => {
