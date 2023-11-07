@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { doctorsApi, loginUserApi, registerUserApi } from "../api";
+import { appointmentsApi, doctorsApi, loginUserApi, registerUserApi } from "../api";
 import { userApi } from "../api/user.api";
 import userReducer from "./reducers/user.reducer";
 import appointmentReducer from "./reducers/crearCita.reducer";
@@ -10,6 +10,7 @@ export const store = configureStore({
     [registerUserApi.reducerPath]: registerUserApi.reducer,
     [doctorsApi.reducerPath]: doctorsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [appointmentsApi.reducerPath]: appointmentsApi.reducer,
     authenticatedUser: userReducer,
     createAppointment: appointmentReducer,
   },
@@ -17,6 +18,7 @@ export const store = configureStore({
                                         .concat(doctorsApi.middleware,
                                                 registerUserApi.middleware,
                                                 loginUserApi.middleware,
-                                                userApi.middleware
+                                                userApi.middleware,
+                                                appointmentsApi.middleware
                                                 )
 });
