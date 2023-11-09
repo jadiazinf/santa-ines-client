@@ -1,49 +1,36 @@
 import React, { useEffect, useState } from "react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip } from "@nextui-org/react";
 import { DeleteIcon, EditIcon, EyeIcon } from "../../assets";
-import { useGetDoctorAppointmentsQuery } from "../../api";
-import { format } from "date-fns";
+import { useDeleteAppointmentMutation, useGetDoctorAppointments2Mutation, useGetDoctorAppointmentsQuery } from "../../api";
+import toast from "react-hot-toast";
 
 const statusColorMap = {
-  activa: "success",
-  paused: "danger",
-  vacation: "warning",
+  Activa: "primary",
+  Deleted: "danger",
+  Completada: "warning",
 };
 
 export const TableComponent = ({columns, id_doctor, doctorName, doctorEspecialidad}) => {
-
   const [appointments, setAppointments] = useState([]);
   // const { data: appointments, isLoading, isError } = useGetDoctorAppointmentsQuery({id: id_doctor.UUID});
-  const { data: appointmentsApi, isLoading, isError } = useGetDoctorAppointmentsQuery({id: "ce90c180-c414-4176-b97c-fd11263b447e"});   //Esto se cambia cuando se solucione el problema de Daniel
+  // const { data: appointmentsApi, isLoading, isError } = useGetDoctorAppointmentsQuery({id: "ce90c180-c414-4176-b97c-fd11263b447e"});   //Esto se cambia cuando se solucione el problema de Daniel
+  const [ getDoctorAppointments2, isLoading, isError ]= useGetDoctorAppointments2Mutation();
 
   useEffect(() => {
-    if (!isLoading && !isError) {
-      setAppointments(appointmentsApi);
-      console.log("🚀 ~ file: table.component.jsx:21 ~ useEffect ~ appointmentsApi:", appointmentsApi)
-    }
-  }, [id_doctor, isLoading, isError, appointments]);
+      getDoctorAppointments2({id: 'ce90c180-c414-4176-b97c-fd11263b447e'})
+      .then((response) => {
+        if (response.data) {
+          setAppointments(response.data);
+        }
+      })
+  }, []);
 
-
-  const renderCell = React.useCallback((cita, columnKey) => {
-    const cellValue = cita[columnKey];
-    console.log("🚀 ~ file: table.component.jsx:31 ~ renderCell ~ cellValue:", cellValue)
-
+  const renderCell = React.useCallback((cita, columnKey, appointments, setAppointments) => {
     switch (columnKey) {
       case "idCita":
         return (
           <p className="text-bold text-sm capitalize text-default-400">{cita.id}</p>
         );
-      // case "doctor":
-      //   return (
-      //     <User
-      //       className="text-bold text-sm capitalize text-default-400 w-36"
-      //       avatarProps={{ src: cita.avatar}}
-      //       description={doctorName}
-      //       name={cellValue}
-      //     >
-      //       {doctorName}
-      //     </User>
-      //   );
       case "fechaCita":
         return (
           <p className="text-bold text-sm capitalize text-default-400">{fechaHora(cita.appointmentDate, 'fecha')}</p>
@@ -51,13 +38,6 @@ export const TableComponent = ({columns, id_doctor, doctorName, doctorEspecialid
       case "horaCita":
         return (
           <p className="text-bold text-sm capitalize text-default-400">{fechaHora(cita.appointmentDate, "hora")}</p>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{cita.team}</p>
-          </div>
         );
       case "status":
         return (
@@ -72,21 +52,17 @@ export const TableComponent = ({columns, id_doctor, doctorName, doctorEspecialid
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Detalles">
+            <Tooltip content="Detalles" className="text-sm">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Editar Cita">
+            <Tooltip content="Editar Cita" className="text-sm">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Eliminar Cita">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
+            <DeleteAppointmentButton id={cita.id} setAppointments={setAppointments} appointments={appointments}/>
           </div>
         );
       default:
@@ -95,18 +71,18 @@ export const TableComponent = ({columns, id_doctor, doctorName, doctorEspecialid
   }, []);
 
   return (
-    <Table isStriped >
-      <TableHeader columns={columns} >
+    <Table aria-label="tabla">
+      <TableHeader columns={columns} className="mb-5">
         {(column) => (
-          <TableColumn className="bg-gray-100" key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+          <TableColumn className="bg-gray-100 " key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
             {column.name}
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No posee citas registradas."} items={appointments}>
+      <TableBody emptyContent={"No posee citas registradas."} items={appointments} >
         {(item, index) => (
-          <TableRow key={index} className="hover:bg-slate-50 rounded-2xl">
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+          <TableRow key={index} className={`hover:bg-table_hover h-16`}>
+            {(columnKey) => <TableCell>{renderCell(item, columnKey, appointments, setAppointments)}</TableCell>}
           </TableRow>
         )}
       </TableBody>
@@ -126,3 +102,50 @@ function fechaHora(fechaISO, accion) {
     }
     return item;
 }
+
+
+const DeleteAppointmentButton = ({ id, setAppointments, appointments }) => {
+  const [ deleteAppointment, isLoading, isError ]= useDeleteAppointmentMutation();
+  const [ getDoctorAppointments2 ]= useGetDoctorAppointments2Mutation();
+
+  const handleClick = async (id) => {
+    try {
+      toast.promise(
+        new Promise((resolve, reject) => {
+          deleteAppointment({id: id})
+            .then((response) => {
+              if (response.data.value) {
+                getDoctorAppointments2({id: 'ce90c180-c414-4176-b97c-fd11263b447e'})
+                .then((response) => {
+                  if (response.data) {
+                    setAppointments(response.data);
+                  }
+                })
+                resolve('¡Cita eliminada!');
+              } else {
+                reject(new Error(response.data.message));
+              }
+            })
+            .catch((error) => {
+              reject(new Error(error));
+            })
+        }),
+        {
+          loading: 'Cargando...',
+          success: (message) => message,
+          error: (error) => error.message,
+        }
+      );
+    } catch (error) {
+      console.error("Error al eliminar la cita:", error);
+    }
+  };
+
+  return (
+    <Tooltip  content="Eliminar Cita" className=" text-sm py-1 px-1 border bg-danger_blur text-danger rounded">
+      <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleClick(id)}>
+        <DeleteIcon />
+      </span>
+    </Tooltip>
+  );
+};
