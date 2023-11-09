@@ -12,6 +12,10 @@ export default {
         dimWhite: "#FAFAFA",
         textTitle: '#6f6f6f',
         textInput: '#007aae',
+        danger: '#ff0000',
+        danger_blur: '#FDD0DF',
+        warning: '#ffae00',
+        table_hover: '#F7F7F8',
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
