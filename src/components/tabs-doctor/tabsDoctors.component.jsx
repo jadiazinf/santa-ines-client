@@ -15,7 +15,7 @@ export const TabsDoctorsComponents = ({doctor}) => {
     {name: "Hora Cita", uid: "horaCita"},
     {name: "Id Paciente", uid: "idPaciente"},
     {name: "Estado", uid: "status"},
-    {name: "ACTIONS", uid: "actions"},
+    {name: "Acciones", uid: "actions"},
   ];
 
   const tabData = [
@@ -26,8 +26,8 @@ export const TabsDoctorsComponents = ({doctor}) => {
   return (
     <div className='space-y-2 w-[70%]'>
       <div>
-        <h1 className='text-primary text-3xl w-[400px]'>Apartado específico</h1>
-        <p className=''>Seleccione la vista que desee</p>
+        <h1 className='text-primary text-3xl'>{doctor.nombre.cuerpo}</h1>
+        <p className=''>Por favor, seleccione la pestaña que desee consultar</p>
       </div>
       <div className='space-y-5'>
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
@@ -41,7 +41,7 @@ export const TabsDoctorsComponents = ({doctor}) => {
         </ul>
         <div>
           {tabData.map((tab) => (
-            <div className={`${activeTab === tab.id ? "block" : "hidden"}`} id={tab.id} role="tabpanel" aria-labelledby={`${tab.id}-tab`} key={tab.id}>
+          <div className={`${activeTab === tab.id ? "block" : "hidden"}`} id={tab.id} role="tabpanel" aria-labelledby={`${tab.id}-tab`} key={tab.id}>
               {tab.component}
             </div>
           ))}
