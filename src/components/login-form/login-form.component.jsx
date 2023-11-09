@@ -35,7 +35,7 @@ export const LoginForm = () => {
             }
           })
           .catch((error) => {
-            reject(new Error(response.data.message)); // Rechaza la promesa si hay un error durante la solicitud
+            reject(new Error(error)); // Rechaza la promesa si hay un error durante la solicitud
           })
       }),
       {
