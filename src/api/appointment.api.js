@@ -9,7 +9,16 @@ export const appointmentsApi = createApi({
     getDoctorAppointments: builder.query({
       query: ({ id }) => `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
     }),
-  })
+    getDoctorAppointments2: builder.mutation({
+      query: ({ id }) => `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
+    }),
+    deleteAppointment: builder.mutation({
+      query: ({id}) => ({
+        url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
+        method: 'DELETE',
+      })
+    })
+  }),
 });
 
-export const { useGetDoctorAppointmentsQuery  } = appointmentsApi;
+export const { useGetDoctorAppointmentsQuery, useGetDoctorAppointments2Mutation, useDeleteAppointmentMutation  } = appointmentsApi;
