@@ -128,7 +128,7 @@ export const AppointmentCreateForm = ({ action }) => {
         </div>
       )}
       <div className='flex flex-col justify-center items-center'>
-        {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ dateEditable } />}
+        {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ new Date(dateEditable) } dateEditable1={ dateEditable } />}
         {componentToShow === 1 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
         {componentToShow === 2 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
       </div>

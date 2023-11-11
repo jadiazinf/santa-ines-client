@@ -49,7 +49,7 @@ import { useSelector } from "react-redux"
 
 
 
-export const Calendar = ({ touch, dateEditable }) => {
+export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
 
@@ -278,7 +278,13 @@ export const Calendar = ({ touch, dateEditable }) => {
           ? <div className="flex flex-col">
               <h1>Fecha a actualizar:
                 <span className="font-semibold text-rose-950 pl-1">
-                  {obtenerHoraDesdeCadenaFecha(dateEditable)}
+                  {capitalizeFirstLetter(
+                    format(dateEditable, "EEEE dd 'de' MMMM 'de' yyyy' a las ", {
+                      locale: es,
+                    }).toString()
+                  )}
+
+                 {obtenerHoraDesdeCadenaFecha(dateEditable1)}
                 </span>
               </h1>
               <div className="w-full border my-10"></div>
@@ -329,7 +335,6 @@ function recorrerCitas(citas2) {
   return newArray;
 }
 function obtenerHoraDesdeCadenaFecha(fechaString) {
-  const date = fechaString.slice(0, 10)
   const time = fechaString.slice(11, 16)
-  return date+' a las '+time ;
+  return time;
 }
