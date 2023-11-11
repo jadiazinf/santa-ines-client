@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import { FilledButton, InputComponent, UnfilledButton } from "..";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginUserSchema } from "../../validations";
-import { useLoginUserMutation } from "../../api";
 import { useDispatch } from "react-redux";
 import { authenticateUser } from "../../store/reducers/user.reducer";
 import toast, { useToaster } from "react-hot-toast";
+import { useLoginUserMutation } from "../../api";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
