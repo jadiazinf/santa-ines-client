@@ -2,22 +2,24 @@ import React, { useState } from 'react'
 import { CheckboxGroup } from '@nextui-org/react'
 import { CustomCheckbox } from './customCheckbox';
 import { crearCitaDescripcion, crearCitaDoctor } from '../../store/reducers/crearCita.reducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { savedoctor } from '../../store/reducers/doctors.reducer';
 
 
-export const DoctorSelector = ({ setDoctor, doctores1 }) => {
+export const DoctorSelector = () => {
   const [doctorSelected, setDoctorSelected] = useState([]);
   const [doctoresSeleccionados, setDoctoresSeleccionados] = useState([]); // Usamos un array para mantener los doctores seleccionados
   const dispatch = useDispatch()
+  const { doctors } = useSelector( state => state.saveDoctors)
 
   const handleCheckboxChange = (doctor) => {
     if (doctorSelected && doctorSelected.cedula === doctor.cedula) { //VOlvio a precionar el mismo doctor
       setDoctorSelected([]);
       setDoctoresSeleccionados([]);
       dispatch(crearCitaDoctor({}));
-      setDoctor({})
+      dispatch(savedoctor({}));
     } else {
-      setDoctor(doctor)
+      dispatch(savedoctor(doctor));
       dispatch(crearCitaDoctor(doctor));
       setDoctorSelected(doctor);
       setDoctoresSeleccionados([{cedula:doctor.cedula, nombre:doctor.nombre.primerNombre, especialidad:doctor.especialidad}]);
@@ -26,8 +28,8 @@ export const DoctorSelector = ({ setDoctor, doctores1 }) => {
   // Este es el array de doctores que sera tomado de la API
 
   return (
-    <div className="grid xs:grid-cols-1 smm:grid-cols-2 gap-4 m-10">
-      {Object.values(doctores1).map((doctor, index) => (
+    <div className="grid xs:grid-cols-1 smm:grid-cols-2 gap-4 mt-24 m-10">
+      {Object.values(doctors).map((doctor, index) => (
         <div key={index} className="flex flex-col gap-1" >
           <CheckboxGroup
             value={doctoresSeleccionados.map((doctor) => doctor.cedula)}
