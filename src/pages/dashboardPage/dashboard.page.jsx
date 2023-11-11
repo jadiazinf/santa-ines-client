@@ -3,10 +3,15 @@ import { DoctorSelector, FilledButton } from '../../components'
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useGetDoctors1Mutation } from '../../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { savedoctors } from '../../store/reducers/doctors.reducer';
 
-export const DashboardPage = ({ doctores, setDoctores, doctor, setDoctor}) => {
+export const DashboardPage = () => {
   const navigate = useNavigate();
   const  { userName } = useParams();
+  const dispatch = useDispatch();
+  const { doctor } = useSelector( state => state.saveDoctors)
+
 
   const onClick = e => {
     if (Object.keys(doctor).length === 0) {
@@ -24,13 +29,12 @@ export const DashboardPage = ({ doctores, setDoctores, doctor, setDoctor}) => {
   useEffect(() => {
     getDoctors1(userName)
       .then((response) => {
-        setDoctores(response.data);
+        dispatch(savedoctors(response.data));
       })
       .catch((error) => {
         reject(new Error(response.data.message));
       })
   }, [])
-
 
   return (
     <section className="flex flex-col justify-center items-center m-10">
@@ -44,7 +48,7 @@ export const DashboardPage = ({ doctores, setDoctores, doctor, setDoctor}) => {
         </div>
         <div className=''>
           {!isLoading
-            ? <DoctorSelector setDoctor={setDoctor} doctores1={doctores}/>
+            ? <DoctorSelector/>
             : <SkeletonComponent />
           }
         </div>
