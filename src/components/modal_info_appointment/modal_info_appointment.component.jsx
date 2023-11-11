@@ -2,6 +2,9 @@ import React from 'react'
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Chip} from "@nextui-org/react";
 import { useSelector } from 'react-redux';
 import { FilledButton } from '../buttons/filledbutton.component';
+import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
+import { format } from 'date-fns';
+import { es } from "date-fns/locale";
 
 export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => {
   const { id, date, creationDate, descripcion, status, patientId } = useSelector( state => state.detalleAppointment)
@@ -12,6 +15,8 @@ export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => 
     Actualizada: "warning",
     Completada: "success",
   };
+  var dateObject1 = new Date(date);
+  var dateObject2 = new Date(creationDate);
   return (
     <>
       <Modal  backdrop={'blur'} isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={true}  className=' bg-slate-50 p-2 rounded-lg'>
@@ -35,13 +40,21 @@ export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => 
                 <div className='flex flex-row space-x-2'>
                   <h1 className='font-bold'>Fecha de cración:</h1>
                   <p>
-                    {creationDate}
+                    {capitalizeFirstLetter(
+                      format(dateObject2, "yyyy'-'MM'-'dd", {
+                      locale: es,
+                      }).toString()
+                    )}
                   </p>
                 </div>
                 <div className='flex flex-row space-x-2'>
                   <h1 className='font-bold'>Fecha de actividad:</h1>
                   <p>
-                    {date}
+                    {capitalizeFirstLetter(
+                      format(dateObject1, "EEEE dd' de 'MMMM' de 'yyyy' a las 'hh:00", {
+                      locale: es,
+                      }).toString()
+                    )}
                   </p>
                 </div>
                 <div className='flex flex-row space-x-2'>
