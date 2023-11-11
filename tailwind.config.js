@@ -15,6 +15,7 @@ export default {
         danger: '#ff0000',
         danger_blur: '#FDD0DF',
         warning: '#ffae00',
+        success: '#3a5dee',
         table_hover: '#F7F7F8',
       },
       fontFamily: {
