@@ -19,3 +19,4 @@ export * from './appointment-form/form.component';
 export * from './modal-confirmation/modal-confirmation';
 export * from './servicios/servicios.component';
 export * from './footer/footer.component';
+export * from './modal_info_appointment/modal_info_appointment.component';
