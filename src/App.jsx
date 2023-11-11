@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux"
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { notAuthenticatedUserRoutes,
          adminUserRoutes,
          regularUserRoutes,
          superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
-import { DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
+import { AppointmentFormPage, DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
 import { NavbarRecepcionistaComponent } from "./components/Navbar-recepcionista/navbar_recepcionista.component";
 import { useState } from "react";
 
@@ -56,15 +56,18 @@ export const App = () => {
 }
 
 const DashboardWithNavbar = () => {
-  const [doctores, setDoctores] = useState({});
-  const [doctor, setDoctor] = useState({});
+  const location = useLocation();
+  const { pathname } = location;
+
   return (
     <section className="w-full">
-      <NavbarRecepcionistaComponent />
+      {pathname.includes('/appointmentForm/create') || pathname.includes('/appointmentForm/update') ? null : <NavbarRecepcionistaComponent />}
       <Routes>
-        <Route index element={<DashboardPage doctores={doctores} setDoctores={setDoctores} doctor={doctor} setDoctor={setDoctor} />} />
-        <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage doctor={doctor} />} />
+        <Route index element={<DashboardPage />} />
+        <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage />} />
         <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
+        <Route path="appointmentForm/create" element={<AppointmentFormPage title={'Creación'} />} />
+        <Route path="appointmentForm/update" element={<AppointmentFormPage title={'Edición'} />} />
       </Routes>
     </section>
   );
