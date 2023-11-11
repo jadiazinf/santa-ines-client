@@ -27,6 +27,7 @@ export const AppointmentCreateForm = ({ action }) => {
   if(action === 'Edición'){
     idEditable = useSelector(state => state.editAppointment.id)
     dateEditable = useSelector(state => state.editAppointment.date)
+    console.log("🚀 ~ file: form.component.jsx:30 ~ AppointmentCreateForm ~ dateEditable:", dateEditable)
     descripcionEditable = useSelector(state => state.editAppointment.descripcion)
     statusEditable = useSelector(state => state.editAppointment.status)
   }
@@ -68,7 +69,6 @@ export const AppointmentCreateForm = ({ action }) => {
                   })
               : updateAppointment({ id: idEditable, appointment: info })
                   .then((response) => {
-                    console.log("🚀 ~ file: form.component.jsx:73 ~ .then ~ response.data:", response.data)
                     if (response.data) {
                       dispatch(descripcionError(false))
                       dispatch(crearCitaDate(''))
@@ -128,7 +128,7 @@ export const AppointmentCreateForm = ({ action }) => {
         </div>
       )}
       <div className='flex flex-col justify-center items-center'>
-        {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ new Date(dateEditable) } />}
+        {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ dateEditable } />}
         {componentToShow === 1 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
         {componentToShow === 2 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
       </div>

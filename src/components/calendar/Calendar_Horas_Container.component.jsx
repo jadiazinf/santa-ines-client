@@ -50,7 +50,6 @@ import { useSelector } from "react-redux"
 
 
 export const Calendar = ({ touch, dateEditable }) => {
-
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
 
@@ -143,7 +142,6 @@ export const Calendar = ({ touch, dateEditable }) => {
     setAvailableTimesInThisMonth(thisMonthTimesLength)
     setAvailableTimesInThisMonthForEachDay(thisMonthTimesEachDay)
   }, [currentMonth])
-
   return (
     <div className="flex flex-row justify-center items-center gap-2 m-10">
       {/* calendar implementation */}
@@ -279,13 +277,9 @@ export const Calendar = ({ touch, dateEditable }) => {
         {touch
           ? <div className="flex flex-col">
               <h1>Fecha a actualizar:
-                <span className="font-semibold text-rose-950 pl-1">{
-                  capitalizeFirstLetter(
-                    format(dateEditable, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
-                      locale: es,
-                    }).toString()
-                  )
-                }</span>
+                <span className="font-semibold text-rose-950 pl-1">
+                  {obtenerHoraDesdeCadenaFecha(dateEditable)}
+                </span>
               </h1>
               <div className="w-full border my-10"></div>
             </div>
@@ -333,4 +327,9 @@ function recorrerCitas(citas2) {
     newArray.push(convertirFecha(`${date} ${time}`));                            //Como String
   });
   return newArray;
+}
+function obtenerHoraDesdeCadenaFecha(fechaString) {
+  const date = fechaString.slice(0, 10)
+  const time = fechaString.slice(11, 16)
+  return date+' a las '+time ;
 }
