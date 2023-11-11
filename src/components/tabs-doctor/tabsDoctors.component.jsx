@@ -1,37 +1,20 @@
 import { DatatableComponent, DoctorInfo } from '../../components';
 import { useState } from 'react';
 import { TableComponent } from '../table/table.component';
+import { useSelector } from 'react-redux';
 
-export const TabsDoctorsComponents = ({doctor}) => {
-  const [activeTab, setActiveTab] = useState("citas");
+export const TabsDoctorsComponents = ({columns, tabs}) => {
+const { doctor } = useSelector( state => state.saveDoctors)
+const [activeTab, setActiveTab] = useState("citas");
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
 
-  const columns = [
-    {name: "Id Cita", uid: "idCita"},
-    // {name: "Doctor", uid: "doctor"},
-    {name: "Fecha Cita", uid: "fechaCita"},
-    {name: "Hora Cita", uid: "horaCita"},
-    {name: "Id Paciente", uid: "idPaciente"},
-    {name: "Estado", uid: "status"},
-    {name: "Acciones", uid: "actions"},
-  ];
-
-  const tabData = [
-    // { id: "citas", label: "Citas", component: <DatatableComponent columns={columns} id_doctor={doctor.id}/> },
-    { id: "citas", label: "Citas", component: <TableComponent columns={columns} id_doctor={doctor.id} doctorName={doctor.nombre.cuerpo} doctorEspecialidad={doctor.especialidad}/> },
-    { id: "información", label: "Información", component: <DoctorInfo info={doctor} /> },
-  ];
   return (
     <div className='space-y-2 w-[70%]'>
-      <div>
-        <h1 className='text-primary text-3xl'>{doctor.nombre.cuerpo}</h1>
-        <p className=''>Por favor, seleccione la pestaña que desee consultar</p>
-      </div>
       <div className='space-y-5'>
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
-          {tabData.map((tab) => (
+          {tabs.map((tab) => (
             <li className="mr-2" key={tab.id} role="presentation">
               <button className={`inline-block p-4 border-b-2 rounded-t-lg ${activeTab === tab.id ? "border-primary" : ""}`} id={`${tab.id}-tab`} data-tabs-target={`#${tab.id}`} type="button" role="tab" aria-controls={tab.id} aria-selected={activeTab === tab.id} onClick={() => handleTabClick(tab.id)}>
                 {tab.label}
@@ -40,7 +23,7 @@ export const TabsDoctorsComponents = ({doctor}) => {
           ))}
         </ul>
         <div>
-          {tabData.map((tab) => (
+          {tabs.map((tab) => (
           <div className={`${activeTab === tab.id ? "block" : "hidden"}`} id={tab.id} role="tabpanel" aria-labelledby={`${tab.id}-tab`} key={tab.id}>
               {tab.component}
             </div>
