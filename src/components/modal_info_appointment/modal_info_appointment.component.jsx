@@ -5,6 +5,7 @@ import { FilledButton } from '../buttons/filledbutton.component';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 import { format } from 'date-fns';
 import { es } from "date-fns/locale";
+import { fechaHora } from '../../helpers/calendar.helper';
 
 export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => {
   const { id, date, creationDate, descripcion, status, patientId } = useSelector( state => state.detalleAppointment)
@@ -15,7 +16,6 @@ export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => 
     Actualizada: "warning",
     Completada: "success",
   };
-  var dateObject1 = new Date(date);
   var dateObject2 = new Date(creationDate);
   return (
     <>
@@ -33,7 +33,7 @@ export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => 
                 </div>
                 <div className='flex flex-row space-x-2'>
                   <h1 className='font-bold'>Descripción:</h1>
-                  <p className='break-words w-[330px]'>
+                  <p className='break-words w-[280px]'>
                     {descripcion}
                   </p>
                 </div>
@@ -49,12 +49,9 @@ export const ModalInfoComponent = ({ isOpen, onOpen, onOpenChange, idCita }) => 
                 </div>
                 <div className='flex flex-row space-x-2'>
                   <h1 className='font-bold'>Fecha de actividad:</h1>
-                  <p>
-                    {capitalizeFirstLetter(
-                      format(dateObject1, "EEEE dd' de 'MMMM' de 'yyyy' a las 'hh:00", {
-                      locale: es,
-                      }).toString()
-                    )}
+                  <p className='space-x-2'>
+                    {fechaHora(date, 'fecha')} a las {' '}
+                    {fechaHora(date, 'hora')}
                   </p>
                 </div>
                 <div className='flex flex-row space-x-2'>
