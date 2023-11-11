@@ -31,6 +31,7 @@ import { es } from "date-fns/locale"
 import Horas_disponibles from "./Hour"
 import Calendario from "./Calendario"
 import { capitalizeFirstLetter } from "../../helpers/capitalize.helper"
+import { useSelector } from "react-redux"
 
 //npm install date-fns
 //npm install lucide-react
@@ -47,52 +48,15 @@ import { capitalizeFirstLetter } from "../../helpers/capitalize.helper"
 // ]
 
 
-//Esto es lo que me devolveria el api, necesito que esta sea la estructura de fechaCita
-const citas = {
-  "citas": [
-    {
-      "citaId": 1,
-      "paciente": "Juan Pérez",
-      "doctor": "Dr. García",
-      "fechaCreacion": "2023-10-09 17:00:00",
-      "fechaCita": "2023-10-09 17:00:00",
-      "estado": "Confirmada",
-      "descripcion": "Consulta general"
-    },
-    {
-      "citaId": 2,
-      "paciente": "María Gómez",
-      "doctor": "Dr. López",
-      "fechaCreacion": "2023-10-09 13:00:00",
-      "fechaCita": "2023-10-09 13:00:00",
-      "estado": "Pendiente",
-      "descripcion": "Evaluación médica"
-    },
-    {
-      "citaId": 3,
-      "paciente": "Carlos Ramírez",
-      "doctor": "Dra. Martínez",
-      "fechaCreacion": "2023-10-09 09:00:00",
-      "fechaCita": "2023-10-09 09:00:00",
-      "estado": "Confirmada",
-      "descripcion": "Seguimiento de tratamiento"
-    },
-    {
-      "citaId": 4,
-      "paciente": "Ana Torres",
-      "doctor": "Dr. Sánchez",
-      "fechaCreacion": "2023-10-09 10:00:00",
-      "fechaCita": "2023-10-09 10:00:00",
-      "estado": "Cancelada",
-      "descripcion": "Consulta odontológica"
-    }
-  ]
-}
 
-const reservations =  recorrerCitas(citas['citas']);
+export const Calendar = ({ touch, dateEditable }) => {
 
-export const Calendar = () => {
-  const [calendarTouched, setCalendarTouched] = useState(false)
+  //Captamos las citas que se encuentran ya registradas al doctor
+  const { appointments } = useSelector( state => state.createAppointment)
+
+  const reservations =  recorrerCitas(appointments);
+
+  const [calendarTouched, setCalendarTouched] = useState(touch)
   // Dia actual
   let today = startOfToday()
   // Estado mes actual
@@ -311,7 +275,22 @@ export const Calendar = () => {
         </div>
       </div>
 
-      <div className={cn(`hidden`, calendarTouched && "block")}>
+      <div className={cn(`hidden`, calendarTouched && "block ml-10")}>
+        {touch
+          ? <div className="flex flex-col">
+              <h1>Fecha a actualizar:
+                <span className="font-semibold text-rose-950 pl-1">{
+                  capitalizeFirstLetter(
+                    format(dateEditable, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
+                      locale: es,
+                    }).toString()
+                  )
+                }</span>
+              </h1>
+              <div className="w-full border my-10"></div>
+            </div>
+          : null
+        }
         <span className="flex items-center w-full justify-center gap-1">
           <span>
             Horarios disponible para citas el
@@ -340,18 +319,18 @@ let colStartClasses = [
   "col-start-7",
 ]
 
+function convertirFecha(fecha) {
+  const parsedDate = parseISO(fecha);
+  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
+  return formattedDate;
+}
 
 function recorrerCitas(citas2) {
   const newArray = []
   citas2.forEach((cita) => {
-    newArray.push(convertirFecha(cita.fechaCita));                            //Como String
+    const date = cita.appointmentDate.slice(0, 10)
+    const time = cita.appointmentDate.slice(11, 16)
+    newArray.push(convertirFecha(`${date} ${time}`));                            //Como String
   });
   return newArray;
 }
-
-function convertirFecha(fecha) {
-  const parsedDate = parseISO(fecha);
-  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
-  return formattedDate;
-}
-
