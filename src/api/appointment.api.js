@@ -6,10 +6,14 @@ export const appointmentsApi = createApi({
     baseUrl: import.meta.env.VITE_API_SERVER_BASE_URL
   }),
   endpoints: builder => ({
-    getDoctorAppointments: builder.query({
-      query: ({ id }) => `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
+    createAppointment: builder.mutation({
+      query: ( appointment ) => ({
+        url: `${import.meta.env.VITE_API_APPOINTMENT}`,
+        method: 'POST',
+        body: appointment
+      })
     }),
-    getDoctorAppointments2: builder.mutation({
+    getDoctorAppointments: builder.mutation({
       query: ({ id }) => `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
     }),
     deleteAppointment: builder.mutation({
@@ -17,8 +21,15 @@ export const appointmentsApi = createApi({
         url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
         method: 'DELETE',
       })
+    }),
+    updateAppointment: builder.mutation({
+      query: (appointment, {id}) => ({
+        url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
+        method: 'PATCH',
+        body: appointment
+      })
     })
   }),
 });
 
-export const { useGetDoctorAppointmentsQuery, useGetDoctorAppointments2Mutation, useDeleteAppointmentMutation  } = appointmentsApi;
+export const { useCreateAppointmentMutation, useGetDoctorAppointmentsMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation  } = appointmentsApi;
