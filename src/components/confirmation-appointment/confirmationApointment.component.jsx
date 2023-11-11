@@ -25,9 +25,9 @@ function ConfirmationComponent({ edited, doctorStored, dateStored, descriptionSt
             )}
           </p>
         </div>
-        <div className="flex-1 ml-5 w-[150px] overflow-clip">
+        <div className="flex-1 ml-5 ">
           <p className="text-sm">{!edited ? 'Descripción:' : 'Nueva descripción:'}</p>
-          <p className="text-base font-medium">{descriptionStored}</p>
+          <p className="text-base font-medium text-ellipsis">{descriptionStored}</p>
         </div>
       </div>
     </div>
