@@ -28,7 +28,7 @@ export const NavbarRecepcionistaComponent = () => {
         role: 'not-authenticated'
       }))
     }
-    navigate(path);
+    navigate('perfil');
   };
 
 
