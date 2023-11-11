@@ -23,7 +23,7 @@ export const appointmentsApi = createApi({
       })
     }),
     updateAppointment: builder.mutation({
-      query: (appointment, {id}) => ({
+      query: ({ id, appointment }) => ({
         url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
         method: 'PATCH',
         body: appointment
