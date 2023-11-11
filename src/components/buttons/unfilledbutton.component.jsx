@@ -16,7 +16,7 @@ export const UnfilledButton = props => {
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}}>
+    <button className={`${props.class ? props.class : buttonClasses}`} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}}>
       {props.text}
     </button>
   );
