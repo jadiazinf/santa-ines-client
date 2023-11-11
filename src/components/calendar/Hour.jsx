@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { crearCitaDate } from "../../store/reducers/crearCita.reducer";
 
 
-const Horas_disponibles = ({ freeTimes}) => {
+const Horas_disponibles = ({ freeTimes }) => {
   const [selectedTime, setSelectedTime] = useState();
   const dispatch = useDispatch();
 
