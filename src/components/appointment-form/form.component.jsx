@@ -4,7 +4,7 @@ import { Calendar, AppointmentForm, FilledButton, UnfilledButton } from "../../c
 import { Steps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationComponent from '../confirmation-appointment/confirmationApointment.component';
-import { useCreateAppointmentMutation } from '../../api';
+import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '../../api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { crearCitaDate, crearCitaDescripcion, descripcionError } from '../../store/reducers/crearCita.reducer';
@@ -32,7 +32,7 @@ export const AppointmentCreateForm = ({ action }) => {
   }
 
   const [createAppointment] = useCreateAppointmentMutation();
-  const [updateAppointment] = useCreateAppointmentMutation();
+  const [updateAppointment] = useUpdateAppointmentMutation();
 
   const nextComponent = () => {
     if ((componentToShow === 0 && dateStored) || (componentToShow === 1 && descriptionErrorStored === false || componentToShow === 2)) {
@@ -66,8 +66,9 @@ export const AppointmentCreateForm = ({ action }) => {
                   .catch((error) => {
                     reject(new Error(error));
                   })
-              : updateAppointment(info, {id: idEditable})
+              : updateAppointment({ id: idEditable, appointment: info })
                   .then((response) => {
+                    console.log("🚀 ~ file: form.component.jsx:73 ~ .then ~ response.data:", response.data)
                     if (response.data) {
                       dispatch(descripcionError(false))
                       dispatch(crearCitaDate(''))
