@@ -4,7 +4,7 @@ import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
 
-export const DoctorForm = () => {
+export const UserForm = () => {
   const [userData, setUserData] = useState({
     username: '',
     password: '',
