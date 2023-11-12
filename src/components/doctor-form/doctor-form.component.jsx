@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
@@ -22,16 +23,23 @@ export const DoctorForm = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
+      console.log('Doctor creado');
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
     setUserData({
       nombre: '',
       apellido: '',
+      especialidad: '',
       cedula: '',
       correo: '',
       telefono: '',
-      especialidad: '',
       genero: '',
     });
   };
@@ -45,51 +53,58 @@ export const DoctorForm = () => {
           placeholder="Nombre"
           type="text"
           onChange={handleInputChange}
-          value={userData.name} />
+          value={userData.nombre}
+        />
         <InputComponent
           id="apellido"
           name="apellido"
           placeholder="Apellido"
           type="text"
           onChange={handleInputChange}
-          value={userData.name} />
-        <InputComponent
-          id="cedula"
-          name="cedula"
-          placeholder="Cédula"
-          type="text"
-          onChange={handleInputChange}
-          value={userData.email} />
-        <InputComponent
-          id="correo"
-          name="correo"
-          placeholder="Correo"
-          type="email"
-          onChange={handleInputChange}
-          value={userData.email} />
-        <InputComponent
-          id="telefono"
-          name="telefono"
-          placeholder="Teléfono"
-          type="tel"
-          onChange={handleInputChange}
-          value={userData.password} />
+          value={userData.apellido}
+        />
         <InputComponent
           id="especialidad"
           name="especialidad"
           placeholder="Especialidad"
           type="text"
           onChange={handleInputChange}
-          value={userData.password} />
+          value={userData.especialidad}
+        />
+        <InputComponent
+          id="cedula"
+          name="cedula"
+          placeholder="Cédula"
+          type="text"
+          onChange={handleInputChange}
+          value={userData.cedula}
+        />
+        <InputComponent
+          id="telefono"
+          name="telefono"
+          placeholder="Teléfono"
+          type="tel"
+          onChange={handleInputChange}
+          value={userData.telefono}
+        />
         <InputComponent
           id="genero"
           name="genero"
           placeholder="Género"
           type="text"
           onChange={handleInputChange}
-          value={userData.password} />
+          value={userData.genero}
+        />
+        <InputComponent
+          id="correo"
+          name="correo"
+          placeholder="Correo"
+          type="email"
+          onChange={handleInputChange}
+          value={userData.correo}
+        />
       </form>
-      <FilledButton text="Crear Doctor" buttonHeight={40} buttonWidth={120} textSize={15} onClick='' />
+      <FilledButton text="Crear Doctor" buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit} />
       <UnfilledButton text="Cancelar" buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
     </article>
   );
