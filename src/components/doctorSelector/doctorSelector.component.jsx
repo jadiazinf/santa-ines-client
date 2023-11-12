@@ -29,31 +29,36 @@ export const DoctorSelector = () => {
 
   return (
     <div className="grid xs:grid-cols-1 smm:grid-cols-2 gap-4 mt-24 m-10">
-      {Object.values(doctors).map((doctor, index) => (
-        <div key={index} className="flex flex-col gap-1" >
-          <CheckboxGroup
-            value={doctoresSeleccionados.map((doctor) => doctor.cedula)}
-            classNames={{
-              base: "w-full",
-            }}
-          >
-            <CustomCheckbox
-              value={doctor.cedula}
-              user={{
-                name: `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}`,
-                avatar: "https://avatars.githubusercontent.com/u/30373425?v=4",
-                username: `${doctor.correo.correo}`,
-                role: doctor.especialidad,
-                status: "Active",
-              }}
-              statusColor="primary"
-              checked={doctorSelected && doctorSelected.cedula === doctor.cedula}
-              onChange={() => handleCheckboxChange(doctor)}
-            />
-          </CheckboxGroup>
-          {/* Puedes agregar cualquier otro contenido que desees mostrar en cada columna */}
-        </div>
-      ))}
+      {doctors === undefined
+        ? <h1>Aún no tienes asignados doctores, por favor ponte en contacto con el administrador.</h1>
+        :<>
+          {Object.values(doctors).map((doctor, index) => (
+            <div key={index} className="flex flex-col gap-1" >
+              <CheckboxGroup
+                value={doctoresSeleccionados.map((doctor) => doctor.cedula)}
+                classNames={{
+                  base: "w-full",
+                }}
+              >
+                <CustomCheckbox
+                  value={doctor.cedula}
+                  user={{
+                    name: `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}`,
+                    avatar: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                    username: `${doctor.correo.correo}`,
+                    role: doctor.especialidad,
+                    status: "Active",
+                  }}
+                  statusColor="primary"
+                  checked={doctorSelected && doctorSelected.cedula === doctor.cedula}
+                  onChange={() => handleCheckboxChange(doctor)}
+                />
+              </CheckboxGroup>
+              {/* Puedes agregar cualquier otro contenido que desees mostrar en cada columna */}
+            </div>
+          ))}
+        </>
+      }
     </div>
 
   );
