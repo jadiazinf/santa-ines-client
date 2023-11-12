@@ -27,7 +27,6 @@ export const AppointmentCreateForm = ({ action }) => {
   if(action === 'Edición'){
     idEditable = useSelector(state => state.editAppointment.id)
     dateEditable = useSelector(state => state.editAppointment.date)
-    console.log("🚀 ~ file: form.component.jsx:30 ~ AppointmentCreateForm ~ dateEditable:", dateEditable)
     descripcionEditable = useSelector(state => state.editAppointment.descripcion)
     statusEditable = useSelector(state => state.editAppointment.status)
   }

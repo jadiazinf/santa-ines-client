@@ -52,8 +52,10 @@ import { useSelector } from "react-redux"
 export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
+  console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:55 ~ Calendar ~ appointments:", appointments)
 
   const reservations =  recorrerCitas(appointments);
+  console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:58 ~ Calendar ~ reservations:", reservations)
 
   const [calendarTouched, setCalendarTouched] = useState(touch)
   // Dia actual
@@ -107,6 +109,7 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     let freeTimes = hoursInDay.filter(
       (hour) => !reservations.includes(parseISO(hour.toISOString()).toString())
     )
+    console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:112 ~ freeTimes ~ freeTimes:", freeTimes)
 
     return (freeTimes)
   }, [selectedDay])
@@ -322,7 +325,8 @@ let colStartClasses = [
 
 function convertirFecha(fecha) {
   const parsedDate = parseISO(fecha);
-  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
+  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
+  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
   return formattedDate;
 }
 
