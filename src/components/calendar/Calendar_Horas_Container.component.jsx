@@ -52,10 +52,8 @@ import { useSelector } from "react-redux"
 export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
-  console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:55 ~ Calendar ~ appointments:", appointments)
 
   const reservations =  recorrerCitas(appointments);
-  console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:58 ~ Calendar ~ reservations:", reservations)
 
   const [calendarTouched, setCalendarTouched] = useState(touch)
   // Dia actual
@@ -71,7 +69,6 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 1 }),
   }), [firstDayCurrentMonth])
-
 
   // Horas disponibles po cada dia, uno en formato de numbers y otro en Dates
   const [availableTimesInThisMonth, setAvailableTimesInThisMonth] = useState([])
@@ -109,7 +106,6 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     let freeTimes = hoursInDay.filter(
       (hour) => !reservations.includes(parseISO(hour.toISOString()).toString())
     )
-    console.log("🚀 ~ file: Calendar_Horas_Container.component.jsx:112 ~ freeTimes ~ freeTimes:", freeTimes)
 
     return (freeTimes)
   }, [selectedDay])
@@ -296,18 +292,22 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
           : null
         }
         <span className="flex items-center w-full justify-center gap-1">
-          <span>
-            Horarios disponible para citas el
-            <span className="text-orange-950 font-semibold pl-1">
-              {capitalizeFirstLetter(
-                format(selectedDay, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
-                  locale: es,
-                }).toString()
-              )}
-            </span>
-          </span>
+
+        {getDay(selectedDay) === 0 || getDay(selectedDay) === 6
+          ? <span className="text-red-800 font-semibold">No hay citas disponibles para los fines de semana</span>
+          :  <span>
+                Horarios disponible para citas el
+                <span className="text-orange-950 font-semibold pl-1">
+                  {capitalizeFirstLetter(
+                    format(selectedDay, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
+                      locale: es,
+                    }).toString()
+                  )}
+                </span>
+              </span>
+        }
         </span>
-        <Horas_disponibles freeTimes={freeTimes}/>
+        {getDay(selectedDay) === 0 || getDay(selectedDay) === 6 ?  null : <Horas_disponibles freeTimes={freeTimes}/>}
       </div>
     </div>
   )
