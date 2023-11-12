@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
+import { useCreateDoctorMutation } from '../../api';
 
 export const DoctorForm = () => {
   const [userData, setUserData] = useState({
@@ -15,11 +15,13 @@ export const DoctorForm = () => {
     genero: '',
   });
 
+  const { mutate: createDoctor, isLoading} = useCreateDoctorMutation();
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserData(prevState => ({
+    setUserData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -27,7 +29,7 @@ export const DoctorForm = () => {
     event.preventDefault();
 
     try {
-      await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
+      await createDoctor(userData);
       console.log('Doctor creado');
     } catch (error) {
       console.error('Error:', error);
@@ -48,10 +50,10 @@ export const DoctorForm = () => {
     <article className='m-5'>
       <form onSubmit={handleSubmit} className='m-5 grid grid-cols-2 gap-5 w-full'>
         <InputComponent
-          id="nombre"
-          name="nombre"
-          placeholder="Nombre"
-          type="text"
+          id='nombre'
+          name='nombre'
+          placeholder='Nombre'
+          type='text'
           onChange={handleInputChange}
           value={userData.nombre}
         />
@@ -104,8 +106,8 @@ export const DoctorForm = () => {
           value={userData.correo}
         />
       </form>
-      <FilledButton text="Crear Doctor" buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit} />
-      <UnfilledButton text="Cancelar" buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
+      <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit} disabled={isLoading} />
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
     </article>
   );
 };

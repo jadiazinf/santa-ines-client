@@ -8,8 +8,15 @@ export const doctorsApi = createApi({
   endpoints: builder => ({
     getDoctors: builder.query({
       query: (page) => `${import.meta.env.VITE_API_DOCTORS_GETALL}/${page}`
-    })
-  })
+    }),
+    createDoctor: builder.mutation({
+      query: (data) => ({
+        url: 'https://santainesapi.onrender.com/doctor/create',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+  }),
 });
 
-export const { useGetDoctorsQuery } = doctorsApi;
+export const { useGetDoctorsQuery, useCreateDoctorMutation } = doctorsApi;
