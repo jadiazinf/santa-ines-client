@@ -40,8 +40,8 @@ export const TableComponent = ({columns, id_doctor, action, data, path}) => {
   useEffect(() => {
     switch (action) {
       case 'appointments':
-      fetchDoctorAppointments('ce90c180-c414-4176-b97c-fd11263b447e', dispatch, getDoctorAppointments)
-      // fetchDoctorAppointments1(id_doctor.UUID, dispatch, getDoctorAppointments2)
+      // fetchDoctorAppointments('ce90c180-c414-4176-b97c-fd11263b447e', dispatch, getDoctorAppointments)
+      fetchDoctorAppointments(id_doctor.UUID, dispatch, getDoctorAppointments)
         break;
       case 'users':
         fetchUsers(dispatch, getAllUsers)

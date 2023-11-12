@@ -45,8 +45,8 @@ export const AppointmentCreateForm = ({ action }) => {
 
             const info = {
               patientId: "4169009",
-              // "doctorId": doctorStored.id.UUID,
-              doctorId: 'ce90c180-c414-4176-b97c-fd11263b447e',
+              "doctorId": doctorStored.id.UUID,
+              // doctorId: 'ce90c180-c414-4176-b97c-fd11263b447e',
               appointmentDate: dateStored,
               status: action !== 'Edición' ? 'Activa' : statusEditable,
               description: descriptionStored,
