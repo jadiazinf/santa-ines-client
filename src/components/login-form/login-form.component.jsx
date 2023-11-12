@@ -64,7 +64,7 @@ export const LoginForm = () => {
       </div>
       <div className=''>
         <FilledButton text={!isLoading ? 'Registrar' : 'Cargando...' } block={isLoading} type='submit'/>
-        <UnfilledButton text='Cancelar' type='button' onClick={handleCreateUserClick} />
+        <UnfilledButton text='Cancelar' type='button' block={isLoading} onClick={handleCreateUserClick} />
       </div>
     </form>
   );
