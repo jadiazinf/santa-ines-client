@@ -278,13 +278,14 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
           ? <div className="flex flex-col">
               <h1>Fecha a actualizar:
                 <span className="font-semibold text-rose-950 pl-1">
-                  {capitalizeFirstLetter(
+                  {/* {capitalizeFirstLetter(
                     format(dateEditable, "EEEE dd 'de' MMMM 'de' yyyy' a las ", {
                       locale: es,
                     }).toString()
-                  )}
-
-                 {obtenerHoraDesdeCadenaFecha(dateEditable1)}
+                  )} */}
+                  {obtenerFechaDesdeCadenaFecha(dateEditable1)}
+                  {' a las '}
+                  {obtenerHoraDesdeCadenaFecha(dateEditable1)}
                 </span>
               </h1>
               <div className="w-full border my-10"></div>
@@ -336,5 +337,9 @@ function recorrerCitas(citas2) {
 }
 function obtenerHoraDesdeCadenaFecha(fechaString) {
   const time = fechaString.slice(11, 16)
+  return time;
+}
+function obtenerFechaDesdeCadenaFecha(fechaString) {
+  const time = fechaString.slice(0, 10)
   return time;
 }
