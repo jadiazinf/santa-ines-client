@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
-import { useCreateDoctorMutation } from '../../api';
 
 export const DoctorForm = () => {
   const [userData, setUserData] = useState({
     nombre: '',
     apellido: '',
-    cedula: '',
-    correo: '',
-    telefono: '',
     especialidad: '',
+    cedula: '',
+    telefono: '',
     genero: '',
+    correo: '',
   });
-
-  const { mutate: createDoctor, isLoading} = useCreateDoctorMutation();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserData((prevState) => ({
+    setUserData(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -29,10 +27,10 @@ export const DoctorForm = () => {
     event.preventDefault();
 
     try {
-      await createDoctor(userData);
-      console.log('Doctor creado');
+      await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
+      console.log('Doctor created successfully!');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error creating doctor:', error);
     }
 
     setUserData({
@@ -40,9 +38,9 @@ export const DoctorForm = () => {
       apellido: '',
       especialidad: '',
       cedula: '',
-      correo: '',
       telefono: '',
       genero: '',
+      correo: '',
     });
   };
 
@@ -106,7 +104,7 @@ export const DoctorForm = () => {
           value={userData.correo}
         />
       </form>
-      <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit} disabled={isLoading} />
+      <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
       <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
     </article>
   );
