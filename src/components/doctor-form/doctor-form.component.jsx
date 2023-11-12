@@ -46,7 +46,7 @@ export const DoctorForm = () => {
 
   return (
     <article className='m-5'>
-      <form onSubmit={handleSubmit} className='m-5 grid grid-cols-2 gap-5 w-full'>
+      <form onSubmit={handleSubmit} className='m-5 rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
         <InputComponent
           id='nombre'
           name='nombre'
