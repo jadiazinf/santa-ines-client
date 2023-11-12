@@ -3,8 +3,12 @@ import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
+import { creationDoctorSchema } from '../../validations/doctor-form.validations';
 
 export const DoctorForm = () => {
+
+  const validationSchema = creationDoctorSchema;
+
   const [userData, setUserData] = useState({
     nombre: '',
     apellido: '',
@@ -15,22 +19,43 @@ export const DoctorForm = () => {
     correo: '',
   });
 
-  const handleInputChange = (event) => {
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const handleInputChange = async (event) => {
     const { name, value } = event.target;
-    setUserData(prevState => ({
+    setUserData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
+
+    try {
+      await validationSchema.validateAt(name, { [name]: value });
+      setValidationErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    } catch (error) {
+      setValidationErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: error.message,
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      await validationSchema.validate(userData, { abortEarly: false });
       await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
-      console.log('Doctor created successfully!');
+      console.log('Doctor creado');
     } catch (error) {
-      console.error('Error creating doctor:', error);
+      if (error.inner) {
+        const errors = {};
+        error.inner.forEach((err) => {
+          errors[err.path] = err.message;
+        });
+        setValidationErrors(errors);
+      } else {
+        console.error('Error creando al doctor:', error);
+      }
     }
 
     setUserData({
@@ -54,6 +79,7 @@ export const DoctorForm = () => {
           type='text'
           onChange={handleInputChange}
           value={userData.nombre}
+          error={validationErrors.nombre}
         />
         <InputComponent
           id="apellido"
@@ -62,6 +88,7 @@ export const DoctorForm = () => {
           type="text"
           onChange={handleInputChange}
           value={userData.apellido}
+          error={validationErrors.apellido}
         />
         <InputComponent
           id="especialidad"
@@ -70,6 +97,7 @@ export const DoctorForm = () => {
           type="text"
           onChange={handleInputChange}
           value={userData.especialidad}
+          error={validationErrors.especialidad}
         />
         <InputComponent
           id="cedula"
@@ -78,6 +106,7 @@ export const DoctorForm = () => {
           type="text"
           onChange={handleInputChange}
           value={userData.cedula}
+          error={validationErrors.cedula}
         />
         <InputComponent
           id="telefono"
@@ -86,6 +115,7 @@ export const DoctorForm = () => {
           type="tel"
           onChange={handleInputChange}
           value={userData.telefono}
+          error={validationErrors.telefono}
         />
         <InputComponent
           id="genero"
@@ -94,6 +124,7 @@ export const DoctorForm = () => {
           type="text"
           onChange={handleInputChange}
           value={userData.genero}
+          error={validationErrors.genero}
         />
         <InputComponent
           id="correo"
@@ -102,6 +133,7 @@ export const DoctorForm = () => {
           type="email"
           onChange={handleInputChange}
           value={userData.correo}
+          error={validationErrors.correo}
         />
       </form>
       <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>

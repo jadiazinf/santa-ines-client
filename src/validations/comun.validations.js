@@ -15,3 +15,9 @@ export const passworValidation = Yup.string().min(8, 'La contraseña debe tener 
 export const confirmPasswordValidation = (identifier) => Yup.string().oneOf([Yup.ref(identifier), null], 'Las contraseñas no coinciden').required('Campo requerido');
 
 export const birthdateValidation = Yup.date().max(new Date(), 'La fecha de nacimiento no puede ser posterior a la fecha actual').min(new Date('1900-01-01'), 'La fecha de nacimiento no puede ser anterior al año 1900').required('Campo obligatorio');
+
+export const telefonoValidation = Yup.number('Solo números').typeError('Formato de número de teléfono no válido, solo se permiten números').integer('Formato de número de teléfono no valido').min(100000, 'Formato de número de teléfono no válido').max(9999999999, 'Formato de número de teléfono no válido').required('Campo obligatorio');
+
+export const especialidadValidation = Yup.string().min(3, 'Debe ser una especialidad válida').required('Campo obligatorio');
+
+export const generoValidation = Yup.string().required('Campo obligatorio');
