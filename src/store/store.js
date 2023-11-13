@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { appointmentsApi, doctorsApi, registerUserApi } from "../api";
+import { appointmentsApi, doctorsApi, patientApi, registerUserApi } from "../api";
 import { userApi } from "../api/user.api";
 import userSlice from "./reducers/user.reducer";
 import appointmentSlice from "./reducers/crearCita.reducer";
@@ -14,6 +14,7 @@ export const store = configureStore({
     [doctorsApi.reducerPath]: doctorsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [appointmentsApi.reducerPath]: appointmentsApi.reducer,
+    [patientApi.reducerPath]: patientApi.reducer,
     authenticatedUser: userSlice,
     createAppointment: appointmentSlice,
     saveDoctors: doctorsSlice,
@@ -25,6 +26,7 @@ export const store = configureStore({
                                         .concat(doctorsApi.middleware,
                                                 registerUserApi.middleware,
                                                 userApi.middleware,
-                                                appointmentsApi.middleware
+                                                appointmentsApi.middleware,
+                                                patientApi.middleware
                                                 )
 });
