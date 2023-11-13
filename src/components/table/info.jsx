@@ -4,7 +4,7 @@ import { fechaHora } from "../../helpers/calendar.helper";
 import { Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 import { DeleteIcon, EditIcon, EyeIcon } from "../../assets";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
-import { saveUsers } from "../../store/reducers/userAdmin.reducer";
+import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import toast from "react-hot-toast";
 import { detalleCita } from "../../store/reducers/detalleCita.reducer";
 
@@ -128,49 +128,34 @@ export const fetchUsers = async (dispatch, getAllUsers) => {
       dispatch(saveUsers(response.data));
     }
   } catch (error) {
-    console.error("Error fetching doctor appointments:", error);
+    console.error("Error captando a los usuarios del sistema:", error);
   }
 };
 
 export const renderUsersCells = (usuario, columnKey) => {
-  switch (columnKey) {
-    case "id":
-      return (
-        <p className="text-bold text-sm capitalize text-default-400">{usuario.ID}</p>
-      );
-    case "username":
-      return (
-        <p className="text-bold text-sm capitalize text-default-400">{usuario.username}</p>
-      );
-    case "password":
-      return (
-        <p className="text-bold text-sm capitalize text-default-400">{usuario.password}</p>
-      );
-    case "tipoUsuario":
-      return (
-        <p className="text-bold text-sm capitalize text-default-400">{usuario.user_type}</p>
-      );
-    case "actions":
-      return (
-        <div className="relative flex items-center gap-2">
-          <Tooltip content="Detalles" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <EyeIcon />
-            </span>
-          </Tooltip>
-          <Tooltip content="Editar Usuario" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <EditIcon />
-            </span>
-          </Tooltip>
-          <DeleteUserButton id={usuario.ID}/>
-        </div>
-      );
-      default:
-        return cellValue;
-      }
+  if(columnKey !== 'actions') {
+    return (
+      <p className="text-bold text-sm capitalize text-default-400">{usuario[columnKey]}</p>
+    );
+  }else{
+    return (
+      <div className="relative flex items-center gap-2">
+        <Tooltip content="Detalles" className="text-sm">
+          <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+            <EyeIcon />
+          </span>
+        </Tooltip>
+        <Tooltip content="Editar Usuario" className="text-sm">
+          <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+            <EditIcon />
+          </span>
+        </Tooltip>
+        <DeleteUserButton id={usuario.ID}/>
+      </div>
+    );
+  }
 };
-
+//TODO -> Tratar de crear un boton que sea reutilizable para todas las cosas de eliminar
 const DeleteUserButton = ({ id }) => {
   const dispatch = useDispatch();
   // const [ deleteAppointment, isLoading, isError ]= useDeleteAppointmentMutation();
@@ -216,4 +201,64 @@ const DeleteUserButton = ({ id }) => {
       </span>
     </Tooltip>
   );
+};
+
+export const fetchDoctors = async (dispatch, getAllDoctors) => {
+  try {
+    const response = await getAllDoctors();
+    if (response.data) {
+      dispatch(saveDoctors(response.data));
+    }
+  } catch (error) {
+    console.error("Error captando a los doctores del sistema:", error);
+  }
+};
+
+export const renderDoctorsCells = (doctor, columnKey) => {
+  if(columnKey === "cedula" ||columnKey === "especialidad" ||columnKey === "telefono") {
+    return (
+      <p className="text-bold text-sm capitalize text-default-400">{doctor[columnKey]}</p>
+    );
+  }
+  switch (columnKey) {
+    case "nombre":
+      return (
+        <p className="text-bold text-sm capitalize text-default-400">{doctor.nombre.cuerpo}</p>
+      );
+    case "apellido":
+      return (
+        <p className="text-bold text-sm capitalize text-default-400">{doctor.apellido.cuerpo}</p>
+      );
+    case "correo":
+      return (
+        <p className="text-bold text-sm capitalize text-default-400">{doctor.correo.correo}</p>
+      );
+    case "actions":
+      return (
+        <div className="relative flex items-center gap-2">
+          <Tooltip content="Detalles" className="text-sm">
+            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <EyeIcon />
+            </span>
+          </Tooltip>
+          <Tooltip content="Editar Usuario" className="text-sm">
+            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <EditIcon />
+            </span>
+          </Tooltip>
+          <DeleteUserButton id={doctor.cedula}/>
+        </div>
+      );
+    }
+};
+
+export const fetchPatients = async (dispatch, getAllPatients) => {
+  try {
+    const response = await getAllPatients();
+    if (response.data) {
+      dispatch(savePatients(response.data));
+    }
+  } catch (error) {
+    console.error("Error captando a los doctores del sistema:", error);
+  }
 };
