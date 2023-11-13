@@ -13,12 +13,8 @@ export const userApi = createApi({
         body: data
       })
     }),
-    getAllUsers: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_GET_ALL}`,
-        method: 'GET',
-        body: data
-      })
+    getUsers: builder.mutation({
+      query: () => `${import.meta.env.VITE_API_USER_GET_ALL}`
     }),
     getInfoUser: builder.mutation({
       query: (data) => ({
@@ -51,4 +47,4 @@ export const userApi = createApi({
   })
 });
 
-export const { useLoginUserMutation, useGetAllUsersMutation, useGetInfoUserMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation} = userApi;
+export const { useLoginUserMutation, useGetUsersMutation, useGetInfoUserMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation} = userApi;
