@@ -141,6 +141,7 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     setAvailableTimesInThisMonth(thisMonthTimesLength)
     setAvailableTimesInThisMonthForEachDay(thisMonthTimesEachDay)
   }, [currentMonth])
+
   return (
     <div className="flex flex-row justify-center items-center gap-2 m-10">
       {/* calendar implementation */}
@@ -325,10 +326,15 @@ let colStartClasses = [
 
 function convertirFecha(fecha) {
   const parsedDate = parseISO(fecha);
+  const referenceString = new Date().toString()
   // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
-  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
+  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
+  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25);
+
   return formattedDate;
 }
+// Nov 12 2023 19:35:50 GMT-0800 (Pacific Standard Time)
+
 
 function recorrerCitas(citas2) {
   const newArray = []
