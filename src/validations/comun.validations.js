@@ -4,9 +4,9 @@ export const firstNameValidation = Yup.string('Solo letras').min(8, 'El nombre d
 
 export const lastNameValidation = Yup.string('Solo letras').min(8, 'El apellido debe ser de almenos 8 caracteres').required('Campo obligatorio');
 
-export const usernameValidation = Yup.string().min(8, 'Nombre de usuario debe ser al menos de 8 caracteres').required('Campo obligatorio');
+export const usernameValidation = Yup.string().min(5, 'Nombre de usuario debe ser al menos de 5 caracteres').required('Campo obligatorio');
 
-export const especialidadValidation = Yup.string('Solo letras').min(8, 'El apellido debe ser de almenos 8 caracteres').required('Campo obligatorio');
+export const especialidadValidation = Yup.string('Solo letras').min(8, 'La especialidad debe ser de almenos 8 caracteres').required('Campo obligatorio');
 
 export const idValidation = Yup.number('Solo números').typeError('Formato de cédula no válido, solo se permiten números').integer('Formato de cédula no valido').min(100000, 'Formato de cédula no válido').max(9999999999, 'Formato de cédula no válido').required('Campo obligatorio');
 
@@ -14,7 +14,7 @@ export const addressValidation = Yup.string().min(3, 'Debe ser una dirección v�
 
 export const emailValidation = Yup.string().email('Debe ser un correo válido').required('Campo obligatorio');
 
-export const passworValidation = Yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('Campo obligatorio');
+export const passworValidation = Yup.string().min(5, 'La contraseña debe tener al menos 5 caracteres').required('Campo obligatorio');
 
 export const confirmPasswordValidation = (identifier) => Yup.string().oneOf([Yup.ref(identifier), null], 'Las contraseñas no coinciden').required('Campo requerido');
 
