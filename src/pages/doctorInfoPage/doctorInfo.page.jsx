@@ -52,7 +52,7 @@ export const DoctorInfoPage = () => {
         </div>
         <FilledButton text='Agendar Cita' onClick={() => onClick()} />
       </div>
-      <TabsDoctorsComponents columns={columns} tabs={tabs} />
+      <TabsDoctorsComponents columns={columns} tabs={tabs} firstTab={'citas'}/>
     </section>
   );
 }
