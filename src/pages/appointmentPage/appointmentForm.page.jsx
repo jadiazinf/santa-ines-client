@@ -1,6 +1,5 @@
 import React from 'react'
 import { AppointmentCreateForm } from '../../components'
-import { useLocation } from 'react-router-dom'
 
 export const AppointmentFormPage = ({title}) => {
   return (
