@@ -6,8 +6,8 @@ export const doctorsApi = createApi({
     baseUrl: import.meta.env.VITE_API_SERVER_BASE_URL
   }),
   endpoints: builder => ({
-    getDoctors: builder.query({
-      query: (page) => `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`
+    getDoctors: builder.mutation({
+      query: () => `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`
     }),
     getDoctors1: builder.mutation({
       query: (data) => ({
