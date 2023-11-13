@@ -329,7 +329,7 @@ function convertirFecha(fecha) {
   const referenceString = new Date().toString()
   // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
   // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
-  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25);
+  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25); //TODO -> Esto es para que se muestre la hora en el formato de la maquina
 
   return formattedDate;
 }
