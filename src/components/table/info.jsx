@@ -1,4 +1,4 @@
-import { useDeleteAppointmentMutation, useGetDoctorAppointmentsMutation } from "../../api";
+import { useDeleteAppointmentMutation, useDeleteDoctorMutation, useDeletePatientMutation, useDeleteUserMutation, useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
 import { useDispatch } from "react-redux";
 import { fechaHora } from "../../helpers/calendar.helper";
 import { Chip, Tooltip, useDisclosure } from "@nextui-org/react";
@@ -15,16 +15,20 @@ const statusColorMap = {
   Completada: "success",
 };
 
-export const fetchDoctorAppointments = async (id, dispatch, getDoctorAppointments) => {
-  try {
-    const response = await getDoctorAppointments({ id });
-    if (response.data) {
-      dispatch(saveAppointments(response.data));
-    }
-  } catch (error) {
-    console.error("Error fetching doctor appointments:", error);
-  }
+const deleteFunctions = {
+  'cita': useDeleteAppointmentMutation,
+  'usuario': useDeleteUserMutation,
+  'doctor': useDeleteDoctorMutation,
+  'paciente': useDeletePatientMutation
 };
+
+const fetchFunctions = {
+  'cita': useGetDoctorAppointmentsMutation,
+  'usuario': useGetUsersMutation,
+  'doctor': useGetDoctorsMutation,
+  'paciente': useGetPatientsMutation
+};
+
 const onClickOpen = (cita, dispatch) => {
   dispatch(detalleCita(cita));
 }
@@ -66,69 +70,12 @@ export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onO
               <EditIcon />
             </span>
           </Tooltip>
-          <DeleteAppointmentButton id={cita.id} id_doctor={id_doctor}/>
+          {/* <DeleteAppointmentButton id={cita.id} id_doctor={id_doctor}/> */}
+          <DeleteButton idObject={cita.id} dataType={'cita'} saveFunction={saveAppointments} id2={id_doctor.UUID} />
         </div>
       );
     default:
       return cellValue;
-  }
-};
-
-const DeleteAppointmentButton = ({ id, id_doctor}) => {
-  const dispatch = useDispatch();
-  const [ deleteAppointment, isLoading, isError ]= useDeleteAppointmentMutation();
-  const [ getDoctorAppointments ]= useGetDoctorAppointmentsMutation();
-
-  const handleClick = async (id) => {
-    try {
-      toast.promise(
-        new Promise((resolve, reject) => {
-          deleteAppointment({id: id})
-            .then((response) => {
-              if (response.data.value) {
-                getDoctorAppointments({id: 'ce90c180-c414-4176-b97c-fd11263b447e'})
-                .then((response) => {
-                  if (response.data) {
-                    dispatch(saveAppointments(response.data));
-                  }
-                })
-                resolve('¡Cita eliminada!');
-              } else {
-                reject(new Error(response.data.message));
-              }
-            })
-            .catch((error) => {
-              reject(new Error(error));
-            })
-        }),
-        {
-          loading: 'Cargando...',
-          success: (message) => message,
-          error: (error) => error.message,
-        }
-      );
-    } catch (error) {
-      console.error("Error al eliminar la cita:", error);
-    }
-  };
-
-  return (
-    <Tooltip  content="Eliminar Cita" className=" text-sm py-1 px-1 border bg-danger_blur text-danger rounded">
-      <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleClick(id)} >
-        <DeleteIcon />
-      </span>
-    </Tooltip>
-  );
-};
-
-export const fetchUsers = async (dispatch, getAllUsers) => {
-  try {
-    const response = await getAllUsers();
-    if (response.data) {
-      dispatch(saveUsers(response.data));
-    }
-  } catch (error) {
-    console.error("Error captando a los usuarios del sistema:", error);
   }
 };
 
@@ -139,78 +86,8 @@ export const renderUsersCells = (usuario, columnKey) => {
     );
   }else{
     return (
-      <div className="relative flex items-center gap-2">
-        <Tooltip content="Detalles" className="text-sm">
-          <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-            <EyeIcon />
-          </span>
-        </Tooltip>
-        <Tooltip content="Editar Usuario" className="text-sm">
-          <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-            <EditIcon />
-          </span>
-        </Tooltip>
-        <DeleteUserButton id={usuario.ID}/>
-      </div>
-    );
-  }
-};
-//TODO -> Tratar de crear un boton que sea reutilizable para todas las cosas de eliminar
-const DeleteUserButton = ({ id }) => {
-  const dispatch = useDispatch();
-  // const [ deleteAppointment, isLoading, isError ]= useDeleteAppointmentMutation();
-  // const [ getDoctorAppointments ]= useGetDoctorAppointmentsMutation();
-
-  // const handleClick = async (id) => {
-  //   try {
-  //     toast.promise(
-  //       new Promise((resolve, reject) => {
-  //         deleteAppointment({id: id})
-  //           .then((response) => {
-  //             if (response.data.value) {
-  //               getDoctorAppointments({id: 'ce90c180-c414-4176-b97c-fd11263b447e'})
-  //               .then((response) => {
-  //                 if (response.data) {
-  //                   dispatch(saveAppointments(response.data));
-  //                 }
-  //               })
-  //               resolve('¡Cita eliminada!');
-  //             } else {
-  //               reject(new Error(response.data.message));
-  //             }
-  //           })
-  //           .catch((error) => {
-  //             reject(new Error(error));
-  //           })
-  //       }),
-  //       {
-  //         loading: 'Cargando...',
-  //         success: (message) => message,
-  //         error: (error) => error.message,
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error("Error al eliminar usuario:", error);
-  //   }
-  // };
-
-  return (
-    <Tooltip  content="Eliminar Usuario" className=" text-sm py-1 px-1 border bg-danger_blur text-danger rounded">
-      <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => console.log('se elimina el usuario')}>
-        <DeleteIcon />
-      </span>
-    </Tooltip>
-  );
-};
-
-export const fetchDoctors = async (dispatch, getAllDoctors) => {
-  try {
-    const response = await getAllDoctors();
-    if (response.data) {
-      dispatch(saveDoctors(response.data));
-    }
-  } catch (error) {
-    console.error("Error captando a los doctores del sistema:", error);
+        <ActionsButtons id={usuario.username} dataType={'usuario'} saveData={saveUsers}/>
+      );
   }
 };
 
@@ -235,30 +112,102 @@ export const renderDoctorsCells = (doctor, columnKey) => {
       );
     case "actions":
       return (
-        <div className="relative flex items-center gap-2">
-          <Tooltip content="Detalles" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <EyeIcon />
-            </span>
-          </Tooltip>
-          <Tooltip content="Editar Usuario" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <EditIcon />
-            </span>
-          </Tooltip>
-          <DeleteUserButton id={doctor.cedula}/>
-        </div>
+        <ActionsButtons id={doctor.cedula} dataType={'doctor'} saveData={saveDoctors}/>
       );
     }
 };
 
-export const fetchPatients = async (dispatch, getAllPatients) => {
+export const renderPatientsCells = (patient, columnKey) => {
+  switch (columnKey) {
+    case "birthday":
+      const fechaFormateada = new Date(patient[columnKey]).toISOString().split('T')[0];
+
+      return ( <p className="text-bold text-sm capitalize text-default-400">{fechaFormateada}</p> )
+    case "actions":
+      return (
+        <ActionsButtons id={patient.id_number} dataType={'paciente'} saveData={savePatients}/>
+      );
+    default:
+      return <p className="text-bold text-sm capitalize text-default-400">{patient[columnKey]}</p>
+  }
+};
+
+
+const ActionsButtons = ({ id, dataType, saveData}) => {
+  return (
+    <div className="relative flex items-center gap-2">
+      <Tooltip content="Detalles" className="text-sm">
+        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+          <EyeIcon />
+        </span>
+      </Tooltip>
+      <Tooltip content={`Editar ${dataType}`} className="text-sm">
+        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+          <EditIcon />
+        </span>
+      </Tooltip>
+      <DeleteButton idObject={id} dataType={dataType} saveFunction={saveData} />
+    </div>
+  )
+}
+
+const DeleteButton = ({ idObject, dataType, saveFunction, id2}) => {
+  const selectedDeleteFunction = deleteFunctions[dataType];
+  const selectedfetchFunction = fetchFunctions[dataType];
+
+  const [deleteFunction] = selectedDeleteFunction();
+  const [fetchFunction] = selectedfetchFunction();
+
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    deleteData(dispatch, deleteFunction, saveFunction, fetchFunction, dataType, {id: idObject}, id2)
+  }
+
+  return (
+    <Tooltip  content={`Eliminar ${dataType}`} className=" text-sm py-1 px-1 border bg-danger_blur text-danger rounded">
+      <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => handleClick()}>
+        <DeleteIcon />
+      </span>
+    </Tooltip>
+  );
+};
+
+export const fetchData = async (dispatch, fetchFunction, saveFunction, dataType, bodyData) => {
   try {
-    const response = await getAllPatients();
+    let response;
+    if (bodyData) {
+      const { id } = bodyData;
+      response = await fetchFunction({ id });
+    } else {
+      response = await fetchFunction();
+      console.log("🚀 ~ file: info.jsx:37 ~ fetchData ~ response:", response)
+    }
+
     if (response.data) {
-      dispatch(savePatients(response.data));
+      dispatch(saveFunction(response.data));
     }
   } catch (error) {
-    console.error("Error captando a los doctores del sistema:", error);
+    console.error(`Error al capturar ${dataType}`, error);
+  }
+};
+
+export const deleteData = async (dispatch, deleteFunction, saveFunction, fetchFunctionAct, dataType, bodyData, id2) => {
+  try {
+    const { id } = bodyData;
+    let response = await deleteFunction({ id });
+    console.log("🚀 ~ file: info.jsx:52 ~ deleteData ~ response:", response)
+    //TODO -> AcA se deberia eliminar el doctor
+    if(response.error){
+      toast.error(response.error.data);
+    }else {
+      if(id2){
+        fetchData(dispatch, fetchFunctionAct, saveFunction, dataType, {id: id2});
+      }else{
+        console.log('segundo id', dataType)
+        fetchData(dispatch, fetchFunctionAct, saveFunction, dataType);
+      }
+    }
+  } catch (error) {
+    console.error(`Error al capturar ${dataType}`, error);
   }
 };
