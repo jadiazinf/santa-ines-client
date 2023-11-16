@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure } from "@nextui-org/react";
 import { useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
 import { useDispatch } from "react-redux";
-import { fetchDoctorAppointments, fetchDoctors, fetchUsers, renderAppointmentsCells, renderDoctorsCells, renderUsersCells } from "./info";
+import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
 import { editarCitaDate, editarCitaDescripcion, editarId, editarStatus } from "../../store/reducers/editarCita.reducer";
 import { ModalInfoComponent } from "../modal_info_appointment/modal_info_appointment.component";
+import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
+import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
@@ -17,27 +19,9 @@ const fetchFunctions = {
 export const TableComponent = ({columns, id_doctor, action, data, path}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let getDoctorAppointments;
-  let getAllUsers;
-  let getDoctors;
-  let getPatients;
+
   const selectedFetchFunction = fetchFunctions[action];
-  switch (action) {
-    case 'appointments':
-      [getDoctorAppointments] = selectedFetchFunction();
-      break;
-    case 'users':
-      [getAllUsers] = selectedFetchFunction();
-      break;
-    case 'doctors':
-      [getDoctors] = selectedFetchFunction();
-      break;
-    case 'patients':
-      [getPatients] = selectedFetchFunction();
-      break;
-    default:
-      break;
-  }
+  const [fetchFunction] = selectedFetchFunction();
 
   const onClick = (id, date, description, status) => {
     dispatch(editarId(id));
@@ -50,15 +34,16 @@ export const TableComponent = ({columns, id_doctor, action, data, path}) => {
   useEffect(() => {
     switch (action) {
       case 'appointments':
-      fetchDoctorAppointments(id_doctor.UUID, dispatch, getDoctorAppointments)
+        fetchData(dispatch, fetchFunction, saveAppointments, 'appointments', {id: id_doctor.UUID})
         break;
       case 'users':
-        fetchUsers(dispatch, getAllUsers)
+        fetchData(dispatch, fetchFunction, saveUsers, 'users')
         break;
       case 'doctors':
-        fetchDoctors(dispatch, getDoctors)
+        fetchData(dispatch, fetchFunction, saveDoctors, 'doctors')
         break;
       case 'patients':
+        fetchData(dispatch, fetchFunction, savePatients, 'patients')
         break;
       default:
         break;
@@ -78,9 +63,9 @@ export const TableComponent = ({columns, id_doctor, action, data, path}) => {
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No posee citas registradas."} items={data} >
+        <TableBody emptyContent={"No posee datos registrados aún."} items={data} >
           {(item, index) => (
-            <TableRow key={index || item.ID} className={`hover:bg-table_hover h-16`}>
+            <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-table_hover h-16`}>
               {(columnKey) =>
                 <TableCell>
                   {contentSelection(action, item, columnKey, id_doctor, onClick, onOpen, dispatch)}
@@ -102,6 +87,8 @@ const contentSelection = (action, item, columnKey, id_doctor, onClick, onOpen, d
       return content = renderUsersCells(item, columnKey);
     case 'doctors':
       return content = renderDoctorsCells(item, columnKey);
+    case 'patients':
+      return content = renderPatientsCells(item, columnKey);
     default:
       return content = <div>Contenido por defecto</div>;
   }
