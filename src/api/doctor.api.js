@@ -7,7 +7,12 @@ export const doctorsApi = createApi({
   }),
   endpoints: builder => ({
     getDoctors: builder.mutation({
-      query: () => `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`
+      query: () => {
+        return {
+          url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,
+          method: 'GET',
+        }
+      }
     }),
     getDoctors1: builder.mutation({
       query: (data) => ({
@@ -22,7 +27,18 @@ export const doctorsApi = createApi({
         body: data
       })
     }),
+    deleteDoctor: builder.mutation({  //TODO -> DANIEL -> NO funciona eliminar a doctor
+      query: (data) => {
+        const cedula = {cedula: data.id}
+        return {
+          url: `${import.meta.env.VITE_API_DOCTOR_DELETE}`,
+          method: 'DELETE',
+          body: cedula
+        };
+      }
+    }),
+
   })
 });
 
-export const { useGetDoctorsMutation, useGetDoctors1Mutation, useUpdateDoctorMutation } = doctorsApi;
+export const { useGetDoctorsMutation, useGetDoctors1Mutation, useUpdateDoctorMutation, useDeleteDoctorMutation } = doctorsApi;
