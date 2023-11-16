@@ -7,7 +7,11 @@ export const patientApi = createApi({
   }),
   endpoints: builder => ({
     getPatients: builder.mutation({
-      query: () => `${import.meta.env.VITE_API_PATIENT}`
+      query: () => {
+        return {
+          url: `${import.meta.env.VITE_API_PATIENT}`
+        }
+      }
     }),
     getPatient: builder.query({
       query: (id) => `${import.meta.env.VITE_API_PATIENT}${id}`
@@ -27,10 +31,12 @@ export const patientApi = createApi({
       })
     }),
     deletePatient: builder.mutation({
-      query: (id) => ({
-        url: `${import.meta.env.VITE_API_PATIENT}${id}`,
-        method: 'DELETE'
-      })
+      query: ({id}) => {
+        return {
+          url: `${import.meta.env.VITE_API_PATIENT}${id}`,
+          method: 'DELETE',
+        };
+      }
     }),
   }),
 });
