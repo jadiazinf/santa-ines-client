@@ -84,11 +84,11 @@ const contentSelection = (action, item, columnKey, id_doctor, onClick, onOpen, d
     case 'appointments':
       return content = renderAppointmentsCells(item, columnKey, id_doctor, onClick, onOpen,dispatch);
     case 'users':
-      return content = renderUsersCells(item, columnKey);
+      return content = renderUsersCells(item, columnKey, onOpen, dispatch);
     case 'doctors':
-      return content = renderDoctorsCells(item, columnKey);
+      return content = renderDoctorsCells(item, columnKey, onOpen, dispatch);
     case 'patients':
-      return content = renderPatientsCells(item, columnKey);
+      return content = renderPatientsCells(item, columnKey, onOpen, dispatch);
     default:
       return content = <div>Contenido por defecto</div>;
   }
