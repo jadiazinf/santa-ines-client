@@ -6,7 +6,7 @@ import { DeleteIcon, EditIcon, EyeIcon } from "../../assets";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import toast from "react-hot-toast";
-import { detalleCita } from "../../store/reducers/detalleCita.reducer";
+import { detalleCita, detalleDoctor, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
 
 const statusColorMap = {
   Activa: "primary",
@@ -29,8 +29,23 @@ const fetchFunctions = {
   'paciente': useGetPatientsMutation
 };
 
-const onClickOpen = (cita, dispatch) => {
-  dispatch(detalleCita(cita));
+const onClickOpen = (object, dispatch, dataType) => {
+  switch (dataType) {
+    case 'cita':
+      dispatch(detalleCita(object));
+      break;
+    case 'usuario':
+      dispatch(detalleUsuario(object));
+      break;
+    case 'doctor':
+      dispatch(detalleDoctor(object));
+      break;
+    case 'paciente':
+      dispatch(detallePaciente(object));
+      break;
+    default:
+      break;
+  }
 }
 
 export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onOpen, dispatch) => {
@@ -61,7 +76,7 @@ export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onO
       return (
         <div className="relative flex items-center gap-2">
           <Tooltip content="Detalles" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => { onClickOpen(cita, dispatch); onOpen(); }}>
+            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => { onClickOpen(cita, dispatch, 'cita'); onOpen(); }}>
               <EyeIcon />
             </span>
           </Tooltip>
@@ -79,19 +94,19 @@ export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onO
   }
 };
 
-export const renderUsersCells = (usuario, columnKey) => {
+export const renderUsersCells = (usuario, columnKey, onOpen, dispatch) => {
   if(columnKey !== 'actions') {
     return (
       <p className="text-bold text-sm capitalize text-default-400">{usuario[columnKey]}</p>
     );
   }else{
     return (
-        <ActionsButtons id={usuario.username} dataType={'usuario'} saveData={saveUsers}/>
+        <ActionsButtons id={usuario.username} dataType={'usuario'} saveData={saveUsers} object={usuario} onOpen={onOpen} dispatch={dispatch}/>
       );
   }
 };
 
-export const renderDoctorsCells = (doctor, columnKey) => {
+export const renderDoctorsCells = (doctor, columnKey, onOpen, dispatch) => {
   if(columnKey === "cedula" ||columnKey === "especialidad" ||columnKey === "telefono") {
     return (
       <p className="text-bold text-sm capitalize text-default-400">{doctor[columnKey]}</p>
@@ -112,12 +127,12 @@ export const renderDoctorsCells = (doctor, columnKey) => {
       );
     case "actions":
       return (
-        <ActionsButtons id={doctor.cedula} dataType={'doctor'} saveData={saveDoctors}/>
+        <ActionsButtons id={doctor.cedula} dataType={'doctor'} saveData={saveDoctors} object={doctor} onOpen={onOpen} dispatch={dispatch}/>
       );
     }
 };
 
-export const renderPatientsCells = (patient, columnKey) => {
+export const renderPatientsCells = (patient, columnKey, onOpen, dispatch) => {
   switch (columnKey) {
     case "birthday":
       const fechaFormateada = new Date(patient[columnKey]).toISOString().split('T')[0];
@@ -125,7 +140,7 @@ export const renderPatientsCells = (patient, columnKey) => {
       return ( <p className="text-bold text-sm capitalize text-default-400">{fechaFormateada}</p> )
     case "actions":
       return (
-        <ActionsButtons id={patient.id_number} dataType={'paciente'} saveData={savePatients}/>
+        <ActionsButtons id={patient.id_number} dataType={'paciente'} saveData={savePatients} object={patient} onOpen={onOpen} dispatch={dispatch}/>
       );
     default:
       return <p className="text-bold text-sm capitalize text-default-400">{patient[columnKey]}</p>
@@ -133,11 +148,11 @@ export const renderPatientsCells = (patient, columnKey) => {
 };
 
 
-const ActionsButtons = ({ id, dataType, saveData}) => {
+const ActionsButtons = ({ id, dataType, saveData, object, onOpen, dispatch}) => {
   return (
     <div className="relative flex items-center gap-2">
       <Tooltip content="Detalles" className="text-sm">
-        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+        <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => { onClickOpen(object, dispatch, dataType); onOpen(); }}>
           <EyeIcon />
         </span>
       </Tooltip>
