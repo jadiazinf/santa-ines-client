@@ -38,10 +38,9 @@ export const userApi = createApi({
       })
     }),
     deleteUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_UPDATE}`,       //Verificar como enviar el nombre del usuario, para concatenar en la url
+      query: ({ id }) => ({
+        url: `${import.meta.env.VITE_API_USER_DELETE}${id}`,
         method: 'DELETE',
-        body: data
       })
     }),
   })
