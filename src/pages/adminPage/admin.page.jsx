@@ -30,32 +30,18 @@ export const AdminPage = () => {
 
   const [getDoctors] = useGetDoctorsMutation();
   const [getAllUsers] = useGetUsersMutation();
-  //TODO -> Preguntar por que no funciona el url de pacientes en el servidor
-  // const [getPatients] = useGetPatientsMutation(); 
-  
+  const [getPatients] = useGetPatientsMutation();
+
   useEffect(() => {
-    getAllUsers()//FUNCIONANDO
-      .then((response) => {
-        dispatch(saveUsers(response.data));
+    Promise.all([getAllUsers(), getDoctors(), getPatients()])
+      .then(([usersResponse, doctorsResponse, patientsResponse]) => {
+        dispatch(saveUsers(usersResponse.data));
+        dispatch(saveDoctors(doctorsResponse.data));
+        dispatch(savePatients(patientsResponse.data));
       })
       .catch((error) => {
-        reject(new Error(response.data.message));
-      })
-    getDoctors()//FUNCIONANDO
-      .then((response) => {
-        dispatch(saveDoctors(response.data));
-      })
-      .catch((error) => {
-        reject(new Error(response));
-      })
-    // getPatients()
-    //   .then((response) => {
-    //     console.log("🚀 ~ file: admin.page.jsx:50 ~ .then ~ response:", response)
-    //     dispatch(savePatients(response.data));
-    //   })
-    //   .catch((error) => {
-    //     reject(new Error(response.data.message));
-    //   })
+        console.error("Error fetching data:", error);
+      });
   }, [])
 
   const columnsUsers = [
@@ -77,21 +63,21 @@ export const AdminPage = () => {
   ]
 
   const columnsPatients = [
-    {name: "Cedúla", uid: "cedula"},
-    {name: "Nombre", uid: "nombre"},
-    {name: "Apellido", uid: "apellido"},
-    {name: "Fecha de nacimiento", uid: "f_nacimiento"},
-    {name: "Teléfono", uid: "telefono"},
-    {name: "Correo", uid: "correo"},
+    {name: "Cedúla", uid: "id_number"},
+    {name: "Nombre", uid: "name"},
+    {name: "Apellido", uid: "lastname"},
+    {name: "Fecha de nacimiento", uid: "birthday"},
+    {name: "Teléfono", uid: "phone_number"},
+    {name: "Correo", uid: "email"},
     {name: "Acciones", uid: "actions"},
   ]
 
   const { doctors, users, patients } = useSelector( state => state.userAdmin)
 
   const tabs = [
-    { id: "users", label: "Usuarios", component: <TableComponent columns={columnsUsers} data={users} action={'users'} path={'../appointmentForm/update/user'}/> },
-    { id: "doctors", label: "Doctores", component: <TableComponent columns={columnsDoctors} data={doctors} action={'doctors'} path={'../appointmentForm/update/doctors'}/> },
-    // { id: "citas", label: "Citas", component: <TableComponent columns={columnsAppointments} id_doctor={doctor.id} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/> },
+    { id: "users", label: "Usuarios", component: <TableComponent key={1} columns={columnsUsers} data={users} action={'users'} path={'../appointmentForm/update/user'}/> },
+    { id: "doctors", label: "Doctores", component: <TableComponent key={2} columns={columnsDoctors} data={doctors} action={'doctors'} path={'../appointmentForm/update/doctors'}/> },
+    { id: "patients", label: "Pacientes", component: <TableComponent columns={columnsPatients}  data={patients} action={'patients'} path={'../appointmentForm/update/patients'}/> },
   ];
 
 
