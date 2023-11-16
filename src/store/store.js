@@ -6,7 +6,7 @@ import appointmentSlice from "./reducers/crearCita.reducer";
 import doctorsSlice from "./reducers/doctors.reducer";
 import userAdminSlice from "./reducers/userAdmin.reducer";
 import appointmentEditSlice from "./reducers/editarCita.reducer";
-import appointmentDetalleSlice from "./reducers/detalleCita.reducer";
+import detalleSlice from "./reducers/detalleCita.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +20,7 @@ export const store = configureStore({
     saveDoctors: doctorsSlice,
     userAdmin: userAdminSlice,
     editAppointment: appointmentEditSlice,
-    detalleAppointment: appointmentDetalleSlice,
+    detalles: detalleSlice,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
                                         .concat(doctorsApi.middleware,
