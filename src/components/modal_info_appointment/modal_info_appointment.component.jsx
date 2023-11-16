@@ -48,85 +48,42 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange }) => {
   )
 }
 
+
+//TODO -> Este componente se puede mejorar para que no se repita tanto codigo
 const DetalleCita = () => {
   const { cita } = useSelector( state => state.detalles)
   const { doctor } = useSelector( state => state.saveDoctors)
   var dateObject2 = new Date(cita.date);
+  const name = `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}}`
+  const date = `${fechaHora(cita.date, 'fecha')} a las ${' '} ${fechaHora(cita.date, 'hora')}`;
   return (
     <>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Id: </h1>
-        <p>
-          {cita.id}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Descripción:</h1>
-        <p className='break-words w-[280px]'>
-          {cita.descripcion}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Fecha de creación:</h1>
-        <p>
-          {capitalizeFirstLetter(
-            format(dateObject2, "yyyy'-'MM'-'dd", {
+      <DetalleItem key={'Id'} titulo={'Id'} valor={cita.id} />
+      <DetalleItem key={'Descripción'} titulo={'Descripción'} valor={cita.descripcion} />
+      <DetalleItem
+        key={'Fecha de creación'}
+        titulo={'Fecha de creación'}
+        valor={capitalizeFirstLetter(
+          format(dateObject2, "yyyy'-'MM'-'dd", {
             locale: es,
-            }).toString()
-          )}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Fecha de actividad:</h1>
-        <p className='space-x-2'>
-          {fechaHora(cita.date, 'fecha')} a las {' '}
-          {fechaHora(cita.date, 'hora')}
-        </p>
-      </div>
+          }).toString()
+          )} />
+      <DetalleItem key={'Fecha de actividad'} titulo={'Fecha de actividad'} valor={date} />
       <div className='flex flex-row space-x-2'>
         <h1 className='font-bold'>Estado:</h1>
         <Chip className="capitalize" color={statusColorMap[cita.status]} size="sm" variant="flat">
           {cita.status}
         </Chip>
       </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>ID paciente:</h1>
-        <p>
-          {cita.patientId}
-        </p>
-      </div>
+      <DetalleItem key={'ID paciente'} titulo={'ID paciente'} valor={cita.patientId} />
+
       <div className='border w-full'></div>
       <h1 className="py-4  flex-initial flex flex-col gap-1 font-bold text-lg text-primary underline">Información del doctor:</h1>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Nombre:</h1>
-        <p>
-          {doctor.nombre.cuerpo} {doctor.apellido.cuerpo}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Cédula:</h1>
-        <p>
-          {doctor.cedula}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Especialidad:</h1>
-        <p>
-          {doctor.especialidad}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Correo:</h1>
-        <p>
-          {doctor.correo.correo}
-        </p>
-      </div>
-      <div className='flex flex-row space-x-2'>
-        <h1 className='font-bold'>Teléfono:</h1>
-        <p>
-          {doctor.telefono}
-        </p>
-      </div>
+      <DetalleItem key={'Nombre'} titulo={'Nombre'} valor={name}/>
+      <DetalleItem key={'Cédula'} titulo={'Cédula'} valor={doctor.cedula}/>
+      <DetalleItem key={'Especialidad'} titulo={'Especialidad'} valor={doctor.especialidad}/>
+      <DetalleItem key={'Correo'} titulo={'Correo'} valor={doctor.correo.correo}/>
+      <DetalleItem key={'Teléfono'} titulo={'Teléfono'} valor={doctor.telefono}/>
     </>
   )
 }
