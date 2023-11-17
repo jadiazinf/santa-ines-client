@@ -58,14 +58,14 @@ export const TableComponent = ({columns, id_doctor, action, data, path}) => {
       <Table aria-label="tabla" className="">
         <TableHeader columns={columns} className="mb-5">
           {(column) => (
-            <TableColumn className="bg-gray-100 " key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
+            <TableColumn className="bg-gray-200 " key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
               {column.name}
             </TableColumn>
           )}
         </TableHeader>
         <TableBody emptyContent={"No posee datos registrados aún."} items={data} >
           {(item, index) => (
-            <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-table_hover h-16`}>
+            <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-gray-100 h-16`}>
               {(columnKey) =>
                 <TableCell>
                   {contentSelection(action, item, columnKey, id_doctor, onClick, onOpen, dispatch)}
