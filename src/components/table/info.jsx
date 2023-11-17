@@ -208,18 +208,20 @@ export const fetchData = async (dispatch, fetchFunction, saveFunction, dataType,
 export const deleteData = async (dispatch, deleteFunction, saveFunction, fetchFunctionAct, dataType, bodyData, id2) => {
   try {
     const { id } = bodyData;
-    let response = await deleteFunction({ id });
-    console.log("🚀 ~ file: info.jsx:52 ~ deleteData ~ response:", response)
-    //TODO -> AcA se deberia eliminar el doctor
-    if(response.error){
-      toast.error(response.error.data);
-    }else {
-      if(id2){
-        fetchData(dispatch, fetchFunctionAct, saveFunction, dataType, {id: id2});
-      }else{
-        console.log('segundo id', dataType)
-        fetchData(dispatch, fetchFunctionAct, saveFunction, dataType);
+    await toast.promise(
+      deleteFunction({ id }),
+      {
+        loading: `Eliminando ${dataType}...`,
+        success: 'Ha sido eliminado con éxito!',
+        error: `Error al eliminar al ${dataType}`,
       }
+    );
+    
+    if(id2){
+      fetchData(dispatch, fetchFunctionAct, saveFunction, dataType, {id: id2});
+    }else{
+      console.log('segundo id', dataType)
+      fetchData(dispatch, fetchFunctionAct, saveFunction, dataType);
     }
   } catch (error) {
     console.error(`Error al capturar ${dataType}`, error);
