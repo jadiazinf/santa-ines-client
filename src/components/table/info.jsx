@@ -195,7 +195,6 @@ export const fetchData = async (dispatch, fetchFunction, saveFunction, dataType,
       response = await fetchFunction({ id });
     } else {
       response = await fetchFunction();
-      console.log("🚀 ~ file: info.jsx:37 ~ fetchData ~ response:", response)
     }
 
     if (response.data) {
