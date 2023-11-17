@@ -3,13 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const patientApi = createApi({
   reducerPath: 'patients',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_SERVER_BASE_URL
+    baseUrl: 'https://santainesapi.onrender.com'
   }),
   endpoints: builder => ({
     getPatients: builder.mutation({
       query: () => {
         return {
-          url: `${import.meta.env.VITE_API_PATIENT}`
+          url: `/patient/`,
+          method: 'GET',
         }
       }
     }),
