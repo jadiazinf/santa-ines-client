@@ -1,5 +1,5 @@
 import React from 'react'
-import { DoctorInfo, FilledButton, TabsDoctorsComponents } from '../../components';
+import { DoctorInfo, FilledButton, TabsComponent } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { TableComponent } from '../../components/table/table.component';
@@ -13,21 +13,6 @@ export const DoctorInfoPage = () => {
   const onClick = () => {
     navigate(`../appointmentForm/create`);
   }
-
-  //Esto es para crear la tabla de los usuarios, ahora que la tabla es mas reutilizable
-  // const columns = [
-  //   {name: "Id", uid: "id"},
-  //   {name: "Username", uid: "username"},
-  //   {name: "Password", uid: "password"},
-  //   {name: "Tipo usuario", uid: "tipoUsuario"},
-  //   {name: "Acciones", uid: "actions"},
-  // ];
-
-  // const tabs = [
-  //   { id: "citas", label: "Citas", component: <TableComponent columns={columns} id_doctor={doctor.id} data={users} action={'users'}/> },
-  //   { id: "información", label: "Información", component: <DoctorInfo info={doctor} /> },
-  // ];
-
 
   const columns = [
     {name: "Id Cita", uid: "idCita"},
@@ -52,7 +37,7 @@ export const DoctorInfoPage = () => {
         </div>
         <FilledButton text='Agendar Cita' onClick={() => onClick()} />
       </div>
-      <TabsDoctorsComponents columns={columns} tabs={tabs} firstTab={'citas'}/>
+      <TabsComponent columns={columns} tabs={tabs} firstTab={'citas'}/>
     </section>
   );
 }
