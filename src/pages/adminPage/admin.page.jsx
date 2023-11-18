@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { DoctorInfo, FilledButton, TabsDoctorsComponents } from '../../components'
+import { TabsComponent } from '../../components'
 import { TableComponent } from '../../components/table/table.component'
 import { useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from '../../api'
 import { saveDoctors, savePatients, saveUsers } from '../../store/reducers/userAdmin.reducer'
@@ -90,7 +90,7 @@ export const AdminPage = () => {
         </div>
         {/* <FilledButton text='Agendar Cita' onClick={() => onClick()} /> */}
       </div>
-      <TabsDoctorsComponents tabs={tabs} firstTab={'users'}/>
+      <TabsComponent tabs={tabs} firstTab={'users'}/>
     </section>
   );
 }
