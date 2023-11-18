@@ -62,11 +62,14 @@ const DashboardWithNavbar = ({ username }) => {
     <section className="w-full">
       {pathname.includes('/appointmentForm/create') || pathname.includes('/appointmentForm/update') ? null : <NavbarRecepcionistaComponent />}
       {username === 'admin'
-        ? <AdminPage />
+        ? <Routes>
+            <Route index element={<AdminPage />} />
+            <Route path="perfil" element={<h1>Esta es la parte del perfil del administrador</h1>} />
+          </Routes>
         : <Routes>
           <Route index element={<DashboardPage />} />
-          <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage />} />
           <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
+          <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage />} />
           <Route path="appointmentForm/create" element={<AppointmentFormPage title={'Creación'} />} />
           <Route path="appointmentForm/update" element={<AppointmentFormPage title={'Edición'} />} />
         </Routes>
