@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CheckboxGroup } from '@nextui-org/react'
 import { CustomCheckbox } from './customCheckbox';
-import { crearCitaDescripcion, crearCitaDoctor } from '../../store/reducers/crearCita.reducer';
+import { crearCitaDoctor } from '../../store/reducers/crearCita.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { savedoctor } from '../../store/reducers/doctors.reducer';
 
