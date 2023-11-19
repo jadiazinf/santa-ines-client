@@ -1,3 +1,4 @@
+export * from './Perfil/Perfil.component';
 export * from './doctorInfo/doctorInfo.component';
 export * from './tabs/tabs.component';
 export * from './Navbar-recepcionista/navbar_recepcionista.component';
