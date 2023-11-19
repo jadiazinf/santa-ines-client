@@ -5,7 +5,7 @@ import { notAuthenticatedUserRoutes,
           regularUserRoutes,
           superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
-import { AdminPage, AppointmentFormPage, DashboardPage, DoctorInfoPage, IndexPage, LoginPage } from "./pages";
+import { AdminPage, AppointmentFormPage, DashboardPage, DoctorInfoPage, IndexPage, LoginPage, PerfilPage } from "./pages";
 import { NavbarRecepcionistaComponent } from "./components/Navbar-recepcionista/navbar_recepcionista.component";
 
 export const App = () => {
@@ -64,11 +64,11 @@ const DashboardWithNavbar = ({ username }) => {
       {username === 'admin'
         ? <Routes>
             <Route index element={<AdminPage />} />
-            <Route path="perfil" element={<h1>Esta es la parte del perfil del administrador</h1>} />
+            <Route path="perfil" element={<PerfilPage action={'admin'}/>} />
           </Routes>
         : <Routes>
           <Route index element={<DashboardPage />} />
-          <Route path="perfil" element={<h1>kakjsjkdc</h1>} />
+          <Route path="perfil" element={<PerfilPage action={'user'}/>} />
           <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage />} />
           <Route path="appointmentForm/create" element={<AppointmentFormPage title={'Creación'} />} />
           <Route path="appointmentForm/update" element={<AppointmentFormPage title={'Edición'} />} />
