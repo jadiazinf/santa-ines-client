@@ -1,6 +1,6 @@
 export * from './userInfo/userInfo.component';
 export * from './buttons/backbutton.component';
-export * from './Perfil/Perfil.component';
+export * from './Perfil/perfil.component';
 export * from './doctorInfo/doctorInfo.component';
 export * from './tabs/tabs.component';
 export * from './Navbar-recepcionista/navbar_recepcionista.component';
