@@ -24,7 +24,7 @@ export const PerfilPage = ({ action}) => {
         <ButtonBack  style={''}/>
         <div>
           <h1 className='text-primary text-3xl w-[400px]'>Edicion de {action}</h1>
-          <p className=''>Seleccione el doctor a consultar.</p>
+          <p className=''>Seleccione los datos que desee editar.</p>
         </div>
       </div>
       <PerfilComponent/>
