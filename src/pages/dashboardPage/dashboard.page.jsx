@@ -27,7 +27,7 @@ export const DashboardPage = () => {
   const [getDoctors1, { isLoading, isError }] = useGetDoctors1Mutation();
 
   useEffect(() => {
-    getDoctors1(userName)
+    getDoctors1(userName) //TODO -> RECORDAR CAMBIAR ESTO PARA QUE ME TRAIGA LOS DOCTORES DE UN USUARIO EN CONCRETO
       .then((response) => {
         dispatch(savedoctors(response.data));
       })
