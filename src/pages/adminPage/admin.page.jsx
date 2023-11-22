@@ -1,33 +1,15 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { TabsComponent } from '../../components'
 import { TableComponent } from '../../components/table/table.component'
 import { useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from '../../api'
 import { saveDoctors, savePatients, saveUsers } from '../../store/reducers/userAdmin.reducer'
+import { capitalizeFirstLetter } from '../../helpers/capitalize.helper'
 
 export const AdminPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const  { userName } = useParams();
-  // const { doctor } = useSelector( state => state.saveDoctors)
-
-
-  // const onClicks = e => {
-  //   if (Object.keys(doctor).length === 0) {
-  //     toast.error('Debe seleccionar un doctor');
-  //   } else {
-  //     e.preventDefault();
-  //     if(doctor) {
-  //       navigate(`info-doctor/${doctor.cedula}`);
-  //     }
-  //   }
-  // }
-
-  // const onClick = () => {
-  //   navigate(`../appointmentForm/create`);
-  // }
-
   const [getDoctors] = useGetDoctorsMutation();
   const [getAllUsers] = useGetUsersMutation();
   const [getPatients] = useGetPatientsMutation();
@@ -85,7 +67,7 @@ export const AdminPage = () => {
     <section className="flex flex-col items-center">
       <div className='flex justify-between w-[80%]'>
         <div className=''>
-          <h1 className='text-primary text-3xl '>{toCamelCase(userName)}</h1>
+          <h1 className='text-primary text-3xl '>{capitalizeFirstLetter(userName)}</h1>
           <p className=''>Por favor, seleccione la pestaña que desee consultar</p>
         </div>
         {/* <FilledButton text='Agendar Cita' onClick={() => onClick()} /> */}
@@ -96,7 +78,3 @@ export const AdminPage = () => {
 }
 
 
-function toCamelCase(str) {
-  return str.replace(/[-_](.)/g, (_, char) => char.toUpperCase())
-            .replace(/^(.)/, (_, char) => char.toUpperCase());
-}
