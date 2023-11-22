@@ -64,11 +64,11 @@ const DashboardWithNavbar = ({ username }) => {
       {username === 'admin'
         ? <Routes>
             <Route index element={<AdminPage />} />
-            <Route path="perfil" element={<PerfilPage action={'admin'}/>} />
+            <Route path="perfil" element={<PerfilPage action={'administrador'}/>} />
           </Routes>
         : <Routes>
           <Route index element={<DashboardPage />} />
-          <Route path="perfil" element={<PerfilPage action={'user'}/>} />
+          <Route path="perfil" element={<PerfilPage action={'usuario'}/>} />
           <Route path="info-doctor/:doctor_id" element={<DoctorInfoPage />} />
           <Route path="appointmentForm/create" element={<AppointmentFormPage title={'Creación'} />} />
           <Route path="appointmentForm/update" element={<AppointmentFormPage title={'Edición'} />} />
