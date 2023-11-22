@@ -17,11 +17,12 @@ export const userApi = createApi({
       query: () => `${import.meta.env.VITE_API_USER_GET_ALL}`
     }),
     getInfoUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_GET_INFO}`,     //Verificar como enviar el nombre del usuario, para concatenar en la url
-        method: 'GET',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_USER_GET_INFO}${data}`,
+          method: 'GET',
+        };
+      }
     }),
     createUser: builder.mutation({
       query: (data) => ({
@@ -31,11 +32,13 @@ export const userApi = createApi({
       })
     }),
     updateUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_UPDATE}`,       //Verificar como enviar el nombre del usuario, para concatenar en la url
-        method: 'PUT',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_USER_UPDATE}${data.userName}`,
+          method: 'PUT',
+          body: data.selectedFields
+        };
+      }
     }),
     deleteUser: builder.mutation({
       query: ({ id }) => ({
