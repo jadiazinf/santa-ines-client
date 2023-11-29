@@ -63,8 +63,8 @@ export const UserForm = () => {
           value={userData.user_type}
         />
       </form>
-      <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
+      <FilledButton text='Crear' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={120} textSize={15} onClick='' />
     </article>
   );
 };

@@ -5,10 +5,11 @@ export const FilledButton = props => {
   const buttonClasses = classNames(
     'bg-primary',
     'hover:bg-green-600',
-    'text-white font-bold',
+    'text-white font-poppins',
     'py-2',
     'px-4',
     'rounded',
+    'text-primary',
   );
 
   return (
