@@ -51,7 +51,7 @@ export const UserForm = () => {
           id="password"
           name="password"
           placeholder="Contraseña"
-          type="text"
+          type="password"
           onChange={handleInputChange}
           value={userData.password}
         />
