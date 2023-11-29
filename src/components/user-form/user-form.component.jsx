@@ -3,6 +3,7 @@ import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
+import { SelectComponent } from '../select-tag/select-tag';
 
 export const UserForm = () => {
   const [userData, setUserData] = useState({
@@ -37,7 +38,7 @@ export const UserForm = () => {
 
   return (
     <article className='m-5'>
-      <form onSubmit={handleSubmit} className='m-5 rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-1 gap-5 w-fit'>
+      <form onSubmit={handleSubmit} className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-1 gap-5 w-fit'>
         <InputComponent
           id='username'
           name='username'
@@ -54,13 +55,18 @@ export const UserForm = () => {
           onChange={handleInputChange}
           value={userData.password}
         />
-        <InputComponent
-          id="user_type"
-          name="user_type"
-          placeholder="Tipo de usuario"
-          type="text"
+        <SelectComponent
+          id='user_type'
+          name='user_type'
+          placeholder='Tipo de usuario'
           onChange={handleInputChange}
           value={userData.user_type}
+          options={[
+            { value: 'paciente', label: 'Paciente' },
+            { value: 'asistente', label: 'Asistente' },
+            { value: 'doctor', label: 'Doctor' },
+            { value: 'superUsuario', label: 'Super Usuario' }
+          ]}
         />
       </form>
       <FilledButton text='Crear' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
