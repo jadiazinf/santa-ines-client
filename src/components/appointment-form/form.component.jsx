@@ -27,7 +27,6 @@ export const AppointmentCreateForm = ({ action }) => {
   if(action === 'Edición'){
     idEditable = useSelector(state => state.editAppointment.id)
     dateEditable = useSelector(state => state.editAppointment.date)
-    console.log("🚀 ~ file: form.component.jsx:30 ~ AppointmentCreateForm ~ dateEditable:", dateEditable)
     descripcionEditable = useSelector(state => state.editAppointment.descripcion)
     statusEditable = useSelector(state => state.editAppointment.status)
   }
@@ -46,7 +45,6 @@ export const AppointmentCreateForm = ({ action }) => {
             const info = {
               patientId: "4169009",
               "doctorId": doctorStored.id.UUID,
-              // doctorId: 'ce90c180-c414-4176-b97c-fd11263b447e',
               appointmentDate: dateStored,
               status: action !== 'Edición' ? 'Activa' : statusEditable,
               description: descriptionStored,

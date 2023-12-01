@@ -39,7 +39,7 @@ export const DoctorInfo = ({ info }) => {
   const [updateDoctor, { isLoading, isError }] = useUpdateDoctorMutation();
 
   return(
-    <article className='rounded-lg bg-gray-50 shadow-md p-5'>
+    <section className='rounded-lg bg-gray-50 shadow-md p-5'>
       <form onSubmit={formik.handleSubmit}  className='grid grid-cols-2 gap-5 w-full'>
         <InputComponent
           placeholder='Nombre'
@@ -106,6 +106,6 @@ export const DoctorInfo = ({ info }) => {
         />
         <FilledButton text={!isLoading ? 'Actualizar' : 'Cargando...' } block={isLoading} type='submit'/>
       </form>
-    </article>
+    </section>
   )
 }

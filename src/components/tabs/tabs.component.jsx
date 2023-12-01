@@ -1,11 +1,11 @@
-import { DatatableComponent, DoctorInfo } from '../../components';
+import { DatatableComponent, DoctorInfo } from '..';
 import { useState } from 'react';
 import { TableComponent } from '../table/table.component';
 import { useSelector } from 'react-redux';
 
-export const TabsDoctorsComponents = ({columns, tabs}) => {
+export const TabsComponent = ({tabs, firstTab}) => {
 const { doctor } = useSelector( state => state.saveDoctors)
-const [activeTab, setActiveTab] = useState("citas");
+const [activeTab, setActiveTab] = useState(firstTab);
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };

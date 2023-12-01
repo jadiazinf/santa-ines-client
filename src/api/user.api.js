@@ -13,19 +13,16 @@ export const userApi = createApi({
         body: data
       })
     }),
-    getAllUsers: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_GET_ALL}`,
-        method: 'GET',
-        body: data
-      })
+    getUsers: builder.mutation({
+      query: () => `${import.meta.env.VITE_API_USER_GET_ALL}`
     }),
     getInfoUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_GET_INFO}`,     //Verificar como enviar el nombre del usuario, para concatenar en la url
-        method: 'GET',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_USER_GET_INFO}${data}`,
+          method: 'GET',
+        };
+      }
     }),
     createUser: builder.mutation({
       query: (data) => ({
@@ -35,20 +32,21 @@ export const userApi = createApi({
       })
     }),
     updateUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_UPDATE}`,       //Verificar como enviar el nombre del usuario, para concatenar en la url
-        method: 'PUT',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_USER_UPDATE}${data.userName}`,
+          method: 'PUT',
+          body: data.selectedFields
+        };
+      }
     }),
     deleteUser: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_USER_UPDATE}`,       //Verificar como enviar el nombre del usuario, para concatenar en la url
+      query: ({ id }) => ({
+        url: `${import.meta.env.VITE_API_USER_DELETE}${id}`,
         method: 'DELETE',
-        body: data
       })
     }),
   })
 });
 
-export const { useLoginUserMutation, useGetAllUsersMutation, useGetInfoUserMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation} = userApi;
+export const { useLoginUserMutation, useGetUsersMutation, useGetInfoUserMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation} = userApi;

@@ -70,7 +70,6 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     end: endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 1 }),
   }), [firstDayCurrentMonth])
 
-
   // Horas disponibles po cada dia, uno en formato de numbers y otro en Dates
   const [availableTimesInThisMonth, setAvailableTimesInThisMonth] = useState([])
   const [availableTimesInThisMonthForEachDay, setAvailableTimesInThisMonthForEachDay] = useState([])
@@ -142,6 +141,7 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
     setAvailableTimesInThisMonth(thisMonthTimesLength)
     setAvailableTimesInThisMonthForEachDay(thisMonthTimesEachDay)
   }, [currentMonth])
+
   return (
     <div className="flex flex-row justify-center items-center gap-2 m-10">
       {/* calendar implementation */}
@@ -293,18 +293,22 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
           : null
         }
         <span className="flex items-center w-full justify-center gap-1">
-          <span>
-            Horarios disponible para citas el
-            <span className="text-orange-950 font-semibold pl-1">
-              {capitalizeFirstLetter(
-                format(selectedDay, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
-                  locale: es,
-                }).toString()
-              )}
-            </span>
-          </span>
+
+        {getDay(selectedDay) === 0 || getDay(selectedDay) === 6
+          ? <span className="text-red-800 font-semibold">No hay citas disponibles para los fines de semana</span>
+          :  <span>
+                Horarios disponible para citas el
+                <span className="text-orange-950 font-semibold pl-1">
+                  {capitalizeFirstLetter(
+                    format(selectedDay, "EEEE dd 'de' MMMM 'de' yyyy'.'", {
+                      locale: es,
+                    }).toString()
+                  )}
+                </span>
+              </span>
+        }
         </span>
-        <Horas_disponibles freeTimes={freeTimes}/>
+        {getDay(selectedDay) === 0 || getDay(selectedDay) === 6 ?  null : <Horas_disponibles freeTimes={freeTimes}/>}
       </div>
     </div>
   )
@@ -322,9 +326,15 @@ let colStartClasses = [
 
 function convertirFecha(fecha) {
   const parsedDate = parseISO(fecha);
-  const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
+  const referenceString = new Date().toString()
+  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
+  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
+  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25); //TODO -> Esto es para que se muestre la hora en el formato de la maquina
+
   return formattedDate;
 }
+// Nov 12 2023 19:35:50 GMT-0800 (Pacific Standard Time)
+
 
 function recorrerCitas(citas2) {
   const newArray = []

@@ -14,7 +14,11 @@ export const appointmentsApi = createApi({
       })
     }),
     getDoctorAppointments: builder.mutation({
-      query: ({ id }) => `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
+      query: ({ id }) => {
+        return {
+          url: `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR}${id}`,
+        };
+      }
     }),
     deleteAppointment: builder.mutation({
       query: ({id}) => ({
