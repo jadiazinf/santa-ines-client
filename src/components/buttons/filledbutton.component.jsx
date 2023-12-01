@@ -3,15 +3,16 @@ import classNames from 'classnames';
 
 export const FilledButton = props => {
   const buttonClasses = classNames(
-    'm-5',
     'bg-primary',
-    'hover:bg-primary',
-    'text-dimWhite',
-    'font-poppins',
+    'hover:bg-green-600',
+    'text-white font-bold',
+    'py-2',
+    'px-4',
+    'rounded',
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}}>
+    <button className={`${props.class ? props.class : buttonClasses} ${props.block ? 'cursor-not-allowed opacity-50' : ''}`} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}} disabled={props.block}>
       {props.text}
     </button>
   );

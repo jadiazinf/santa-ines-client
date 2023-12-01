@@ -1,4 +1,7 @@
-export * from './Navbar/navbar.component'
+export * from './doctorInfo/doctorInfo.component';
+export * from './tabs-doctor/tabsDoctors.component';
+export * from './Navbar-recepcionista/navbar_recepcionista.component';
+export * from './Navbar-all-users/navbar_all_users.component';
 export * from './datatables/datatable.component';
 export * from './footer/footer.component';
 export * from './inputs/input.component';
@@ -9,8 +12,11 @@ export * from './register-form/register-form.component';
 export * from './login-form/login-form.component';
 export * from './checkbox/checkbox.component';
 export * from './vanguardia/vanguardia.component';
-export { DoctorSelector } from './doctorSelector/doctorSelector.component';
+export * from './doctorSelector/doctorSelector.component';
 export * from './calendar/Calendar_Horas_Container.component';
 export * from './appointment-form/appointment-form.component';
 export * from './appointment-form/form.component';
 export * from './modal-confirmation/modal-confirmation';
+export * from './servicios/servicios.component';
+export * from './footer/footer.component';
+export * from './modal_info_appointment/modal_info_appointment.component';

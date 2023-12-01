@@ -1,8 +1,9 @@
+import { NavLink } from "react-router-dom";
 import { teamSI, calendar, teamIcon, cash } from "../../assets"
 
 const buttonsActions =[
   {
-    text: "Agenda tu cita",
+    text: "Consultar citas",
     icon: calendar,
     color: "bg-primary mm:left-[15%] ",
   },
@@ -41,24 +42,30 @@ export const VanguiardiaComponent = () => {
           <img src={teamSI} alt="footer_img" className="object-cover w-full mm:min-h-[300px] ss:min-h-[400px] md:min-h-[500px] max-h-[500px]" />
         </div>
       </div>
-        <div className="flex flex-row justify-center items-center ">
-          {buttonsActions.map((action, index) => (
-            <ActionButton  text={action.text} icon={action.icon} color={`${action.color}`} key={index} link={action.link}/>
-          ))}
-        </div>
+      <div className="flex flex-row justify-center items-center">
+        {buttonsActions.map((action, index) => (
+          action.text !== 'Consultar citas' ? (
+            <a href={action.link} target="_blank" key={index} className={`${action.color} absolute z-10 mm:py-3 mm:px-5 text-white mm:text-[12px] ss:text-[16px] md:text-[20px] rounded-[10px] mm:top-[385px] ss:top-[480px] md:top-[580px] hover:animate-bounce cursor-pointer`}>
+              <ActionButton text={action.text} icon={action.icon} color={`${action.color}`} key={index} link={action.link} />
+            </a>
+          ) : (
+            <NavLink to='/consultar-citas' key={index}  className={`${action.color} absolute z-10 mm:py-3 mm:px-5 text-white mm:text-[12px] ss:text-[16px] md:text-[20px] rounded-[10px] mm:top-[385px] ss:top-[480px] md:top-[580px] hover:animate-bounce cursor-pointer`}>
+              <ActionButton text={action.text} icon={action.icon} color={`${action.color}`} key={index} link={action.link} />
+            </NavLink>
+          )
+        ))}
+      </div>
     </section>
   )
 }
 
-
-
 const ActionButton = (props) => {
   return (
-    <a href={props.link} target="_blank" key={props.index} className={`${props.color} absolute z-10 mm:py-3 mm:px-5 text-white mm:text-[12px] ss:text-[16px] md:text-[20px] rounded-[10px] mm:top-[385px] ss:top-[480px] md:top-[580px] hover:animate-bounce cursor-pointer`}>
-      <div className="flex flex-row justify-center items-center">
+    <>
+      <div className="flex flex-row justify-center items-center" >
         <p>{props.text}</p>
         <img src={props.icon} alt="icon"  className="w-[20px] ml-3"/>
       </div>
-    </a>
+    </>
   );
 };

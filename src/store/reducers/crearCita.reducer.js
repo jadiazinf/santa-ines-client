@@ -5,9 +5,10 @@ const initialState = {
   date: '',
   descripcion: '',
   descripcionError: true,
+  appointments: [],
 }
 
-const appointmentReducer = createSlice({
+const appointmentSlice = createSlice({
   name: 'crearCita',
   initialState,
   reducers: {
@@ -22,10 +23,13 @@ const appointmentReducer = createSlice({
     },
     descripcionError: (state, action) => {
       state.descripcionError = action.payload;
-    }
+    },
+    saveAppointments: (state, action) => {
+      state.appointments = action.payload;
+    },
   }
 })
 
-export const {  crearCitaDoctor, crearCitaDate, crearCitaDescripcion, descripcionError } = appointmentReducer.actions;
-export default appointmentReducer.reducer;
+export const { crearCitaDoctor, crearCitaDate, crearCitaDescripcion, descripcionError, saveAppointments } = appointmentSlice.actions;
+export default appointmentSlice.reducer;
 

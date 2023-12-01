@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import { idValidation, passworValidation } from './comun.validations';
+import { passworValidation, usernameValidation } from './comun.validations';
 
 export const loginUserSchema = Yup.object({
-  id: idValidation,
+  username: usernameValidation,
   password: passworValidation,
 });

@@ -4,42 +4,47 @@ import { registerAppointmentSchema } from "../../validations";
 import { useDispatch } from "react-redux";
 import { crearCitaDescripcion, descripcionError } from "../../store/reducers/crearCita.reducer";
 import { capitalizeFirstLetter } from "../../helpers/capitalize.helper";
+import { useEffect } from "react";
 
-export const AppointmentForm = () => {
+export const AppointmentForm = ({ edited, descripcionEditable}) => {
   const dispatch = useDispatch();
 
-  const initialValues = {
-    descripcion: '',
-    appointmentDate: '',
-  }
+  useEffect(() => {
+    if(edited){
+      dispatch(crearCitaDescripcion(capitalizeFirstLetter(descripcionEditable)));
+      dispatch(descripcionError(false));
+    }
+  }, [edited])
 
-  // Función para actualizar el estado local cuando se cambia un campo
-  //Creo que esta logica no se esta manejando de la mejor manera, pero funciona
-  //Se puede intentar mejorar
-  const handleInputChange = e => {
+  const handleDescripcionChange = (e) => {
+    formik.handleChange(e);
     const { value } = e.target;
-    if(!errors.descripcion){
+    if(formik.errors.descripcion || value.length < 20){
+      dispatch(descripcionError(true));
+    } else {
       dispatch(descripcionError(false));
       dispatch(crearCitaDescripcion(capitalizeFirstLetter(value)));
-    } else {
-      dispatch(descripcionError(true));
     }
   };
 
-  const {handleChange, handleBlur, handleSubmit, touched, errors} = useFormik({initialValues, validationSchema: registerAppointmentSchema});
+  const formik = useFormik({
+    initialValues: {
+      descripcion: descripcionEditable || '' ,
+      appointmentDate: '',
+    },
+    validationSchema: registerAppointmentSchema,
+  });
 
   return (
-    <form className="m-10">
+    <form className="m-10 mt-36">
       <InputComponent
-        id='descripcion'
-        name='descripcion'
-        type='text'
         placeholder='Descripción'
-        onChange={e => {
-          handleChange(e);
-          handleInputChange(e);
-        }} onBlur={handleBlur}/>
-      { touched.descripcion && errors.descripcion ? (<div className="ml-2 mt- mr-2 mb-2 text-red-500">{errors.descripcion}</div>) : null }
+        label='descripcion'
+        name='descripcion'
+        value={formik.values.descripcion}
+        onChange={handleDescripcionChange}
+        error={formik.errors.descripcion}
+      />
     </form>
   );
 }
