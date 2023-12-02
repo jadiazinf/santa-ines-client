@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ButtonBack, DoctorInfo, FilledButton, TabsComponent } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 
 export const DoctorInfoPage = () => {
+  const [activeTab, setActiveTab] = useState('citas');
   const { appointments } = useSelector( state => state.createAppointment)
   const { users } = useSelector( state => state.userAdmin)
   const { doctor } = useSelector( state => state.saveDoctors)
@@ -41,7 +42,7 @@ export const DoctorInfoPage = () => {
         </div>
         <FilledButton text='Agendar Cita' onClick={() => onClick()} />
       </div>
-      <TabsComponent columns={columns} tabs={tabs} firstTab={'citas'}/>
+      <TabsComponent columns={columns} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
     </section>
   );
 }
