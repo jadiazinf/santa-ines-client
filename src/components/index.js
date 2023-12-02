@@ -1,3 +1,6 @@
+export * from './table/table.component';
+export * from './select-tag/select-tag';
+export * from './user-form/user-form.component';
 export * from './userInfo/userInfo.component';
 export * from './buttons/backbutton.component';
 export * from './Perfil/perfil.component';
