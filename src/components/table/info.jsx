@@ -110,7 +110,7 @@ export const renderUsersCells = (usuario, columnKey, onOpen, dispatch) => {
     );
   }else{
     return (
-        <ActionsButtons id={usuario.username} dataType={'usuario'} saveData={saveUsers} object={usuario} onOpen={onOpen} dispatch={dispatch}/>
+        <ActionsButtons id={usuario.username} dataType={'usuario'} saveData={saveUsers} object={usuario} onOpen={onOpen} dispatch={dispatch} />
       );
   }
 };
@@ -136,7 +136,7 @@ export const renderDoctorsCells = (doctor, columnKey, onOpen, dispatch) => {
       );
     case "actions":
       return (
-        <ActionsButtons id={doctor.cedula} dataType={'doctor'} saveData={saveDoctors} object={doctor} onOpen={onOpen} dispatch={dispatch}/>
+        <ActionsButtons id={doctor.cedula} dataType={'doctor'} saveData={saveDoctors} object={doctor} onOpen={onOpen} dispatch={dispatch} />
       );
     }
 };
@@ -149,7 +149,7 @@ export const renderPatientsCells = (patient, columnKey, onOpen, dispatch) => {
       return ( <p className="text-bold text-sm capitalize text-default-400">{fechaFormateada}</p> )
     case "actions":
       return (
-        <ActionsButtons id={patient.id_number} dataType={'paciente'} saveData={savePatients} object={patient} onOpen={onOpen} dispatch={dispatch}/>
+        <ActionsButtons id={patient.id_number} dataType={'paciente'} saveData={savePatients} object={patient} onOpen={onOpen} dispatch={dispatch} />
       );
     default:
       return <p className="text-bold text-sm capitalize text-default-400">{patient[columnKey]}</p>
