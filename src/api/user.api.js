@@ -33,13 +33,10 @@ export const userApi = createApi({
     }),
     updateUser: builder.mutation({
       query: (data) => {
-        if(data.selectedFields){
-          data = data.selectedFields
-        }
         return {
-          url: `${import.meta.env.VITE_API_USER_UPDATE}${data.userName || data.username}`,
+          url: `${import.meta.env.VITE_API_USER_UPDATE}${data.userName}`,
           method: 'PUT',
-          body: data
+          body: data.selectedFields
         };
       }
     }),
