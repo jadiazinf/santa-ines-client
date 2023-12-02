@@ -6,7 +6,7 @@ import { DeleteIcon, EditIcon, EyeIcon } from "../../assets";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import toast from "react-hot-toast";
-import { detalleCita, detalleDoctor, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
+import { detalleCita, detalleDoctor, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
 
 const statusColorMap = {
   Activa: "primary",
@@ -42,6 +42,15 @@ const onClickOpen = (object, dispatch, dataType) => {
       break;
     case 'paciente':
       dispatch(detallePaciente(object));
+      break;
+    case 'editarusuario':
+      dispatch(detalleUsuario({object, dataType}));
+      break;
+    case 'editardoctor':
+      dispatch(detalleDoctor2({object, dataType}));
+      break;
+    case 'editarpaciente':
+      dispatch(detallePaciente({object, dataType}));
       break;
     default:
       break;
@@ -157,7 +166,7 @@ const ActionsButtons = ({ id, dataType, saveData, object, onOpen, dispatch}) => 
         </span>
       </Tooltip>
       <Tooltip content={`Editar ${dataType}`} className="text-sm">
-        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+        <span className="text-lg text-default-400 cursor-pointer active:opacity-50"  onClick={() => { onClickOpen(object, dispatch, 'editar'+dataType); onOpen(); }}>
           <EditIcon />
         </span>
       </Tooltip>
