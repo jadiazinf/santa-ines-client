@@ -24,11 +24,24 @@ export const UserForm = ({ info, acction, onClose, handleClick, setReset, object
     onSubmit: (values) => {
       toast.promise(
         new Promise((resolve, reject) => {
-          const dataToSent = {
-            username: values.username,
-            password: values.contrasena,
-            user_type: values.userType,
-          };
+          let dataToSent = {};
+          if (acction === 'Crear') {
+            dataToSent = {
+              username: values.username,
+              password: values.contrasena,
+              user_type: values.userType,
+            };
+          }else{
+            const selectedFields = {
+              username: values.username,
+              password: values.contrasena,
+              user_type: values.userType,
+            };
+            dataToSent = {
+              userName: object.Usuario,
+              selectedFields,
+            }
+          }
           mutationFunction(dataToSent)
             .then((response) => {
               if (response.error) {
