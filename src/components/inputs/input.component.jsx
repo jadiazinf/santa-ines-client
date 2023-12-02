@@ -30,6 +30,7 @@ export const InputComponent = (props) => {
             onChange={onChange}
             onBlur={handleInputBlur}
             value={value}
+            autoComplete="off"
           />
         </div>
       </div>
