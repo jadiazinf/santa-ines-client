@@ -16,11 +16,15 @@ const statusColorMap = {
   Completada: "success",
 };
 
+const capitalizeWords = ['Tipo_usuario', 'Nombre', 'Apellido', 'Especialidad', 'Género', 'Dirección']
+
 export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
   const dispatch = useDispatch();
   const { accion } = useSelector( state => state.detalles)
   const detalles = ['cita', 'usuario', 'doctor', 'paciente'];
-  const acciones = ['crearUsuario', 'crearDoctor', 'crearPaciente'];
+  const creaciones = ['crearUsuario', 'crearDoctor', 'crearPaciente'];
+  const ediciones = ['editarusuario', 'editardoctor', 'editarpaciente'];
+
 
 
   const handleClick = () => {
@@ -34,7 +38,8 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
           {(onClose) => (
             <>
               { detalles.includes(accion) ? <ModalViewInfoComponent accion={accion} handleClick={handleClick} onClose={onClose}/> : null}
-              { acciones.includes(accion) ? <ModalActionsComponent accion={accion} handleClick={handleClick} onClose={onClose} setReset={setReset}/> : null}
+              { creaciones.includes(accion) ? <ModalCreacionesComponent accion={accion} handleClick={handleClick} onClose={onClose} setReset={setReset}/> : null}
+              { ediciones.includes(accion) ? <ModalEdicionesComponent accion={accion} handleClick={handleClick} onClose={onClose} setReset={setReset} dispatch={dispatch}/> : null}
             </>
           )}
         </ModalContent>
@@ -43,13 +48,45 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
   )
 }
 
-const ModalActionsComponent = ({ accion, handleClick, onClose, setReset }) => {
+const ModalCreacionesComponent = ({ accion, handleClick, onClose, setReset }) => {
   const subString = accion.substring("crear".length)
   return(
     <>
       <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Creación de {subString}:</ModalHeader>
       <ModalBody>
-        { accion === 'crearUsuario' ? <UserForm acction={'crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
+        { accion === 'crearUsuario' ? <UserForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
+        {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
+        {/* { accion === 'crearPaciente' ? <PacienteForm /> : null } */}
+      </ModalBody>
+    </>
+  )
+}
+
+const ModalEdicionesComponent = ({ accion, handleClick, onClose, setReset }) => {
+  const subString = accion.substring("editar".length)
+  let object = {}
+  switch (subString) {
+    case 'usuario':
+      const { usuario } = useSelector( state => state.detalles)
+      object = usuario
+      break;
+    case 'doctor':
+      const { doctor } = useSelector( state => state.detalles)
+      object = doctor
+      break;
+    case 'paciente':
+      const { paciente } = useSelector( state => state.detalles)
+      object = paciente
+      break;
+    default:
+      break;
+  }
+
+  return(
+    <>
+      <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Edición de {subString.charAt(0).toUpperCase() + subString.slice(1)}:</ModalHeader>
+      <ModalBody>
+        { accion === 'editarusuario' ? <UserForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
         {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
         {/* { accion === 'crearPaciente' ? <PacienteForm /> : null } */}
       </ModalBody>
@@ -156,11 +193,12 @@ const DetallePaciente = () => {
   return <>{renderizarDetalles()}</>;
 }
 
-
-
-const DetalleItem = ({ titulo, valor }) => (
-  <div className='flex flex-row space-x-2'>
-    <h1 className='font-bold'>{titulo}:</h1>
-    <p>{valor}</p>
-  </div>
-);
+const DetalleItem = ({ titulo, valor }) => {
+  const capitalized = capitalizeWords.includes(titulo)
+  return (
+    <div className='flex flex-row space-x-2'>
+      <h1 className='font-bold'>{titulo}:</h1>
+      {capitalized ? <p>{capitalizeFirstLetter(valor)}</p> : <p>{valor}</p>}
+    </div>
+  )
+}
