@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { TableComponent } from '../table/table.component';
 import { useSelector } from 'react-redux';
 
-export const TabsComponent = ({tabs, firstTab}) => {
+export const TabsComponent = ({tabs, activeTab, setActiveTab}) => {
 const { doctor } = useSelector( state => state.saveDoctors)
-const [activeTab, setActiveTab] = useState(firstTab);
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
@@ -33,19 +32,3 @@ const [activeTab, setActiveTab] = useState(firstTab);
     </div>
   )
 }
-
-const InputComponentPrueba = ({ label, name, value, onChange, error }) => {
-  return (
-    <div className='flex flex-col relative'>
-      <label>{label}:</label>
-      <input
-        className='w-full text-center px-2 py-2 border-1 border-gray-400 bg-gray-200 rounded outline-none'
-        type={label === 'Correo' ? 'email' : 'text'}
-        name={name}
-        value={value}
-        onChange={onChange}
-        />
-      {error && <span className='text-red-600 text-xs'>{error}</span>}
-    </div>
-  );
-};
