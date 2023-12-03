@@ -4,7 +4,8 @@ const initialState = {
   id: '',
   date: '',
   descripcion: '',
-  status: ''
+  status: '',
+  paciente: '',
 }
 
 const appointmentEditSlice = createSlice({
@@ -23,9 +24,12 @@ const appointmentEditSlice = createSlice({
     editarStatus: (state, action) => {
       state.status = action.payload;
     },
+    editarPaciente: (state, action) => {
+      state.paciente = action.payload;
+    },
   }
 })
 
-export const { editarId, editarCitaDate, editarCitaDescripcion, editarStatus } = appointmentEditSlice.actions;
+export const { editarId, editarCitaDate, editarCitaDescripcion, editarStatus, editarPaciente } = appointmentEditSlice.actions;
 export default appointmentEditSlice.reducer;
 

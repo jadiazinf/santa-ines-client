@@ -90,7 +90,7 @@ export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onO
             </span>
           </Tooltip>
           <Tooltip content="Editar Cita" className="text-sm">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => onClick(cita.id, cita.appointmentDate, cita.description, 'Actualizada')}>
+            <span className="text-lg text-default-400 cursor-pointer active:opacity-50" onClick={() => onClick(cita.id, cita.appointmentDate, cita.description, cita.patientId, 'Actualizada')}>
               <EditIcon />
             </span>
           </Tooltip>
