@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Calendar, AppointmentForm, FilledButton, UnfilledButton } from "../../components";
+import { Calendar, AppointmentForm, FilledButton, UnfilledButton, PatientSelector } from "../../components";
 import { Steps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationComponent from '../confirmation-appointment/confirmationApointment.component';
@@ -8,7 +8,6 @@ import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '../.
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { crearCitaDate, crearCitaDescripcion, crearPatient, descripcionError } from '../../store/reducers/crearCita.reducer';
-import { PatientSelector } from '../doctorSelector/patientSelector.component';
 
 export const AppointmentCreateForm = ({ action }) => {
   const [componentToShow, setComponentToShow] = useState(0)
