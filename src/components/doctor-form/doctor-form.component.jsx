@@ -46,7 +46,7 @@ export const DoctorForm = () => {
 
   return (
     <article className='m-5'>
-      <form onSubmit={handleSubmit} className='m-5 rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
+      <form onSubmit={handleSubmit} className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
         <InputComponent
           id='nombre'
           name='nombre'
@@ -104,7 +104,7 @@ export const DoctorForm = () => {
           value={userData.correo}
         />
       </form>
-      <FilledButton text='Aceptar' buttonHeight={40} buttonWidth={125} textSize={15} onClick={handleSubmit}/>
+      <FilledButton text='Aceptar' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
       <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick='' />
     </article>
   );
