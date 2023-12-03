@@ -6,14 +6,13 @@ import { store } from './store';
 import './index.css';
 import {NextUIProvider} from "@nextui-org/react";
 import { BrowserRouter } from 'react-router-dom';
-import { PatientForm } from './components/patient-form/patient-form.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <NextUIProvider>
         <BrowserRouter>
-          <PatientForm />
+          <App />
         </BrowserRouter>
       </NextUIProvider>
     </Provider>
