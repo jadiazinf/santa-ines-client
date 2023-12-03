@@ -33,8 +33,9 @@ export const confirmPasswordValidation = (identifier) => Yup.string().oneOf([Yup
 
 export const birthdateValidation = Yup.date().max(new Date(), 'La fecha de nacimiento no puede ser posterior a la fecha actual').min(new Date('1900-01-01'), 'La fecha de nacimiento no puede ser anterior al año 1900').required('Campo obligatorio');
 
-export const phoneValidation = Yup.string().matches(/^\d{11}$/, 'Número de teléfono no válido').required('Campo obligatorio');
-
+export const phoneValidation = Yup.string()
+  .matches(/^(0424|0414|0416|0412)\d{7}$/, 'Válidos (0424 | 0414 | 0416 | 0412)')
+  .required('Campo obligatorio');
 export const cedulaValidation = Yup.string().min(8, 'La cédula debe tener al menos 8 caracteres').required('Campo obligatorio');
 
 export const generoValidation = Yup.string().oneOf(['M', 'F'], 'Género no válido. Debe ser "M" para masculino o "F" para femenino').required('Campo obligatorio');
