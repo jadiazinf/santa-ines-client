@@ -64,7 +64,7 @@ const Info = () =>{
         ACERCA DE NOSOTROS
       </h4>
       <p className='mm:text-[14px] ss:text-[16px] md:text-[18px] text-primary mm:mt-2 md:mt-6'>Fundación Santa Inés UCAB</p>
-      <p className='mm:text-[12px] ss:text-[14px] md:text-[16px] text-white mm:mt-2 md:mt-6 max-w-[90%]'>Somos la principal iniciativa en salud de la Universidad Católica Andrés Bello.Fundado el 13 de septiembre de 1999, como un ambulatorio de atención primaria en salud, de gestión privada, alta calidad y precios solidarios.</p>
+      <p className='mm:text-[12px] ss:text-[14px] md:text-[16px] text-white mm:mt-2 md:mt-6 max-w-[90%]'>Somos la principal iniciativa en salud de la Universidad Católica Andrés Bello. Fundado el 13 de septiembre de 1999, como un ambulatorio de atención primaria en salud, de gestión privada, alta calidad y precios solidarios.</p>
     </div>
   )
 }
