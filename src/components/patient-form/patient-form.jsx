@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
 import { SelectDateComponent } from '../select-date/select-date';
 
-export const PatientForm = () => {
+export const PatientForm = ({ mode, patientId, onPatientCreated }) => {
   const [userData, setUserData] = useState({
     name: '',
     lastname: '',
@@ -18,6 +18,22 @@ export const PatientForm = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  useEffect(() => {
+    if (mode === 'edit' && patientId) {
+      axios.get(`https://santainesapi.onrender.com/patient/${patientId}`)
+        .then(response => {
+          const patientData = response.data;
+          setUserData(patientData);
+          setSelectedDate(patientData.birthday);
+          setIsEditMode(true);
+        })
+        .catch(error => {
+         console.error('Error retrieving patient data:', error);
+       });
+    }
+  }, [mode, patientId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -30,11 +46,21 @@ export const PatientForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      await axios.post('https://santainesapi.onrender.com/patient/', userData);
-      console.log('Patient created successfully!');
-    } catch (error) {
-      console.error('Error creating patient:', error);
+    if (mode === 'create') {
+      try {
+        await axios.post('https://santainesapi.onrender.com/patient/', userData);
+        console.log('Patient created successfully');
+        onPatientCreated();
+      } catch (error) {
+        console.error('Error creating patient:', error);
+      }
+    } else if (mode === 'edit' && patientId) {
+      try {
+        await axios.patch(`https://santainesapi.onrender.com/patient/${patientId}`, userData);
+        console.log('Patient updated successfully');
+      } catch (error) {
+        console.error('Error updating patient:', error);
+      }
     }
 
     setUserData({
@@ -69,7 +95,7 @@ export const PatientForm = () => {
   return (
     <article className='m-5'>
       <form onSubmit={handleSubmit} className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
-        <InputComponent
+      <InputComponent
           id='name'
           name='name'
           placeholder='Nombre'
@@ -133,7 +159,7 @@ export const PatientForm = () => {
           value={userData.email}
         />
       </form>
-      <FilledButton text='Crear' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
+      <FilledButton text={mode === 'create' ? 'Crear' : 'Actualizar'} buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
       <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick={handleCancel} />
     </article>
   );
