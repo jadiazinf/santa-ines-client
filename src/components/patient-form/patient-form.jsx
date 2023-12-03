@@ -33,7 +33,6 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
     },
     validationSchema: registerPatientSchema,
     onSubmit: (values) => {
-      console.log("🚀 ~ file: patient-form.jsx:36 ~ PatientForm ~ values:", values)
       toast.promise(
         new Promise((resolve, reject) => {
           let dataToSent = {};
