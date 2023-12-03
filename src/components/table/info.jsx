@@ -165,12 +165,17 @@ const ActionsButtons = ({ id, dataType, saveData, object, onOpen, dispatch}) => 
           <EyeIcon />
         </span>
       </Tooltip>
-      <Tooltip content={`Editar ${dataType}`} className="text-sm">
-        <span className="text-lg text-default-400 cursor-pointer active:opacity-50"  onClick={() => { onClickOpen(object, dispatch, 'editar'+dataType); onOpen(); }}>
-          <EditIcon />
-        </span>
-      </Tooltip>
-      <DeleteButton idObject={id} dataType={dataType} saveFunction={saveData} />
+      {dataType === 'usuario' && id === 'admin' 
+        ? null
+        : <>
+            <Tooltip content={`Editar ${dataType}`} className="text-sm">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50"  onClick={() => { onClickOpen(object, dispatch, 'editar'+dataType); onOpen(); }}>
+                <EditIcon />
+              </span>
+            </Tooltip>
+            <DeleteButton idObject={id} dataType={dataType} saveFunction={saveData} />
+          </>
+      }
     </div>
   )
 }
@@ -225,11 +230,9 @@ export const deleteData = async (dispatch, deleteFunction, saveFunction, fetchFu
         error: `Error al eliminar al ${dataType}`,
       }
     );
-    
     if(id2){
       fetchData(dispatch, fetchFunctionAct, saveFunction, dataType, {id: id2});
     }else{
-      console.log('segundo id', dataType)
       fetchData(dispatch, fetchFunctionAct, saveFunction, dataType);
     }
   } catch (error) {
