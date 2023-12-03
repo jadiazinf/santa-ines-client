@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
+import { SelectDateComponent } from '../select-date/select-date';
+import DatePicker from 'react-datepicker';
 
-export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
+export const PatientForm = () => {
   const [userData, setUserData] = useState({
     name: '',
     lastname: '',
@@ -16,17 +18,13 @@ export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
     email: '',
   });
 
-  useEffect(() => {
-    if (mode === 'edit') {
-      setUserData(patientData);
-    }
-  }, [mode, patientData]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserData((prevState) => ({
+    setUserData(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -34,18 +32,10 @@ export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
     event.preventDefault();
 
     try {
-      //if (mode === 'create') {
-        await axios.post('https://santainesapi.onrender.com/patient/', userData);
-        console.log('Patient created successfully');
-      /* } else if (mode === 'edit') {
-        await axios.put(`https://santainesapi.onrender.com/patient/${patientData.id}`, userData);
-        console.log('Patient updated successfully');
-      }
-      if (onSubmitSuccess) {
-        onSubmitSuccess();
-      } */
+      await axios.post('https://santainesapi.onrender.com/patient/', userData);
+      console.log('Patient created successfully!');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error creating patient:', error);
     }
 
     setUserData({
@@ -62,10 +52,7 @@ export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
 
   return (
     <article className='m-5'>
-      <form
-        onSubmit={handleSubmit}
-        className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'
-      >
+      <form onSubmit={handleSubmit} className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
         <InputComponent
           id='name'
           name='name'
@@ -90,13 +77,12 @@ export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
           onChange={handleInputChange}
           value={userData.address}
         />
-        <InputComponent
+        <SelectDateComponent
           id='birthday'
           name='birthday'
           placeholder='Fecha de nacimiento'
-          type='text'
-          onChange={handleInputChange}
-          value={userData.birthday}
+          value={selectedDate}
+          onChange={setSelectedDate}
         />
         <InputComponent
           id='id_number'
@@ -131,11 +117,8 @@ export const PatientForm = ({ mode, patientData, onSubmitSuccess }) => {
           value={userData.email}
         />
       </form>
-      <FilledButton
-        text={'Crear'}
-        buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}
-      />
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={120} textSize={15} onClick='' />
+      <FilledButton text='Crear' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick='' />
     </article>
   );
 };
