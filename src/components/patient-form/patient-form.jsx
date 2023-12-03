@@ -4,6 +4,7 @@ import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
 import { SelectDateComponent } from '../select-date/select-date';
+import { SelectComponent } from '../select-tag/select-tag';
 
 export const PatientForm = ({ mode, patientId, onPatientCreated }) => {
   const [userData, setUserData] = useState({
@@ -142,13 +143,17 @@ export const PatientForm = ({ mode, patientId, onPatientCreated }) => {
           onChange={handleInputChange}
           value={userData.phone_number}
         />
-        <InputComponent
+        <SelectComponent
           id='gender'
           name='gender'
           placeholder='Género'
-          type='text'
           onChange={handleInputChange}
           value={userData.gender}
+          options={[
+            { value: 'femenino', label: 'Femenino' },
+            { value: 'masculino', label: 'Maculino' },
+            { value: 'otro', label: 'Otro' }
+          ]}
         />
         <InputComponent
           id='email'
