@@ -25,8 +25,6 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
   const creaciones = ['crearUsuario', 'crearDoctor', 'crearPaciente'];
   const ediciones = ['editarusuario', 'editardoctor', 'editarpaciente'];
 
-
-
   const handleClick = () => {
     dispatch(setAccion());
   }
@@ -112,10 +110,6 @@ const ModalViewInfoComponent = ({ accion, handleClick, onClose }) => {
     </>
   )
 }
-
-
-
-
 
 //TODO -> Este componente se puede mejorar para que no se repita tanto codigo
 const DetalleCita = () => {
