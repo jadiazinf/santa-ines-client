@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
+import { SelectComponent } from '../select-tag/select-tag';
 
-export const DoctorForm = () => {
+export const DoctorForm = ({ mode, doctorId }) => {
   const [userData, setUserData] = useState({
     nombre: '',
     apellido: '',
@@ -15,11 +16,27 @@ export const DoctorForm = () => {
     correo: '',
   });
 
+  useEffect(() => {
+    if (mode === 'edit') {
+      fetchDoctorData();
+    }
+  }, [mode, doctorId]);
+
+  const fetchDoctorData = async () => {
+    try {
+      const response = await axios.get(`https://santainesapi.onrender.com/doctor/${doctorId}`);
+      const doctorData = response.data;
+      setUserData(doctorData);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserData(prevState => ({
+    setUserData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -27,10 +44,15 @@ export const DoctorForm = () => {
     event.preventDefault();
 
     try {
-      await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
-      console.log('Doctor created successfully!');
+      if (mode === 'create') {
+        await axios.post('https://santainesapi.onrender.com/doctor/create', userData);
+        console.log('Doctor created successfully');
+      } else if (mode === 'edit') {
+        await axios.put(`https://santainesapi.onrender.com/doctor/modificate/${doctorId}`, userData);
+        console.log('Doctor updated successfully');
+      }
     } catch (error) {
-      console.error('Error creating doctor:', error);
+      console.error('Error:', error);
     }
 
     setUserData({
@@ -42,8 +64,6 @@ export const DoctorForm = () => {
       genero: '',
       correo: '',
     });
-
-    setSelectedDate(null);
   };
 
   const handleCancel = () => {
@@ -56,18 +76,16 @@ export const DoctorForm = () => {
       genero: '',
       correo: '',
     });
-
-    setSelectedDate(null);
   };
 
   return (
-    <article className='m-5'>
-      <form onSubmit={handleSubmit} className='rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit'>
+    <article className="m-5">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-gray-50 shadow-md p-5 grid grid-cols-2 gap-5 w-fit">
         <InputComponent
-          id='nombre'
-          name='nombre'
-          placeholder='Nombre'
-          type='text'
+          id="nombre"
+          name="nombre"
+          placeholder="Nombre"
+          type="text"
           onChange={handleInputChange}
           value={userData.nombre}
         />
@@ -103,13 +121,17 @@ export const DoctorForm = () => {
           onChange={handleInputChange}
           value={userData.telefono}
         />
-        <InputComponent
-          id="genero"
-          name="genero"
-          placeholder="Género"
-          type="text"
+        <SelectComponent
+          id='genero'
+          name='genero'
+          placeholder='Género'
           onChange={handleInputChange}
           value={userData.genero}
+          options={[
+            { value: 'femenino', label: 'Femenino' },
+            { value: 'masculino', label: 'Maculino' },
+            { value: 'otro', label: 'Otro' }
+          ]}
         />
         <InputComponent
           id="correo"
@@ -120,8 +142,8 @@ export const DoctorForm = () => {
           value={userData.correo}
         />
       </form>
-      <FilledButton text='Aceptar' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick={handleCancel} />
+      <FilledButton text={mode === 'create' ? 'Crear' : 'Actualizar'} buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
+      <UnfilledButton text="Cancelar" buttonHeight={40} buttonWidth={115} textSize={15} onClick={handleCancel} />
     </article>
   );
 };
