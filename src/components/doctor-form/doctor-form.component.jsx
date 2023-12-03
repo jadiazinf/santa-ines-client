@@ -42,6 +42,22 @@ export const DoctorForm = () => {
       genero: '',
       correo: '',
     });
+
+    setSelectedDate(null);
+  };
+
+  const handleCancel = () => {
+    setUserData({
+      nombre: '',
+      apellido: '',
+      especialidad: '',
+      cedula: '',
+      telefono: '',
+      genero: '',
+      correo: '',
+    });
+
+    setSelectedDate(null);
   };
 
   return (
@@ -105,7 +121,7 @@ export const DoctorForm = () => {
         />
       </form>
       <FilledButton text='Aceptar' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick='' />
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick={handleCancel} />
     </article>
   );
 };
