@@ -4,7 +4,6 @@ import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
 import { SelectDateComponent } from '../select-date/select-date';
-import DatePicker from 'react-datepicker';
 
 export const PatientForm = () => {
   const [userData, setUserData] = useState({
@@ -48,6 +47,23 @@ export const PatientForm = () => {
       gender: '',
       email: '',
     });
+
+    setSelectedDate(null);
+  };
+
+  const handleCancel = () => {
+    setUserData({
+      name: '',
+      lastname: '',
+      address: '',
+      birthday: '',
+      id_number: '',
+      phone_number: '',
+      gender: '',
+      email: '',
+    });
+
+    setSelectedDate(null);
   };
 
   return (
@@ -118,7 +134,7 @@ export const PatientForm = () => {
         />
       </form>
       <FilledButton text='Crear' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick='' />
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick={handleCancel} />
     </article>
   );
 };
