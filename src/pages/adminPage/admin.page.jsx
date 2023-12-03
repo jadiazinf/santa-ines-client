@@ -10,7 +10,7 @@ import { detalleCreacionEdicion } from '../../store/reducers/detalleCita.reducer
 
 export const AdminPage = () => {
   const dispatch = useDispatch();
-  const  { userName } = useParams();
+  const { username } = useSelector( state => state.authenticatedUser)
   const [getDoctors] = useGetDoctorsMutation();
   const [getAllUsers] = useGetUsersMutation();
   const [getPatients] = useGetPatientsMutation();
@@ -60,9 +60,9 @@ export const AdminPage = () => {
   const { doctors, users, patients } = useSelector( state => state.userAdmin)
 
   const tabs = [
-    { id: "users", label: "Usuarios", component: <TableComponent key={1} columns={columnsUsers} data={users} action={'users'} path={'../appointmentForm/update/user'}/> },
-    { id: "doctors", label: "Doctores", component: <TableComponent key={2} columns={columnsDoctors} data={doctors} action={'doctors'} path={'../appointmentForm/update/doctors'}/> },
-    { id: "patients", label: "Pacientes", component: <TableComponent columns={columnsPatients}  data={patients} action={'patients'} path={'../appointmentForm/update/patients'}/> },
+    { id: "users", label: "Usuarios", component: <TableComponent key={1} columns={columnsUsers} data={users} action={'users'} path={'../appointmentForm/update/user'}  setReset={setReset}/> },
+    { id: "doctors", label: "Doctores", component: <TableComponent key={2} columns={columnsDoctors} data={doctors} action={'doctors'} path={'../appointmentForm/update/doctors'}  setReset={setReset}/> },
+    { id: "patients", label: "Pacientes", component: <TableComponent columns={columnsPatients}  data={patients} action={'patients'} path={'../appointmentForm/update/patients'}  setReset={setReset}/> },
   ];
 
   const onClick = () => {
@@ -87,7 +87,7 @@ export const AdminPage = () => {
       <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
       <div className='flex justify-between w-[80%]'>
         <div className=''>
-          <h1 className='text-primary text-3xl '>{capitalizeFirstLetter(userName)}</h1>
+          <h1 className='text-primary text-3xl '>{capitalizeFirstLetter(username)}</h1>
           <p className=''>Por favor, seleccione la pestaña que desee consultar</p>
         </div>
         <FilledButton text={`Agregar ${selectedString(activeTab)}`} onClick={() =>{ onClick(); onOpen()}} />

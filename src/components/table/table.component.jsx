@@ -16,7 +16,7 @@ const fetchFunctions = {
   'patients': useGetPatientsMutation
 };
 
-export const TableComponent = ({columns, id_doctor, action, data, path}) => {
+export const TableComponent = ({columns, id_doctor, action, data, path, setReset}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -54,7 +54,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path}) => {
 
   return (
     <>
-      <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange}/>
+      <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
       <Table aria-label="tabla" className="">
         <TableHeader columns={columns} className="mb-5">
           {(column) => (

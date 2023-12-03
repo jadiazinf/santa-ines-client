@@ -6,11 +6,13 @@ import { FilledButton } from '../../components'
 import { Checkbox } from "@nextui-org/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { newUsername } from "../../store/reducers/user.reducer";
 
 export const UserInfo = ({ info }) => {
   const [selections, setSelections] = useState({ username: false, password: false, typeUser: false })
-    const { username: userName } = useSelector( state => state.authenticatedUser)
+  const { username: userName } = useSelector( state => state.authenticatedUser)
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -37,6 +39,9 @@ export const UserInfo = ({ info }) => {
           updateUser({userName, selectedFields})
             .then((response) => {
               resolve('Usuario actualizado!');
+              if(selections.username){
+                dispatch(newUsername(selections.username));
+              }
             })
             .catch((error) => {
               reject(new Error(response.data.message));
@@ -62,15 +67,15 @@ export const UserInfo = ({ info }) => {
     <section className='rounded-lg bg-gray-50 shadow-md p-5 w-3/4 flex flex-col justify-center items-center min-w-[430px]'>
       <div className="">
         <h1>Por favor seleccione los datos a actualizar</h1>
-        <div className="flex flex-row gap-5 m-5">
-          <Checkbox color="default" onClick={(e) => handleClick(e, "username", selections.username)} >Nombre de usuario</Checkbox>
+        <div className={`flex flex-row ${userName !== 'admin' ? 'gap-5 m-5' : 'my-5'}`}>
+          {userName !== 'admin' ? <Checkbox color="default" onClick={(e) => handleClick(e, "username", selections.username)} >Nombre de usuario</Checkbox> : null }
           <Checkbox color="default" onClick={(e) => handleClick(e, "password", selections.password)} >Contraseña</Checkbox>
-          <Checkbox color="default" onClick={(e) => handleClick(e, "typeUser",selections.typeUser)} >Tipo de usuario</Checkbox>
+          {userName !== 'admin' ? <Checkbox color="default" onClick={(e) => handleClick(e, "typeUser",selections.typeUser)} >Tipo de usuario</Checkbox> : null }
         </div>
       </div>
       <div className="w-full">
         <form onSubmit={formik.handleSubmit}  className='flex flex-col gap-3 w-full'>
-          {selections.username 
+          {selections.username
           ? <InputComponent
               placeholder='Nombre de usuario'
               label='Username'
