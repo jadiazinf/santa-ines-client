@@ -35,7 +35,7 @@ export const birthdateValidation = Yup.date().max(new Date(), 'La fecha de nacim
 
 export const phoneValidation = Yup.string().matches(/^\d{11}$/, 'Número de teléfono no válido').required('Campo obligatorio');
 
-export const cedulaValidation = Yup.string().matches(/^\d{8}$/, 'Cédula no válida. El formato correcto es XXXXXXXX').required('Campo obligatorio');
+export const cedulaValidation = Yup.string().min(8, 'La cédula debe tener al menos 8 caracteres').required('Campo obligatorio');
 
 export const generoValidation = Yup.string().oneOf(['M', 'F'], 'Género no válido. Debe ser "M" para masculino o "F" para femenino').required('Campo obligatorio');
 

@@ -8,6 +8,7 @@ export const AppointmentFormPage = ({title}) => {
   const onClick = () => {
     dispatch(crearCitaDate(''))
     dispatch(descripcionError(false))
+    dispatch(crearPatientId(''));
     dispatch(crearCitaDescripcion(''));
     navigate(`../info-doctor/${userName}`);
   }

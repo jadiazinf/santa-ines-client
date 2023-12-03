@@ -4,7 +4,7 @@ import { useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatients
 import { useDispatch } from "react-redux";
 import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
-import { editarCitaDate, editarCitaDescripcion, editarId, editarStatus } from "../../store/reducers/editarCita.reducer";
+import { editarCitaDate, editarCitaDescripcion, editarId, editarPaciente, editarStatus } from "../../store/reducers/editarCita.reducer";
 import { ModalInfoComponent } from "../modal_info_appointment/modal_info_appointment.component";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
@@ -23,9 +23,10 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
   const selectedFetchFunction = fetchFunctions[action];
   const [fetchFunction] = selectedFetchFunction();
 
-  const onClick = (id, date, description, status) => {
+  const onClick = (id, date, description, pacienteId, status) => {
     dispatch(editarId(id));
     dispatch(editarCitaDate(date));
+    dispatch(editarPaciente(pacienteId));
     dispatch(editarCitaDescripcion(description));
     dispatch(editarStatus(status));
     navigate(path);

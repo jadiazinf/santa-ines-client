@@ -27,11 +27,22 @@ export const appointmentsApi = createApi({
       })
     }),
     updateAppointment: builder.mutation({
-      query: ({ id, appointment }) => ({
-        url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
-        method: 'PATCH',
-        body: appointment
-      })
+      query: ({ id, appointment }) => {
+        const url = `${import.meta.env.VITE_API_APPOINTMENT}${id}`;       //TODO -> DAVID -> NO funciona el actualizar la cedula del paciente en la cita
+        const method = 'PATCH';
+        const body = appointment;
+
+        console.log('Request Configuration:');
+        console.log('URL:', url);
+        console.log('Method:', method);
+        console.log('Body:', body);
+
+        return {
+          url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
+          method: 'PATCH',
+          body: body
+        };
+      }
     })
   }),
 });

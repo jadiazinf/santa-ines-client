@@ -1,16 +1,17 @@
-import { FilledButton, InputComponent } from '../../components';
+import { FilledButton, InputComponent, SelectComponent } from '../../components';
 import { useFormik } from 'formik';
 import { editDoctorSchema, } from '../../validations';
 import { useUpdateDoctorMutation } from '../../api';
 import toast from 'react-hot-toast';
+import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 
 
 export const DoctorInfo = ({ info }) => {
   const formik = useFormik({
     initialValues: {
-      nombre: info.nombre.cuerpo,
-      apellido: info.apellido.cuerpo,
-      especialidad: info.especialidad,
+      nombre: capitalizeFirstLetter(info.nombre.cuerpo),
+      apellido: capitalizeFirstLetter(info.apellido.cuerpo),
+      especialidad: capitalizeFirstLetter(info.especialidad),
       cedula: info.cedula,
       telefono: info.telefono,
       genero: info.genero,
@@ -20,7 +21,16 @@ export const DoctorInfo = ({ info }) => {
     onSubmit: (values) => {
       toast.promise(
         new Promise((resolve, reject) => {
-          updateDoctor(values)
+          const updatedDoctor = {
+            nombre: capitalizeFirstLetter(values.nombre),
+            apellido:capitalizeFirstLetter(values.apellido),
+            especialidad: capitalizeFirstLetter(values.especialidad),
+            cedula: values.cedula,
+            telefono: values.telefono,
+            genero: values.genero,
+            correo: values.correo,
+          }
+          updateDoctor(updatedDoctor)
             .then((response) => {
               resolve('¡Doctor actualizado!');
             })
@@ -86,14 +96,17 @@ export const DoctorInfo = ({ info }) => {
           error={formik.errors.telefono}
           className1={'w-full'}
         />
-        <InputComponent
-          placeholder='Género'
-          label='Género'
+        <SelectComponent
+          id='genero'
           name='genero'
-          value={formik.values.genero}
+          placeholder='Género'
           onChange={formik.handleChange}
-          error={formik.errors.genero}
+          value={formik.values.genero}
           className1={'w-full'}
+          options={[
+            { value: 'M', label: 'Masculino' },
+            { value: 'F', label: 'Femenino' }
+          ]}
         />
         <InputComponent
           placeholder='Correo'

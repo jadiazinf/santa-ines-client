@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { registerUserSchema } from "../../validations";
 import { InputComponent } from "../inputs/input.component";
 import { useUpdateUserMutation } from "../../api";
-import { FilledButton } from '../../components'
+import { FilledButton, SelectComponent } from '../../components'
 import { Checkbox } from "@nextui-org/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -42,9 +42,12 @@ export const UserInfo = ({ info }) => {
               if(selections.username){
                 dispatch(newUsername(selections.username));
               }
+              if(selections.typeUser){
+                dispatch(newTypeUser(selections.typeUser));
+              }
             })
             .catch((error) => {
-              reject(new Error(response.data.message));
+              reject(new Error(error));
             })
         }),
         {
@@ -100,14 +103,17 @@ export const UserInfo = ({ info }) => {
             : null
           }
           {selections.typeUser
-            ? <InputComponent
-                placeholder='Tipo de usuario'
-                label='Tipo de usuario'
+            ? <SelectComponent
+                id='userType'
                 name='userType'
-                value={formik.values.userType}
+                placeholder='Tipo de usuario'
                 onChange={formik.handleChange}
-                error={formik.errors.userType}
+                value={formik.values.userType}
                 className1={'w-full'}
+                options={[
+                  { value: 'asistente', label: 'Asistente' },
+                  { value: 'superUsuario', label: 'Super Usuario' }
+                ]}
               />
             : null
           }

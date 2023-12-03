@@ -4,6 +4,7 @@ const initialState = {
   doctor: {},
   date: '',
   descripcion: '',
+  patient: {},
   descripcionError: true,
   appointments: [],
 }
@@ -18,6 +19,9 @@ const appointmentSlice = createSlice({
     crearCitaDate: (state, action) => {
       state.date = action.payload;
     },
+    crearPatient: (state, action) => {
+      state.patient = action.payload;
+    },
     crearCitaDescripcion: (state, action) => {
       state.descripcion = action.payload;
     },
@@ -30,6 +34,6 @@ const appointmentSlice = createSlice({
   }
 })
 
-export const { crearCitaDoctor, crearCitaDate, crearCitaDescripcion, descripcionError, saveAppointments } = appointmentSlice.actions;
+export const { crearCitaDoctor, crearCitaDate, crearPatient, crearCitaDescripcion, descripcionError, saveAppointments } = appointmentSlice.actions;
 export default appointmentSlice.reducer;
 
