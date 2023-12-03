@@ -39,16 +39,14 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
           let dataToSent = {};
           if (acction === 'Crear'){
             dataToSent = {
-              data: {
-                name: capitalizeFirstLetter(values.name),
-                lastname: capitalizeFirstLetter(values.lastname),
-                address: capitalizeFirstLetter(values.address),
-                birthday: values.birthday,
-                id_number: values.id_number,
-                phone_number: values.phone_number,
-                gender: values.gender,
-                email: values.email
-              }
+              name: capitalizeFirstLetter(values.name),
+              lastname: capitalizeFirstLetter(values.lastname),
+              address: capitalizeFirstLetter(values.address),
+              birthday: values.birthday,
+              id_number: values.id_number,
+              phone_number: values.phone_number,
+              gender: values.gender,
+              email: values.email
             };
           }else{
             dataToSent = {
