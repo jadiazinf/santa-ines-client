@@ -19,7 +19,7 @@ export const InputComponent = (props) => {
     <div className={`${className1 ? className1 : 'w-[550px]'} border border-gray-500 flex flex-col relative `} onClick={handleInputClick}>
       <div className="flex flex-row">
         <span className={`${isSelected ? 'bg-green-400 duration-300' : ''} w-1`}></span>
-        <div className="flex flex-col justify-center p-2 w-full">
+        <div className="flex flex-col justify-center p-2 w-full mt-1">
           <span className="text-textTitle">{placeholder}</span>
           <input
             ref={inputRef}
