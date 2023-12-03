@@ -7,13 +7,15 @@ import ConfirmationComponent from '../confirmation-appointment/confirmationApoin
 import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '../../api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { crearCitaDate, crearCitaDescripcion, descripcionError } from '../../store/reducers/crearCita.reducer';
+import { crearCitaDate, crearCitaDescripcion, crearPatient, descripcionError } from '../../store/reducers/crearCita.reducer';
+import { PatientSelector } from '../doctorSelector/patientSelector.component';
 
 export const AppointmentCreateForm = ({ action }) => {
   const [componentToShow, setComponentToShow] = useState(0)
   const doctorStored = useSelector(state => state.createAppointment.doctor)
   const dateStored = useSelector(state => state.createAppointment.date)
   const descriptionStored = useSelector(state => state.createAppointment.descripcion)
+  const patientStored = useSelector(state => state.createAppointment.patient)
   const descriptionErrorStored = useSelector(state => state.createAppointment.descripcionError)
   const userName = useSelector(state => state.authenticatedUser.username)
   const navigate = useNavigate();
@@ -21,12 +23,14 @@ export const AppointmentCreateForm = ({ action }) => {
 
   let idEditable;
   let dateEditable;
+  let patientEditable;
   let descripcionEditable;
   let statusEditable;
 
   if(action === 'Edición'){
     idEditable = useSelector(state => state.editAppointment.id)
     dateEditable = useSelector(state => state.editAppointment.date)
+    patientEditable = useSelector(state => state.editAppointment.paciente)
     descripcionEditable = useSelector(state => state.editAppointment.descripcion)
     statusEditable = useSelector(state => state.editAppointment.status)
   }
@@ -35,16 +39,17 @@ export const AppointmentCreateForm = ({ action }) => {
   const [updateAppointment] = useUpdateAppointmentMutation();
 
   const nextComponent = () => {
-    if ((componentToShow === 0 && dateStored) || (componentToShow === 1 && descriptionErrorStored === false || componentToShow === 2)) {
-      if (componentToShow < 2) {
+    if ((componentToShow === 0 && dateStored) || (componentToShow === 1 &&  patientStored) || (componentToShow === 2 && descriptionErrorStored === false) || componentToShow === 3) {
+      if (componentToShow < 3) {
         setComponentToShow(componentToShow + 1);
       } else {
         toast.promise(
           new Promise((resolve, reject) => {
 
+            console.log("🚀 ~ file: form.component.jsx:56 ~ newPromise ~ info.patientStored:", patientStored)
             const info = {
-              patientId: "4169009",
-              "doctorId": doctorStored.id.UUID,
+              patientId: patientStored.id_number,
+              doctorId: doctorStored.id.UUID,
               appointmentDate: dateStored,
               status: action !== 'Edición' ? 'Activa' : statusEditable,
               description: descriptionStored,
@@ -70,6 +75,7 @@ export const AppointmentCreateForm = ({ action }) => {
                     if (response.data) {
                       dispatch(descripcionError(false))
                       dispatch(crearCitaDate(''))
+                      dispatch(crearPatient({}));
                       dispatch(crearCitaDescripcion(''));
                       resolve('¡Cita actualizada!');
                       navigate(`../info-doctor/${userName}`);
@@ -100,12 +106,18 @@ export const AppointmentCreateForm = ({ action }) => {
         dispatch(crearCitaDate(''))
         dispatch(descripcionError(false))
         dispatch(crearCitaDescripcion(''));
+        dispatch(crearPatient({}));
         navigate(`../info-doctor/${userName}`);
         break;
       case 1:
         dispatch(crearCitaDate(''))
+        dispatch(crearPatient({}));
         break;
       case 2:
+        dispatch(descripcionError(false))
+        dispatch(crearPatient({}));
+        break;
+      case 3:
         dispatch(descripcionError(true))
         dispatch(crearCitaDescripcion(''));
         break;
@@ -127,8 +139,9 @@ export const AppointmentCreateForm = ({ action }) => {
       )}
       <div className='flex flex-col justify-center items-center'>
         {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ new Date(dateEditable) } dateEditable1={ dateEditable } />}
-        {componentToShow === 1 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
-        {componentToShow === 2 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
+        {componentToShow === 1 && <PatientSelector patientEditable={patientEditable} />}
+        {componentToShow === 2 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
+        {componentToShow === 3 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
       </div>
       <div className='m-5 w-full'>
         <Steps
@@ -138,6 +151,10 @@ export const AppointmentCreateForm = ({ action }) => {
             {
               title: 'Horario',
               description: 'Seleccione la fecha y hora.',
+            },
+            {
+              title: 'Paciente',
+              description: 'Seleccione el paciente.',
             },
             {
               title: 'Descripción',
