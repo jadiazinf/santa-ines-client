@@ -1,3 +1,4 @@
+export * from './register-patient.validations';
 export * from './edit-doctor.validattions';
 export * from './comun.validations';
 export * from './register-user.validations';
