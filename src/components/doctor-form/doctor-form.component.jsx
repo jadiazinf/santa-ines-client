@@ -104,8 +104,8 @@ export const DoctorForm = () => {
           value={userData.correo}
         />
       </form>
-      <FilledButton text='Crear Doctor' buttonHeight={40} buttonWidth={120} textSize={15} onClick={handleSubmit}/>
-      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={90} textSize={15} onClick='' />
+      <FilledButton text='Aceptar' buttonHeight={40} buttonWidth={125} textSize={15} onClick={handleSubmit}/>
+      <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={115} textSize={15} onClick='' />
     </article>
   );
 };
