@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { InputComponent } from '../inputs/input.component';
 import { FilledButton } from '../buttons/filledbutton.component';
 import { UnfilledButton } from '../buttons/unfilledbutton.component';
@@ -8,37 +7,8 @@ import { useCreateDoctorMutation, useUpdateDoctorMutation } from '../../api';
 import { creationDoctorSchema } from '../../validations/doctor-form.validations';
 import { useFormik } from 'formik';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
-
-const especialidadesOptions = [
-  { value: 'Adolescentología', label: 'Adolescentología' },
-  { value: 'Cardiología', label: 'Cardiología' },
-  { value: 'Cirugía General', label: 'Cirugía General' },
-  { value: 'Dermatología', label: 'Dermatología' },
-  { value: 'Endocrinología', label: 'Endocrinología' },
-  { value: 'Endodoncia', label: 'Endodoncia' },
-  { value: 'Fisiatría', label: 'Fisiatría' },
-  { value: 'Gastroenterología', label: 'Gastroenterología' },
-  { value: 'Geriatría', label: 'Geriatría' },
-  { value: 'Ginecología', label: 'Ginecología' },
-  { value: 'Obstetricia', label: 'Obstetricia' },
-  { value: 'Hepatología', label: 'Hepatología' },
-  { value: 'Inmunología', label: 'Inmunología' },
-  { value: 'Alergología', label: 'Alergología' },
-  { value: 'Mastología', label: 'Mastología' },
-  { value: 'Nefrología', label: 'Nefrología' },
-  { value: 'Neumonología', label: 'Neumonología' },
-  { value: 'Neurocirugía', label: 'Neurocirugía' },
-  { value: 'Nutrición', label: 'Nutrición' },
-  { value: 'Odontología', label: 'Odontología' },
-  { value: 'Odontopediatría', label: 'Odontopediatría' },
-  { value: 'Oftalmología', label: 'Oftalmología' },
-  { value: 'Ortodoncia', label: 'Ortodoncia' },
-  { value: 'Otorrinolaringología', label: 'Otorrinolaringología' },
-  { value: 'Pediatría', label: 'Pediatría' },
-  { value: 'Reumatología', label: 'Reumatología' },
-  { value: 'Traumatología', label: 'Traumatología' },
-  { value: 'Urología', label: 'Urología' },
-];
+import { especialidadesOptions } from '../constanst';
+import toast from 'react-hot-toast';
 
 export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) => {
   //-------------------------------------------------
@@ -60,63 +30,58 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
     },
     validationSchema: creationDoctorSchema,
     onSubmit: (values) => {
-      console.log("🚀 ~ file: doctor-form.component.jsx:102 ~ DoctorForm ~ values:", values)
-      // toast.promise(
-      //   new Promise((resolve, reject) => {
-      //     let dataToSent = {};
-      //     if (acction === 'Crear'){
-      //       dataToSent = {
-      //         name: capitalizeFirstLetter(values.name),
-      //         lastname: capitalizeFirstLetter(values.lastname),
-      //         address: capitalizeFirstLetter(values.address),
-      //         birthday: values.birthday,
-      //         id_number: values.id_number,
-      //         phone_number: values.phone_number,
-      //         gender: values.gender,
-      //         email: values.email
-      //       };
-      //     }else{
-      //       dataToSent = {
-      //         data: {
-      //           name: capitalizeFirstLetter(values.name),
-      //           lastname: capitalizeFirstLetter(values.lastname),
-      //           address: capitalizeFirstLetter(values.address),
-      //           birthday: values.birthday,
-      //           id_number: values.id_number,
-      //           phone_number: values.phone_number,
-      //           gender: values.gender,
-      //           email: values.email
-      //         },
-      //         id: object.Id,
-      //       };
-      //     }
-      //     mutationFunction(dataToSent)
-      //       .then((response) => {
-      //         if (response.error) {
-      //           reject(new Error(`Error al ${acction} el paciente`));
-      //         } else {
-      //           resolve(`Paciente ${acction === 'Crear' ? 'creado' : 'editado'} correctamente!`);
-      //           setReset((prev) => !prev);
-      //           onClose();
-      //         }
-      //       })
-      //       .catch((error) => {
-      //         reject(new Error(error.message));
-      //       });
-      //   }),
-      //   {
-      //     loading: 'Cargando...',
-      //     success: (message) => message,
-      //     error: (error) => error.message,
-      //   }
-      // );
+      toast.promise(
+        new Promise((resolve, reject) => {
+          // let dataToSent = {};
+          // if (acction === 'Crear'){
+          //   dataToSent = {
+          //     name: capitalizeFirstLetter(values.name),
+          //     lastname: capitalizeFirstLetter(values.lastname),
+          //     address: capitalizeFirstLetter(values.address),
+          //     birthday: values.birthday,
+          //     id_number: values.id_number,
+          //     phone_number: values.phone_number,
+          //     gender: values.gender,
+          //     email: values.email
+          //   };
+          // }else{
+          //   dataToSent = {
+          //     data: {
+          //       name: capitalizeFirstLetter(values.name),
+          //       lastname: capitalizeFirstLetter(values.lastname),
+          //       address: capitalizeFirstLetter(values.address),
+          //       birthday: values.birthday,
+          //       id_number: values.id_number,
+          //       phone_number: values.phone_number,
+          //       gender: values.gender,
+          //       email: values.email
+          //     },
+          //     id: object.Id,
+          //   };
+          // }
+          mutationFunction(values)
+            .then((response) => {
+              if (response.error) {
+                reject(new Error(`Error al ${acction} el doctor`));
+              } else {
+                resolve(`Doctor ${acction === 'Crear' ? 'creado' : 'editado'} correctamente!`);
+                setReset((prev) => !prev);
+                onClose();
+              }
+            })
+            .catch((error) => {
+              reject(new Error(error.message));
+            });
+        }),
+        {
+          loading: 'Cargando...',
+          success: (message) => message,
+          error: (error) => error.message,
+        }
+      );
 
     },
   });
-
-  const onClick = () => {
-    console.log(formik.values)
-  }
 
   return (
     <article className="m-5">
@@ -169,7 +134,7 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
             value={formik.values.genero}
             options={[
               { value: 'F', label: 'Femenino' },
-              { value: 'M', label: 'Maculino' },
+              { value: 'M', label: 'Masculino' },
               { value: 'N/A', label: 'No aplica' }
             ]}
             className1={'w-full'}
@@ -196,7 +161,6 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
           />
         </div>
         <div className='flex flex-row justify-end items-center'>
-          <button type='submit' onClick={() => onClick()}>Enviar</button>
           <FilledButton text={!isLoading ? acction : 'Cargando...' } buttonHeight={40} buttonWidth={120} textSize={15} block={isLoading} type='submit'/>
           <UnfilledButton text='Cancelar' buttonHeight={40} buttonWidth={120} textSize={15} block={isLoading} type='button' onClick={() =>{handleClick(); onClose()}} />
         </div>
