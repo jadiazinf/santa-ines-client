@@ -4,7 +4,6 @@ import { firstNameValidation, lastNameValidation, especialidadValidation, genero
 export const creationDoctorSchema = Yup.object({
   nombre: firstNameValidation,
   apellido: lastNameValidation,
-  especialidad: especialidadValidation,
   cedula: cedulaValidation,
   telefono: phoneValidation,
   genero: generoValidation,
