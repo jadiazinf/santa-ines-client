@@ -1,3 +1,4 @@
+export * from './doctor-form/doctor-form.component';
 export * from './patient-form/patient-form';
 export * from './select-date/select-date';
 export * from './table/table.component';
