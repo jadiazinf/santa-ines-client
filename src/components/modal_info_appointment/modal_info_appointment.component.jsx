@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { es } from "date-fns/locale";
 import { fechaHora } from '../../helpers/calendar.helper';
 import { setAccion } from '../../store/reducers/detalleCita.reducer';
-import { FilledButton, PatientForm, UserForm } from '../../components'
+import { FilledButton, PatientForm, UserForm, DoctorForm} from '../../components'
 
 
 const statusColorMap = {
@@ -53,7 +53,7 @@ const ModalCreacionesComponent = ({ accion, handleClick, onClose, setReset }) =>
       <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Creación de {subString}:</ModalHeader>
       <ModalBody>
         { accion === 'crearUsuario' ? <UserForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
-        {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
+        { accion === 'crearDoctor' ? <DoctorForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
         { accion === 'crearPaciente' ? <PatientForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
       </ModalBody>
     </>
@@ -85,7 +85,7 @@ const ModalEdicionesComponent = ({ accion, handleClick, onClose, setReset }) => 
       <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Edición de {subString.charAt(0).toUpperCase() + subString.slice(1)}:</ModalHeader>
       <ModalBody>
         { accion === 'editarusuario' ? <UserForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
-        {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
+        { accion === 'editardoctor' ? <DoctorForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
         { accion === 'editarpaciente' ? <PatientForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
       </ModalBody>
     </>
