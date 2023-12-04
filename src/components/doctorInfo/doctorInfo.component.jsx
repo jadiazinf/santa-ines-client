@@ -4,6 +4,7 @@ import { editDoctorSchema, } from '../../validations';
 import { useUpdateDoctorMutation } from '../../api';
 import toast from 'react-hot-toast';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
+import { especialidadesOptions } from '../constanst';
 
 
 export const DoctorInfo = ({ info }) => {
@@ -11,7 +12,7 @@ export const DoctorInfo = ({ info }) => {
     initialValues: {
       nombre: capitalizeFirstLetter(info.nombre.cuerpo),
       apellido: capitalizeFirstLetter(info.apellido.cuerpo),
-      especialidad: capitalizeFirstLetter(info.especialidad),
+      especialidad: info.especialidad || 'Adolescentología',
       cedula: info.cedula,
       telefono: info.telefono,
       genero: info.genero,
@@ -32,7 +33,7 @@ export const DoctorInfo = ({ info }) => {
           }
           updateDoctor(updatedDoctor)
             .then((response) => {
-              resolve('¡Doctor actualizado!');
+              resolve('¡Doctor editado correctamente!');
             })
             .catch((error) => {
               reject(new Error(response.data.message));
@@ -69,15 +70,15 @@ export const DoctorInfo = ({ info }) => {
           error={formik.errors.apellido}
           className1={'w-full'}
         />
-        <InputComponent
-          placeholder='Especialidad'
-          label='Especialidad'
-          name='especialidad'
-          value={formik.values.especialidad}
-          onChange={formik.handleChange}
-          error={formik.errors.especialidad}
-          className1={'w-full'}
-        />
+          <SelectComponent
+            id='especialidad'
+            name='especialidad'
+            placeholder='Especialidad'
+            onChange={formik.handleChange}
+            value={formik.values.especialidad}
+            options={especialidadesOptions}
+            className1={'w-full'}
+          />
         <InputComponent
           placeholder='Cédula'
           label='Cédula'
