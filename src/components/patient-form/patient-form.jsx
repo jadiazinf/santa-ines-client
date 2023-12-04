@@ -10,7 +10,7 @@ import { utcToZonedTime } from 'date-fns-tz';
 import { parseISO } from 'date-fns';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 
-export const PatientForm = ({ acction, onClose, handleClick, setReset, object, mode, patientId, onPatientCreated }) => {
+export const PatientForm = ({ acction, onClose, handleClick, setReset, object }) => {
   const [selectedDate, setSelectedDate] = useState(
     object && object.Fecha_Nac ? utcToZonedTime(parseISO(object.Fecha_Nac), 'UTC') : null
   );
@@ -19,7 +19,7 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
     ? useCreatePatientMutation()
     : useUpdatePatientMutation();
 
-    const { isLoading, isError } = mutationOptions;
+  const { isLoading, isError } = mutationOptions;
   const formik = useFormik({
     initialValues: {
       name:  object && object.Nombre ? capitalizeFirstLetter(object.Nombre) : '',
@@ -28,7 +28,7 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
       birthday: object && object.Fecha_Nac ? object.Fecha_Nac : '',
       id_number: object && object.Cédula ? object.Cédula : '',
       phone_number: object && object.Teléfono ? object.Teléfono : '',
-      gender: object && object.Género ? object.Género : 'M',
+      gender: object && object.Género ? object.Género : 'F',
       email: object && object.Correo ? object.Correo : '',
     },
     validationSchema: registerPatientSchema,
@@ -144,6 +144,19 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
               error={formik.errors.id_number}
               className1={'w-full'}
             />
+              <SelectComponent
+                id='gender'
+                name='gender'
+                placeholder='Género'
+                onChange={formik.handleChange}
+                value={formik.values.gender}
+                className1={'w-full'}
+                options={[
+                  { value: 'F', label: 'Femenino' },
+                  { value: 'M', label: 'Maculino' },
+                  { value: 'N/A', label: 'No aplica' }
+                ]}
+              />
             <InputComponent
               id='phone_number'
               name='phone_number'
@@ -153,18 +166,6 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object, m
               value={formik.values.phone_number}
               error={formik.errors.phone_number}
               className1={'w-full'}
-            />
-            <SelectComponent
-              id='gender'
-              name='gender'
-              placeholder='Género'
-              onChange={formik.handleChange}
-              value={formik.values.gender}
-              className1={'w-full'}
-              options={[
-                { value: 'M', label: 'Masculino' },
-                { value: 'F', label: 'Femenino' }
-              ]}
             />
             <InputComponent
               id='email'
