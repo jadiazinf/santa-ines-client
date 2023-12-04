@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import { firstNameValidation, lastNameValidation, especialidadValidation, idValidation, telefonoValidation, generoValidation, emailValidation } from './comun.validations';
+import { firstNameValidation, lastNameValidation, especialidadValidation, generoValidation, emailValidation, phoneValidation, cedulaValidation } from './comun.validations';
 
 export const creationDoctorSchema = Yup.object({
   nombre: firstNameValidation,
   apellido: lastNameValidation,
   especialidad: especialidadValidation,
-  cedula: idValidation,
-  telefono: telefonoValidation,
+  cedula: cedulaValidation,
+  telefono: phoneValidation,
   genero: generoValidation,
   correo: emailValidation,
 });

@@ -48,7 +48,7 @@ export const cedulaValidation = Yup.number('Solo números')
   })
   .required('Campo obligatorio');
 
-export const generoValidation = Yup.string().oneOf(['M', 'F'], 'Género no válido. Debe ser "M" para masculino o "F" para femenino').required('Campo obligatorio');
+export const generoValidation = Yup.string().oneOf(['M', 'F', 'N/A'], 'Género no válido. Debe ser "M" para masculino o "F" para femenino').required('Campo obligatorio');
 
 export const tipoUsuarioValidation = Yup.string().matches(/^[a-zA-Z\s]+$/, 'Solo se permiten letras').min(5, 'El tipo de usuario debe ser de almenos 5 caracteres').required('Campo obligatorio');
 
