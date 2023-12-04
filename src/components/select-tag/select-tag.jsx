@@ -18,8 +18,8 @@ export const SelectComponent = (props) => {
   return (
     <div className={`${className1 ? className1 : 'w-[550px]'} border border-gray-500 flex flex-col relative `}>
       <div className="flex flex-row">
-        <span className={`w-1 ${isSelected ? 'bg-green-400 duration-300' : ''}`}></span>
-        <div className="flex flex-col justify-center p-2 w-full" onClick={handleSelectClick}>
+        <span className={`w-1 ${isSelected ? 'bg-green-400 duration-300 ' : ''}`}></span>
+        <div className="flex flex-col justify-center p-2 w-full mt-1" onClick={handleSelectClick}>
           <span className="text-textTitle">{placeholder}</span>
           <select
             ref={selectRef}
