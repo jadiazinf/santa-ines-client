@@ -30,17 +30,14 @@ export const SelectDateComponent = (props) => {
           <DatePicker
             ref={selectDateRef}
             className='text-textInput border-none outline-none w-full bg-transparent'
-
             id={id}
             name={name}
             selected={value}
             onChange={handleDateChange}
             onBlur={handleSelectDateBlur}
-            
             dateFormat='yyyy-MM-dd'
             calendarClassName='custom-calendar'
             maxDate={new Date()}
-
             showMonthDropdown
             showYearDropdown
             dropdownMode="select"
