@@ -103,11 +103,12 @@ export const DoctorInfo = ({ info }) => {
           placeholder='Género'
           onChange={formik.handleChange}
           value={formik.values.genero}
-          className1={'w-full'}
           options={[
+            { value: 'F', label: 'Femenino' },
             { value: 'M', label: 'Masculino' },
-            { value: 'F', label: 'Femenino' }
+            { value: 'N/A', label: 'No aplica' }
           ]}
+          className1={'w-full'}
         />
         <InputComponent
           placeholder='Correo'
