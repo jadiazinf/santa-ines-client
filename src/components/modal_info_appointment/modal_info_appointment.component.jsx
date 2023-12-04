@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { es } from "date-fns/locale";
 import { fechaHora } from '../../helpers/calendar.helper';
 import { setAccion } from '../../store/reducers/detalleCita.reducer';
-import { FilledButton, UserForm } from '../../components'
+import { FilledButton, PatientForm, UserForm } from '../../components'
 
 
 const statusColorMap = {
@@ -54,7 +54,7 @@ const ModalCreacionesComponent = ({ accion, handleClick, onClose, setReset }) =>
       <ModalBody>
         { accion === 'crearUsuario' ? <UserForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
         {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
-        {/* { accion === 'crearPaciente' ? <PacienteForm /> : null } */}
+        { accion === 'crearPaciente' ? <PatientForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
       </ModalBody>
     </>
   )
@@ -86,7 +86,7 @@ const ModalEdicionesComponent = ({ accion, handleClick, onClose, setReset }) => 
       <ModalBody>
         { accion === 'editarusuario' ? <UserForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
         {/* { accion === 'crearDoctor' ? <DoctorForm /> : null }*/}                   {/* aca se colocan los componentes que crea Ashly*/}
-        {/* { accion === 'crearPaciente' ? <PacienteForm /> : null } */}
+        { accion === 'editarpaciente' ? <PatientForm acction={'Editar'} onClose={onClose} handleClick={handleClick} setReset={setReset} object={object}/> : null }
       </ModalBody>
     </>
   )

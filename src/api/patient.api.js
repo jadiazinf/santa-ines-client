@@ -18,11 +18,13 @@ export const patientApi = createApi({
       query: (id) => `${import.meta.env.VITE_API_PATIENT}${id}`
     }),
     createPatient: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_PATIENT}`,
-        method: 'POST',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_PATIENT}`,
+          method: 'POST',
+          body: data
+        }
+      }
     }),
     updatePatient: builder.mutation({
       query: ({ id, data }) => ({

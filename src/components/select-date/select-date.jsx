@@ -25,7 +25,7 @@ export const SelectDateComponent = (props) => {
     <div className={`${className1 ? className1 : 'w-[550px]'} border border-gray-500 flex flex-col relative `}>
       <div className="flex flex-row">
         <span className={`w-1 ${isSelected ? 'bg-green-400 duration-300' : ''}`}></span>
-        <div className="flex flex-col justify-center p-2 w-full" onClick={handleSelectDateClick}>
+        <div className="flex flex-col justify-center p-2 w-full mt-1" onClick={handleSelectDateClick}>
           <span className="text-textTitle">{placeholder}</span>
           <DatePicker
             ref={selectDateRef}
@@ -37,6 +37,10 @@ export const SelectDateComponent = (props) => {
             onBlur={handleSelectDateBlur}
             dateFormat='yyyy-MM-dd'
             calendarClassName='custom-calendar'
+            maxDate={new Date()}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
         </div>
       </div>

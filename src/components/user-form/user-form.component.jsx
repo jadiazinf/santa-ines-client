@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { SelectComponent, UnfilledButton, FilledButton, InputComponent } from '../../components'
 import { useFormik } from 'formik';
 import { registerUserSchema } from '../../validations';
 import { useCreateUserMutation, useUpdateUserMutation } from '../../api';
 import toast from 'react-hot-toast';
 
-export const UserForm = ({ info, acction, onClose, handleClick, setReset, object }) => {
+export const UserForm = ({ acction, onClose, handleClick, setReset, object }) => {
 
   const [mutationFunction, mutationOptions] = acction === 'Crear'
     ? useCreateUserMutation()
