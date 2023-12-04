@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure } from "@nextui-org/react";
 import { useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
 import { editarCitaDate, editarCitaDescripcion, editarId, editarPaciente, editarStatus } from "../../store/reducers/editarCita.reducer";
 import { ModalInfoComponent } from "../modal_info_appointment/modal_info_appointment.component";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
+import { detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
+import toast from "react-hot-toast";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
@@ -53,6 +55,27 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
+  const onClickOpen = (object, dispatch, dataType) => {
+    switch (dataType) {
+      case 'users':
+        if(object.username === 'admin'){
+          dispatch(detalleUsuario({object, dataType: 'usuario'}));
+          break;
+        }else{
+          dispatch(detalleUsuario({object, dataType: 'editarusuario'}));
+          break;
+        }
+      case 'doctors':
+        dispatch(detalleDoctor2({object, dataType: 'editardoctor'}));
+        break;
+      case 'patients':
+        dispatch(detallePaciente({object, dataType: 'editarpaciente'}));
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <>
       <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
@@ -66,7 +89,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
         </TableHeader>
         <TableBody emptyContent={"No posee datos registrados aún."} items={data} >
           {(item, index) => (
-            <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-gray-100 h-16`}>
+            <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-gray-100 h-16`} onClick={() => {onClickOpen(item, dispatch, action); onOpen();}}>
               {(columnKey) =>
                 <TableCell>
                   {contentSelection(action, item, columnKey, id_doctor, onClick, onOpen, dispatch)}
