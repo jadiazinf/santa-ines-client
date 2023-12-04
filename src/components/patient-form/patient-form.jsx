@@ -153,7 +153,7 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object })
                 className1={'w-full'}
                 options={[
                   { value: 'F', label: 'Femenino' },
-                  { value: 'M', label: 'Maculino' },
+                  { value: 'M', label: 'Masculino' },
                   { value: 'N/A', label: 'No aplica' }
                 ]}
               />
