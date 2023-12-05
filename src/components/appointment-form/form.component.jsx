@@ -143,7 +143,7 @@ export const AppointmentCreateForm = ({ action }) => {
         {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ new Date(dateEditable) } dateEditable1={ dateEditable } />}
         {componentToShow === 1 && <PatientSelector patientEditable={patientEditable} onOpen={onOpen}/>}
         {componentToShow === 2 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
-        {componentToShow === 3 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
+        {componentToShow === 3 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} patientStored={patientStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
       </div>
       <div className='m-5 w-full'>
         <Steps
