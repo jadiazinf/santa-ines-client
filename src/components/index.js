@@ -1,3 +1,5 @@
+export * from './buttons/filledbutton.component';
+export * from './buttons/unfilledbutton.component';
 export * from './doctor-form/doctor-form.component';
 export * from './patient-form/patient-form';
 export * from './select-date/select-date';
