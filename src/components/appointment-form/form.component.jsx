@@ -40,14 +40,12 @@ export const AppointmentCreateForm = ({ action }) => {
   const [updateAppointment] = useUpdateAppointmentMutation();
 
   const nextComponent = () => {
-    if ((componentToShow === 0 && dateStored) || (componentToShow === 1 &&  patientStored) || (componentToShow === 2 && descriptionErrorStored === false) || componentToShow === 3) {
+    if ((componentToShow === 0 && dateStored) || (componentToShow === 1 &&  patientStored.ID) || (componentToShow === 2 && descriptionErrorStored === false) || componentToShow === 3) {
       if (componentToShow < 3) {
         setComponentToShow(componentToShow + 1);
       } else {
         toast.promise(
           new Promise((resolve, reject) => {
-
-            console.log("🚀 ~ file: form.component.jsx:56 ~ newPromise ~ info.patientStored:", patientStored)
             const info = {
               patientId: patientStored.id_number,
               doctorId: doctorStored.id.UUID,
