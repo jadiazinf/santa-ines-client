@@ -22,7 +22,7 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
   const dispatch = useDispatch();
   const { accion } = useSelector( state => state.detalles)
   const detalles = ['cita', 'usuario', 'doctor', 'paciente'];
-  const creaciones = ['crearUsuario', 'crearDoctor', 'crearPaciente'];
+  const creaciones = ['crearUsuario', 'crearDoctor', 'crearPaciente', 'crearPacienteCita'];
   const ediciones = ['editarusuario', 'editardoctor', 'editarpaciente'];
 
   const handleClick = () => {
@@ -50,11 +50,11 @@ const ModalCreacionesComponent = ({ accion, handleClick, onClose, setReset }) =>
   const subString = accion.substring("crear".length)
   return(
     <>
-      <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Creación de {subString}:</ModalHeader>
+      <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Creación de {subString !== 'PacienteCita' ? subString : 'Paciente'}:</ModalHeader>
       <ModalBody>
         { accion === 'crearUsuario' ? <UserForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
         { accion === 'crearDoctor' ? <DoctorForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
-        { accion === 'crearPaciente' ? <PatientForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
+        { accion === 'crearPaciente' || accion === 'crearPacienteCita' ? <PatientForm acction={'Crear'} onClose={onClose} handleClick={handleClick} setReset={setReset}/> : null }
       </ModalBody>
     </>
   )
