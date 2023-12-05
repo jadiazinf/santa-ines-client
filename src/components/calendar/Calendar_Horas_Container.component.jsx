@@ -33,22 +33,6 @@ import Calendario from "./Calendario"
 import { capitalizeFirstLetter } from "../../helpers/capitalize.helper"
 import { useSelector } from "react-redux"
 
-//npm install date-fns
-//npm install lucide-react
-
-
-// Esta es la variable que necesito traer con los datos del back
-// Aca se llenara este objeto con las reservaciones que existen
-// de modo que no se muestren
-// const reservations = [
-//   addHours(startOfToday(), 7).toString(),     //Al dia actual le agrega 7 horas -> lo que da una reservacion a ese momento
-//   addHours(startOfToday(), 8).toString(),
-//   addHours(startOfToday(), 9).toString(),
-//   addDays(new Date(addHours(startOfToday(), 8)), 3).toString(), //A ls 8 dentro de 3 dias -> lo que da una reservacion a ese momento
-// ]
-
-
-
 export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
