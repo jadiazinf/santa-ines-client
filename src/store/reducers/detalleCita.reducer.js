@@ -15,6 +15,9 @@ const detalleSlice = createSlice({
     setAccion: (state) => {
       state.accion = '';
     },
+    setAccion2: (state, action) => {
+      state.accion = action.payload;
+    },
     detalleCita: (state, action) => {
       state.accion = 'cita'
       state.usuario = {};
@@ -87,6 +90,6 @@ const detalleSlice = createSlice({
   }
 })
 
-export const { setAccion, detalleCita, detalleUsuario, detalleDoctor, detalleDoctor2, detallePaciente, detalleCreacionEdicion } = detalleSlice.actions;
+export const { setAccion, setAccion2, detalleCita, detalleUsuario, detalleDoctor, detalleDoctor2, detallePaciente, detalleCreacionEdicion } = detalleSlice.actions;
 export default detalleSlice.reducer;
 
