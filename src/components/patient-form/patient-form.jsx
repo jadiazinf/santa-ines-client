@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { SelectDateComponent, InputComponent, FilledButton, UnfilledButton, SelectComponent } from "../../components";
-import { useCreatePatientMutation, useUpdatePatientMutation } from '../../api';
+import { useCreatePatientMutation, useGetPatientsMutation, useUpdatePatientMutation } from '../../api';
 import { useFormik } from 'formik';
 import { registerPatientSchema, registerUserSchema } from '../../validations';
 import toast from 'react-hot-toast';
 import { utcToZonedTime } from 'date-fns-tz';
 import { parseISO } from 'date-fns';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
+import { useDispatch, useSelector } from 'react-redux';
+import { savepatients } from '../../store/reducers/doctors.reducer';
 
 export const PatientForm = ({ acction, onClose, handleClick, setReset, object }) => {
+  const { accion } = useSelector( state => state.detalles)
+  const dispatch = useDispatch()
+  const [getPatients] = useGetPatientsMutation();
   const [selectedDate, setSelectedDate] = useState(
     object && object.Fecha_Nac ? utcToZonedTime(parseISO(object.Fecha_Nac), 'UTC') : null
   );
@@ -82,9 +87,23 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object })
           error: (error) => error.message,
         }
       );
-
+      if(accion === 'crearPacienteCita'){
+        loadNewPatients();
+      }
     },
   });
+
+  const loadNewPatients = () => {
+    setTimeout(() => {
+      getPatients()
+        .then(response => {
+          dispatch(savepatients(response.data));
+        })
+        .catch(error => {
+          reject(error);
+        });
+    }, "1000");
+  }
 
   return (
     <article className=''>
