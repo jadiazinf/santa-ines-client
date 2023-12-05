@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 
-function ConfirmationComponent({ edited, doctorStored, dateStored, descriptionStored }) {
+function ConfirmationComponent({ edited, doctorStored, patientStored, dateStored, descriptionStored }) {
   var dateObject = new Date(dateStored);
   return (
     <div className="bg-white py-4 px-3 sm:px-6 lg:px-12 shadow-md rounded-tls mt-36">
@@ -14,6 +14,13 @@ function ConfirmationComponent({ edited, doctorStored, dateStored, descriptionSt
           <p className="text-base font-medium">{doctorStored.nombre.cuerpo} {doctorStored.apellido.cuerpo}</p>
           <p className="text-sm">CI: <span className='text-base font-medium'>{doctorStored.cedula}</span></p>
           <p className="text-sm">Esp: <span className='text-base font-medium'>{doctorStored.especialidad}</span></p>
+        </div>
+        <div className="flex-2">
+          <p className="text-sm">Paciente:</p>
+          <p className="text-base font-medium">{patientStored.name} {patientStored.lastname}</p>
+          <p className="text-sm">CI: <span className='text-base font-medium'>{patientStored.id_number}</span></p>
+          <p className="text-sm">Teléfono: <span className='text-base font-medium'>{patientStored.phone_number}</span></p>
+          <p className="text-sm">Correo: <span className='text-base font-medium'>{patientStored.email}</span></p>
         </div>
         <div className="flex-1 ml-5">
           <p className="text-sm">{!edited ? 'Fecha de la cita:' : 'Nueva fecha:'}</p>
