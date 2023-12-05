@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Calendar, AppointmentForm, FilledButton, UnfilledButton, PatientSelector } from "../../components";
+import { Calendar, AppointmentForm, FilledButton, UnfilledButton, PatientSelector, ModalInfoComponent } from "../../components";
 import { Steps } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationComponent from '../confirmation-appointment/confirmationApointment.component';
@@ -8,8 +8,10 @@ import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '../.
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { crearCitaDate, crearCitaDescripcion, crearPatient, descripcionError } from '../../store/reducers/crearCita.reducer';
+import { useDisclosure } from '@nextui-org/react';
 
 export const AppointmentCreateForm = ({ action }) => {
+  const [reset, setReset] = useState(false);
   const [componentToShow, setComponentToShow] = useState(0)
   const doctorStored = useSelector(state => state.createAppointment.doctor)
   const dateStored = useSelector(state => state.createAppointment.date)
@@ -127,9 +129,12 @@ export const AppointmentCreateForm = ({ action }) => {
       setComponentToShow(componentToShow - 1);
     }
   }
+  
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   return (
     <div className='flex flex-col  h-full justify-center items-center'>
+      <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
       {componentToShow <= 3 && (
         <div className='absolute top-24 right-44 flex flex-row gap-10'>
           <UnfilledButton onClick={backComponent} class={`font-bold py-2 px-4 rounded w-[100px] border-primary border-2 text-primary hover:border-green-600 hover:text-green-600`} text={componentToShow === 0 ? 'Cancelar' : 'Volver'} type='submit'/>
@@ -138,7 +143,7 @@ export const AppointmentCreateForm = ({ action }) => {
       )}
       <div className='flex flex-col justify-center items-center'>
         {componentToShow === 0 && <Calendar touch={action !== 'Edición'? false : true} dateEditable={ new Date(dateEditable) } dateEditable1={ dateEditable } />}
-        {componentToShow === 1 && <PatientSelector patientEditable={patientEditable} />}
+        {componentToShow === 1 && <PatientSelector patientEditable={patientEditable} onOpen={onOpen}/>}
         {componentToShow === 2 && <AppointmentForm edited={action !== 'Edición'? false : true} descripcionEditable={descripcionEditable}/>}
         {componentToShow === 3 && <ConfirmationComponent edited={action !== 'Edición'? false : true} doctorStored={doctorStored} dateStored={dateStored} descriptionStored={descriptionStored}/>}
       </div>
