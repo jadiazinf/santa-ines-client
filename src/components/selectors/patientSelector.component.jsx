@@ -34,7 +34,7 @@ const onClickOpen = () => {
   return (
     <div className="mt-14 m-10 flex flex-col justify-end items-end">
       <FilledButton onClick={() => { onClickOpen(); onOpen(); }}  text={'Agregar paciente'} type='button'/>
-      <div className='grid xs:grid-cols-1 smm:grid-cols-2 gap-4 '>
+      <div className='grid xs:grid-cols-1 smm:grid-cols-2 gap-4 mt-5'>
         {patients === undefined
           ? <>
               <h1>Aún no tienes asignados pacientes agregardos al sistema, agrega uno.</h1>
