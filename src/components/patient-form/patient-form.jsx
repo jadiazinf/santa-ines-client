@@ -70,7 +70,7 @@ export const PatientForm = ({ acction, onClose, handleClick, setReset, object })
           mutationFunction(dataToSent)
             .then((response) => {
               if (response.error) {
-                reject(new Error(`Error al ${acction} el paciente`));
+                reject(new Error(`Error: ${response.error.data}`));
               } else {
                 resolve(`Paciente ${acction === 'Crear' ? 'creado' : 'editado'} correctamente!`);
                 setReset((prev) => !prev);
