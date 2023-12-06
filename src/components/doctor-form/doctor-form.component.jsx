@@ -32,34 +32,24 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
     onSubmit: (values) => {
       toast.promise(
         new Promise((resolve, reject) => {
-          // let dataToSent = {};
-          // if (acction === 'Crear'){
-          //   dataToSent = {
-          //     name: capitalizeFirstLetter(values.name),
-          //     lastname: capitalizeFirstLetter(values.lastname),
-          //     address: capitalizeFirstLetter(values.address),
-          //     birthday: values.birthday,
-          //     id_number: values.id_number,
-          //     phone_number: values.phone_number,
-          //     gender: values.gender,
-          //     email: values.email
-          //   };
-          // }else{
-          //   dataToSent = {
-          //     data: {
-          //       name: capitalizeFirstLetter(values.name),
-          //       lastname: capitalizeFirstLetter(values.lastname),
-          //       address: capitalizeFirstLetter(values.address),
-          //       birthday: values.birthday,
-          //       id_number: values.id_number,
-          //       phone_number: values.phone_number,
-          //       gender: values.gender,
-          //       email: values.email
-          //     },
-          //     id: object.Id,
-          //   };
-          // }
-          mutationFunction(values)
+          let dataToSent = {};
+          if (acction === 'Crear'){
+            dataToSent = values
+          }else{
+            dataToSent = {
+              data: {
+                nombre: capitalizeFirstLetter(values.nombre),
+                apellido: capitalizeFirstLetter(values.apellido),
+                especialidad: values.especialidad,
+                cedula: values.cedula,
+                telefono: values.telefono,
+                genero: values.genero,
+                correo: values.correo
+              },
+              id: object.Cédula,
+            };
+          }
+          mutationFunction(dataToSent)
             .then((response) => {
               if (response.error) {
                 reject(new Error(`Error: ${response.error.data}`));
