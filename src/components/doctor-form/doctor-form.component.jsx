@@ -25,8 +25,8 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
       especialidad: object && object.Especialidad ? object.Especialidad : 'Adolescentología',
       cedula: object && object.Cédula ? object.Cédula : '',
       telefono: object && object.Teléfono ? object.Teléfono : '',
-      genero: object && object.Género ? object.Género : '',
-      correo: object && object.Correo ? object.Correo : 'F',
+      genero: object && object.Género ? object.Género : 'F',
+      correo: object && object.Correo ? object.Correo : '',
     },
     validationSchema: creationDoctorSchema,
     onSubmit: (values) => {
@@ -62,7 +62,7 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
           mutationFunction(values)
             .then((response) => {
               if (response.error) {
-                reject(new Error(`Error al ${acction} el doctor`));
+                reject(new Error(`Error: ${response.error.data}`));
               } else {
                 resolve(`Doctor ${acction === 'Crear' ? 'creado' : 'editado'} correctamente!`);
                 setReset((prev) => !prev);
