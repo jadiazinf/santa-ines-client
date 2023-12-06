@@ -44,7 +44,7 @@ export const UserForm = ({ acction, onClose, handleClick, setReset, object }) =>
           mutationFunction(dataToSent)
             .then((response) => {
               if (response.error) {
-                reject(new Error(`Error al ${acction} el usuario`));
+                reject(new Error(`Error: ${response.error.data}`));
               } else {
                 resolve(`Usuario ${acction === 'Crear' ? 'creado' : 'editado'} correctamente!`);
                 setReset((prev) => !prev);
