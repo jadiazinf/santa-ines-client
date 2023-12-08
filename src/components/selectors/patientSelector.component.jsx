@@ -14,8 +14,8 @@ export const PatientSelector = ({ patientEditable, onOpen }) => {
 
   useEffect(() => {
     if (patientEditable) {
-      const editablePatient = patients.find((paciente) => paciente.id_number === patientEditable);
-      setPatientSelected(editablePatient || null);
+      dispatch(crearPatient(patients.find((paciente) => paciente.id_number === patientEditable)) || null);
+      setPatientSelected(patients.find((paciente) => paciente.id_number === patientEditable) || null);
     }
   }, [patientEditable, patients]);
 
