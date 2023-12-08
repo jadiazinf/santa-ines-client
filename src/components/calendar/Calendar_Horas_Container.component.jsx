@@ -27,13 +27,22 @@ import {
   startOfYesterday,
 } from "date-fns"
 import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react"
-import { es } from "date-fns/locale"
+import { da, es } from "date-fns/locale"
 import Horas_disponibles from "./Hour"
 import Calendario from "./Calendario"
 import { capitalizeFirstLetter } from "../../helpers/capitalize.helper"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { crearCitaDate } from "../../store/reducers/crearCita.reducer"
 
 export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (dateEditable1) {
+      dispatch(crearCitaDate(obtenerFechaDesdeCadenaFecha(dateEditable1)+" "+obtenerHoraDesdeCadenaFecha(dateEditable1)+":00"))
+    }
+  }, []);
+
   //Captamos las citas que se encuentran ya registradas al doctor
   const { appointments } = useSelector( state => state.createAppointment)
 
@@ -311,8 +320,6 @@ let colStartClasses = [
 function convertirFecha(fecha) {
   const parsedDate = parseISO(fecha);
   const referenceString = new Date().toString()
-  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0800 (Pacific Standard Time)\'');
-  // const formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss \'GMT-0400 (Venezuela Time)\'');
   let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25); //TODO -> Esto es para que se muestre la hora en el formato de la maquina
 
   return formattedDate;
