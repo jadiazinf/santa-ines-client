@@ -33,7 +33,7 @@ export const appointmentsApi = createApi({
         return {
           url: `${import.meta.env.VITE_API_APPOINTMENT}${id}`,
           method: 'PATCH',
-          body: body
+          body: appointment
         };
       }
     })
