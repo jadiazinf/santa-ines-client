@@ -40,5 +40,4 @@ function ConfirmationComponent({ edited, doctorStored, patientStored, dateStored
     </div>
   );
 }
-
 export default ConfirmationComponent;
