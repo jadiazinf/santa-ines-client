@@ -30,13 +30,15 @@ export const doctorsApi = createApi({
       }
     }),
     updateDoctor: builder.mutation({
-      query: (data) => ({
-        url: `${import.meta.env.VITE_API_DOCTOR_UPDATE}`,
-        method: 'PUT',
-        body: data
-      })
+      query: (data) => {
+        return {
+          url: `${import.meta.env.VITE_API_DOCTOR_UPDATE}${data.id}`,
+          method: 'PUT',
+          body: data.data
+        }
+      }
     }),
-    deleteDoctor: builder.mutation({  //TODO -> DANIEL -> NO funciona eliminar a doctor
+    deleteDoctor: builder.mutation({
       query: (data) => {
         const cedula = {cedula: data.id}
         return {
