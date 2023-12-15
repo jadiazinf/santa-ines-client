@@ -5,8 +5,8 @@ import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 import { format } from 'date-fns';
 import { es } from "date-fns/locale";
 import { fechaHora } from '../../helpers/calendar.helper';
-import { setAccion } from '../../store/reducers/detalleCita.reducer';
-import { FilledButton, PatientForm, UserForm, DoctorForm} from '../../components'
+import { resetAccions, setAccion } from '../../store/reducers/detalleCita.reducer';
+import { FilledButton, PatientForm, UserForm, DoctorForm} from '..'
 
 
 const statusColorMap = {
@@ -27,6 +27,9 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
 
   const handleClick = () => {
     dispatch(setAccion());
+    dispatch(resetAccions());
+        console.log('cerrando')
+
   }
 
   return (
@@ -102,7 +105,6 @@ const ModalViewInfoComponent = ({ accion, handleClick, onClose }) => {
         { accion === 'usuario' ? <DetalleUsuario /> : null }
         { accion === 'doctor' ? <DetalleDoctor /> : null }
         { accion === 'paciente' ? <DetallePaciente /> : null }
-
       </ModalBody>
       <ModalFooter>
         <FilledButton onClick={() => { handleClick(); onClose(); }} class={`bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded w-[100px]`} text={'Cerrar'}/>
