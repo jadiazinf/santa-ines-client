@@ -7,10 +7,11 @@ export const doctorsApi = createApi({
   }),
   endpoints: builder => ({
     getDoctors: builder.mutation({
-      query: () => {
+      query: (data) => {
         return {
-          url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,
+          url: `${import.meta.env.VITE_API_DOCTOR_GET_BY_USERID}`,
           method: 'GET',
+          body: data
         }
       }
     }),
