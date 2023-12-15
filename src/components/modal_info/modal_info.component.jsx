@@ -113,7 +113,6 @@ const ModalViewInfoComponent = ({ accion, handleClick, onClose }) => {
   )
 }
 
-//TODO -> Este componente se puede mejorar para que no se repita tanto codigo
 const DetalleCita = () => {
   const { cita } = useSelector( state => state.detalles)
   const { doctor } = useSelector( state => state.saveDoctors)
