@@ -23,17 +23,24 @@ export const DoctorInfo = ({ info }) => {
       toast.promise(
         new Promise((resolve, reject) => {
           const updatedDoctor = {
-            nombre: capitalizeFirstLetter(values.nombre),
-            apellido:capitalizeFirstLetter(values.apellido),
-            especialidad: capitalizeFirstLetter(values.especialidad),
-            cedula: values.cedula,
-            telefono: values.telefono,
-            genero: values.genero,
-            correo: values.correo,
+            data: {
+              nombre: capitalizeFirstLetter(values.nombre),
+              apellido:capitalizeFirstLetter(values.apellido),
+              especialidad: capitalizeFirstLetter(values.especialidad),
+              cedula: values.cedula,
+              telefono: values.telefono,
+              genero: values.genero,
+              correo: values.correo,
+            },
+            id: info.cedula,
           }
           updateDoctor(updatedDoctor)
             .then((response) => {
-              resolve('¡Doctor editado correctamente!');
+              if(response.error){
+                reject(new Error(response.error.data))
+              } else{
+                resolve('¡Doctor editado correctamente!');
+              }
             })
             .catch((error) => {
               reject(new Error(response.data.message));
