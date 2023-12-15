@@ -56,15 +56,19 @@ export const AppointmentCreateForm = ({ action }) => {
             {action !== 'Edición'
               ? createAppointment(info)
                   .then((response) => {
-                    if (response.data) {
+                    if(response.error){
+                      reject(new Error(response.error.data))
+                    } else{
                       dispatch(descripcionError(false))
                       dispatch(crearCitaDate(''))
                       dispatch(crearCitaDescripcion(''));
                       resolve('¡Cita creada!');
                       navigate(`../info-doctor/${userName}`);
-                    } else {
-                      reject(new Error(response.data.message));
                     }
+                    // if (response.data) {
+                    // } else {
+                    //   reject(new Error(response.data.message));
+                    // }
                   })
                   .catch((error) => {
                     reject(new Error(error));
