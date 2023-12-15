@@ -318,13 +318,12 @@ let colStartClasses = [
 ]
 
 function convertirFecha(fecha) {
+  // Nov 12 2023 19:35:50 GMT-0800 (Pacific Standard Time)
   const parsedDate = parseISO(fecha);
   const referenceString = new Date().toString()
-  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25); //TODO -> Esto es para que se muestre la hora en el formato de la maquina
-
+  let formattedDate = format(parsedDate, 'EEE MMM dd yyyy HH:mm:ss ') + referenceString.slice(25);
   return formattedDate;
 }
-// Nov 12 2023 19:35:50 GMT-0800 (Pacific Standard Time)
 
 
 function recorrerCitas(citas2) {
