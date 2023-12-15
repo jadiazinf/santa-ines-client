@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
 import { editarCitaDate, editarCitaDescripcion, editarId, editarPaciente, editarStatus } from "../../store/reducers/editarCita.reducer";
-import { ModalInfoComponent } from "../modal_info_appointment/modal_info_appointment.component";
+import { ModalInfoComponent } from "../modal_info/modal_info.component";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
-import { detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
+import { detalleCita, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
 import toast from "react-hot-toast";
 
 const fetchFunctions = {
@@ -57,6 +57,10 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
 
   const onClickOpen = (object, dispatch, dataType) => {
     switch (dataType) {
+      case 'appointments':
+        onOpen();
+        dispatch(detalleCita(object));
+        break;
       case 'users':
         if(object.username === 'admin'){
           dispatch(detalleUsuario({object, dataType: 'usuario'}));
