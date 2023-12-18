@@ -28,3 +28,31 @@ export const especialidadesOptions = [
   { value: 'Traumatología', label: 'Traumatología' },
   { value: 'Urología', label: 'Urología' },
 ];
+
+export const columnsUsers = [
+    {name: "Id", uid: "ID"},
+    {name: "Nombre", uid: "username"},
+    {name: "Contraseña", uid: "password"},
+    {name: "Tipo usuario", uid: "user_type"},
+    {name: "Acciones", uid: "actions"},
+  ];
+
+export const columnsDoctors = [
+    {name: "Cedúla", uid: "cedula"},
+    {name: "Nombre", uid: "nombre"},
+    {name: "Apellido", uid: "apellido"},
+    {name: "Especialidad", uid: "especialidad"},
+    {name: "Teléfono", uid: "telefono"},
+    {name: "Correo", uid: "correo"},
+    {name: "Acciones", uid: "actions"},
+  ]
+
+export const columnsPatients = [
+    {name: "Cedúla", uid: "id_number"},
+    {name: "Nombre", uid: "name"},
+    {name: "Apellido", uid: "lastname"},
+    {name: "Fecha de nacimiento", uid: "birthday"},
+    {name: "Teléfono", uid: "phone_number"},
+    {name: "Correo", uid: "email"},
+    {name: "Acciones", uid: "actions"},
+  ]
