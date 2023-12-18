@@ -68,6 +68,7 @@ const detalleSlice = createSlice({
       state.doctor.Teléfono = action.payload.object.telefono;
       state.doctor.Correo = action.payload.object.correo.correo;
       state.doctor.Género = action.payload.object.genero;
+      state.doctor.id_usuario = action.payload.object.id_usuario;
     },
     detallePaciente: (state, action) => {
       state.accion = action.payload.dataType || 'paciente'
