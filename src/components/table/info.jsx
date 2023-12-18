@@ -202,9 +202,6 @@ const DeleteButton = ({ idObject, dataType, saveFunction, id2}) => {
 };
 
 export const fetchData = async (dispatch, fetchFunction, saveFunction, dataType, bodyData) => {
-  if(dataType === 'doctors'){
-    console.log('dataType', dataType)
-  }
   try {
     let response;
     if (bodyData) {
