@@ -29,7 +29,6 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
     dispatch(setAccion());
     dispatch(resetAccions());
         console.log('cerrando')
-
   }
 
   return (
