@@ -1,7 +1,7 @@
-import { useDeleteAppointmentMutation, useDeleteDoctorMutation, useDeletePatientMutation, useDeleteUserMutation, useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
+import { useDeleteAppointmentMutation, useDeleteDoctorMutation, useDeletePatientMutation, useDeleteUserMutation, useGetAllDoctorsMutation, useGetDoctorAppointmentsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
 import { useDispatch } from "react-redux";
 import { fechaHora } from "../../helpers/calendar.helper";
-import { Chip, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Chip, Tooltip } from "@nextui-org/react";
 import { DeleteIcon, EditIcon, EyeIcon } from "../../assets";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
@@ -25,7 +25,7 @@ const deleteFunctions = {
 const fetchFunctions = {
   'cita': useGetDoctorAppointmentsMutation,
   'usuario': useGetUsersMutation,
-  'doctor': useGetDoctorsMutation,
+  'doctor': useGetAllDoctorsMutation,
   'paciente': useGetPatientsMutation
 };
 
@@ -202,6 +202,9 @@ const DeleteButton = ({ idObject, dataType, saveFunction, id2}) => {
 };
 
 export const fetchData = async (dispatch, fetchFunction, saveFunction, dataType, bodyData) => {
+  if(dataType === 'doctors'){
+    console.log('dataType', dataType)
+  }
   try {
     let response;
     if (bodyData) {
