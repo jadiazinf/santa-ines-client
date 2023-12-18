@@ -17,6 +17,12 @@ export const doctorsApi = createApi({
     }),
     getDoctors1: builder.mutation({
       query: (data) => ({
+        url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,        //Sera eliminado cuando se tenga el endpoint VITE_API_DOCTOR_GET_BY_USERID
+        method: 'GET',
+      })
+    }),
+    getAllDoctors: builder.mutation({
+      query: (data) => ({
         url: `${import.meta.env.VITE_API_DOCTOR_GET_ALL}`,
         method: 'GET',
       })
@@ -53,4 +59,4 @@ export const doctorsApi = createApi({
   })
 });
 
-export const { useGetDoctorsMutation, useGetDoctors1Mutation, useCreateDoctorMutation, useUpdateDoctorMutation, useDeleteDoctorMutation } = doctorsApi;
+export const { useGetDoctorsMutation, useGetDoctors1Mutation, useGetAllDoctorsMutation, useCreateDoctorMutation, useUpdateDoctorMutation, useDeleteDoctorMutation } = doctorsApi;
