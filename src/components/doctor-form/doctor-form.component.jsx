@@ -9,9 +9,25 @@ import { useFormik } from 'formik';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 import { especialidadesOptions } from '../constanst';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) => {
-  //-------------------------------------------------
+  const { users } = useSelector( state => state.userAdmin)
+  const [usersForSelectComponent, setUsersForSelectComponent] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+
+  useEffect(() => {
+    setUsersForSelectComponent(
+      users
+        .filter((user) => user.username !== 'admin')
+        .map((user) => ({
+          value: user.ID,
+          label: `${user.username}`,
+        }))
+    );
+    setIsLoadingUsers(false);
+  }, [users]);
+
   const [mutationFunction, mutationOptions] = acction === 'Crear'
     ? useCreateDoctorMutation()
     : useUpdateDoctorMutation();
@@ -27,6 +43,7 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
       telefono: object && object.Teléfono ? object.Teléfono : '',
       genero: object && object.Género ? object.Género : 'F',
       correo: object && object.Correo ? object.Correo : '',
+      id_usuario: object && object.id_usuario ? object.id_usuario : isLoadingUsers ? '' : usersForSelectComponent.length > 0 ? usersForSelectComponent[0].value : '',
     },
     validationSchema: creationDoctorSchema,
     onSubmit: (values) => {
@@ -44,7 +61,8 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
                 cedula: values.cedula,
                 telefono: values.telefono,
                 genero: values.genero,
-                correo: values.correo
+                correo: values.correo,
+                id_usuario: values.id_usuario,
               },
               id: object.Cédula,
             };
@@ -69,7 +87,6 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
           error: (error) => error.message,
         }
       );
-
     },
   });
 
@@ -147,6 +164,15 @@ export const DoctorForm = ({ acction, onClose, handleClick, setReset, object }) 
             onChange={formik.handleChange}
             value={formik.values.correo}
             error={formik.errors.correo}
+            className1={'w-full'}
+          />
+          <SelectComponent
+            id='id_usuario'
+            name='id_usuario'
+            placeholder='Asistente asignado'
+            onChange={formik.handleChange}
+            value={formik.values.id_usuario}
+            options={usersForSelectComponent}
             className1={'w-full'}
           />
         </div>
