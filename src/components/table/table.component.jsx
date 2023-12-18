@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure } from "@nextui-org/react";
-import { useGetDoctorAppointmentsMutation, useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
+import { useGetAllDoctorsMutation, useGetDoctorAppointmentsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +9,11 @@ import { ModalInfoComponent } from "../modal_info/modal_info.component";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { detalleCita, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
-import toast from "react-hot-toast";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
   'users': useGetUsersMutation,
-  'doctors': useGetDoctorsMutation,
+  'doctors': useGetAllDoctorsMutation,
   'patients': useGetPatientsMutation
 };
 
