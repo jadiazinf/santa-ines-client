@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { FilledButton, ModalInfoComponent, TabsComponent, TableComponent } from '../../components'
-import { useGetDoctorsMutation, useGetPatientsMutation, useGetUsersMutation } from '../../api'
+import { useGetPatientsMutation, useGetUsersMutation, useGetAllDoctorsMutation } from '../../api'
 import { saveDoctors, savePatients, saveUsers } from '../../store/reducers/userAdmin.reducer'
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper'
 import { useDisclosure } from '@nextui-org/react'
 import { detalleCreacionEdicion } from '../../store/reducers/detalleCita.reducer'
+import { columnsDoctors, columnsPatients, columnsUsers } from '../../components/constanst'
 
 export const AdminPage = () => {
   const dispatch = useDispatch();
   const { username } = useSelector( state => state.authenticatedUser)
-  const [getDoctors] = useGetDoctorsMutation();
+  const [getAllDoctors] = useGetAllDoctorsMutation();
   const [getAllUsers] = useGetUsersMutation();
   const [getPatients] = useGetPatientsMutation();
   const [activeTab, setActiveTab] = useState('users');
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
-    Promise.all([getAllUsers(), getDoctors(), getPatients()])
+    Promise.all([getAllUsers(), getAllDoctors(), getPatients()])
       .then(([usersResponse, doctorsResponse, patientsResponse]) => {
         dispatch(saveUsers(usersResponse.data));
         dispatch(saveDoctors(doctorsResponse.data));
@@ -27,35 +27,7 @@ export const AdminPage = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [reset])
-
-  const columnsUsers = [
-    {name: "Id", uid: "ID"},
-    {name: "Nombre", uid: "username"},
-    {name: "Contraseña", uid: "password"},
-    {name: "Tipo usuario", uid: "user_type"},
-    {name: "Acciones", uid: "actions"},
-  ];
-
-  const columnsDoctors = [
-    {name: "Cedúla", uid: "cedula"},
-    {name: "Nombre", uid: "nombre"},
-    {name: "Apellido", uid: "apellido"},
-    {name: "Especialidad", uid: "especialidad"},
-    {name: "Teléfono", uid: "telefono"},
-    {name: "Correo", uid: "correo"},
-    {name: "Acciones", uid: "actions"},
-  ]
-
-  const columnsPatients = [
-    {name: "Cedúla", uid: "id_number"},
-    {name: "Nombre", uid: "name"},
-    {name: "Apellido", uid: "lastname"},
-    {name: "Fecha de nacimiento", uid: "birthday"},
-    {name: "Teléfono", uid: "phone_number"},
-    {name: "Correo", uid: "email"},
-    {name: "Acciones", uid: "actions"},
-  ]
+  }, [reset]);
 
   const { doctors, users, patients } = useSelector( state => state.userAdmin)
 
