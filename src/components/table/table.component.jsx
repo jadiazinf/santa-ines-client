@@ -9,6 +9,7 @@ import { ModalInfoComponent } from "../modal_info/modal_info.component";
 import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userAdmin.reducer";
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { detalleCita, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
+import { SearchBarComponent } from "../searchBar/searchBar.component";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
@@ -84,16 +85,66 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
   const rowsPerPage = 5;
   const totalItems = data.length;
 
-  data = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    return data.slice(start, end);
-  }, [page, data]);
   //------------------> Pagination Config <------------------
+  const [searchValue, setSearchValue] = React.useState('');
+  let searchedDatas = [];
 
+  console.log("🚀 ~ file: table.component.jsx:94 ~ TableComponent ~ data:", data)
+  if (searchValue.length === 0){
+    searchedDatas = data;
+  }else{
+    const searchText = searchValue.toLowerCase();
+    switch  (action){
+      case 'appointments':
+        searchedDatas = data.filter(item => {
+          const itemTextPacienteId = item.patientId.toLowerCase();
+          const itemTextStatus= item.status.toLowerCase();
+          const itemTextDescripcion = item.description.toLowerCase();
+
+          return itemTextPacienteId.includes(searchText) || itemTextStatus.includes(searchText) || itemTextDescripcion.includes(searchText);
+        });
+      break;
+      case 'users':
+        searchedDatas = data.filter(item => {
+          const itemTextUsername = item.username.toLowerCase();
+          const itemTextUserType = item.user_type.toLowerCase();
+          return itemTextUsername.includes(searchText) || itemTextUserType.includes(searchText);
+        });
+      break;
+      case 'doctors':
+        searchedDatas = data.filter(item => {
+          const itemTextName = item.nombre.cuerpo.toLowerCase();
+          const itemTextApellido = item.apellido.cuerpo.toLowerCase();
+          const itemTextCorreo = item.correo.correo.toLowerCase();
+          const itemTextCedula = item.cedula.toLowerCase();
+          const itemTextespecialidad = item.especialidad.toLowerCase();
+          return itemTextName.includes(searchText) || itemTextApellido.includes(searchText) || itemTextCorreo.includes(searchText) || itemTextCedula.includes(searchText) || itemTextespecialidad.includes(searchText);
+        });
+      break;
+      case 'patients':
+        searchedDatas = data.filter(item => {
+          const itemTextNombre= item.name.toLowerCase();
+          const itemTextLastname= item.lastname.toLowerCase();
+          const itemTextAddress = item.address.toLowerCase();
+          const itemTextCedula = item.id_number.toLowerCase();
+          const itemTextCorreo = item.email.toLowerCase();
+          const itemTextGenero = item.gender.toLowerCase();
+          const itemTextTelefono = item.phone_number.toLowerCase()
+          return itemTextNombre.includes(searchText) || itemTextLastname.includes(searchText) || itemTextAddress.includes(searchText) || itemTextCedula.includes(searchText) || itemTextCorreo.includes(searchText) || itemTextGenero.includes(searchText) || itemTextTelefono.includes(searchText);
+        });
+
+
+    }
+  }
+    data = React.useMemo(() => {
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      return data.slice(start, end);
+    }, [page, data]);
   return (
     <>
       <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
+      <SearchBarComponent searchValue={searchValue} setSearchValue={setSearchValue}/>
       <Table
         aria-label="tabla"
         bottomContent={
@@ -114,7 +165,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"No posee datos registrados aún."} items={data} >
+        <TableBody emptyContent={"Contenido no encontrado."} items={searchValue.length !== 0 ? searchedDatas : data} >
           {(item, index) => (
             <TableRow key={item.username || item.ID || item.id.UUID} className={`hover:bg-gray-100 h-16`} onClick={() => {onClickOpen(item, dispatch, action); onOpen();}}>
               {(columnKey) =>
@@ -194,3 +245,5 @@ const SpamComponent = ({ numberPage, currentPage }) => {
     </li>
   )
 }
+
+
