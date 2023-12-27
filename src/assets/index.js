@@ -24,6 +24,6 @@ import {EditIcon} from "./svg/EditIcon.jsx"
 import {SearchIcon} from "./svg/SearchIcon.jsx"
 import {DeleteIcon} from "./svg/DeleteIcon.jsx"
 import {EyeIcon} from "./svg/EyeIcon.jsx"
+import { InfoIcon } from "./InfoIcon.jsx";
 
-
-export { menu, close, instagram, facebook, linkedin, twitter, adress_pointer, phone, mail, arrowNext, calendar, teamIcon, cash, map, logo_SantaInes, footer_SantaInes, footer_SantaInes_2, section_Qsomos, teamSI, userIcon, delete_icon, edit_icon, EditIcon, DeleteIcon, EyeIcon, SearchIcon}
+export { menu, close, instagram, facebook, linkedin, twitter, adress_pointer, phone, mail, arrowNext, calendar, teamIcon, cash, map, logo_SantaInes, footer_SantaInes, footer_SantaInes_2, section_Qsomos, teamSI, userIcon, delete_icon, edit_icon, EditIcon, DeleteIcon, EyeIcon, SearchIcon, InfoIcon}
