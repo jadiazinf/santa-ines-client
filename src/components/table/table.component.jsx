@@ -89,7 +89,6 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
   const [searchValue, setSearchValue] = React.useState('');
   let searchedDatas = [];
 
-  console.log("🚀 ~ file: table.component.jsx:94 ~ TableComponent ~ data:", data)
   if (searchValue.length === 0){
     searchedDatas = data;
   }else{
