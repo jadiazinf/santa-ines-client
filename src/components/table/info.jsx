@@ -106,7 +106,7 @@ export const renderAppointmentsCells = (cita, columnKey, id_doctor, onClick, onO
 export const renderUsersCells = (usuario, columnKey, onOpen, dispatch) => {
   if(columnKey !== 'actions') {
     return (
-      <p className="text-bold text-sm capitalize text-default-400">{usuario[columnKey]}</p>
+      <p className="text-bold text-sm text-default-400">{usuario[columnKey]}</p>
     );
   }else{
     return (
