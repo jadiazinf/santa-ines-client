@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure } from "@nextui-org/react";
 import { useGetAllDoctorsMutation, useGetDoctorAppointmentsMutation, useGetPatientsMutation, useGetUsersMutation } from "../../api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchData, renderAppointmentsCells, renderDoctorsCells, renderPatientsCells, renderUsersCells } from "./info";
 import { useNavigate } from "react-router-dom";
 import { editarCitaDate, editarCitaDescripcion, editarId, editarPaciente, editarStatus } from "../../store/reducers/editarCita.reducer";
@@ -10,6 +10,7 @@ import { saveDoctors, savePatients, saveUsers } from "../../store/reducers/userA
 import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { detalleCita, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
 import { SearchBarComponent } from "../searchBar/searchBar.component";
+import { InfoIcon } from "../../assets";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
@@ -99,8 +100,10 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
           const itemTextPacienteId = item.patientId.toLowerCase();
           const itemTextStatus= item.status.toLowerCase();
           const itemTextDescripcion = item.description.toLowerCase();
+          const itemTextAppointmentDate = item.appointmentDate.toLowerCase();
+          const itemTextCreationDate = item.creationDate.toLowerCase();
 
-          return itemTextPacienteId.includes(searchText) || itemTextStatus.includes(searchText) || itemTextDescripcion.includes(searchText);
+          return itemTextPacienteId.includes(searchText) || itemTextStatus.includes(searchText) || itemTextDescripcion.includes(searchText) || itemTextAppointmentDate.includes(searchText) || itemTextCreationDate.includes(searchText);
         });
       break;
       case 'users':
@@ -135,15 +138,28 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
 
     }
   }
-    data = React.useMemo(() => {
-      const start = (page - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      return data.slice(start, end);
-    }, [page, data]);
+  data = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    return data.slice(start, end);
+  }, [page, data]);
+
+  const componentToRender = decideComponentToRender(action);
+
   return (
     <>
       <ModalInfoComponent isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} setReset={setReset}/>
-      <SearchBarComponent searchValue={searchValue} setSearchValue={setSearchValue}/>
+      <div className="flex flex-row justify-end gap-2 mr-5">
+        <SearchBarComponent searchValue={searchValue} setSearchValue={setSearchValue}/>
+        <div className="group">
+          <div className="absolute ml-7 bg-gray-200 p-4 rounded-md hidden group-hover:flex group-hover:flex-col  z-50 ">
+            <h1 className="flex flex-col gap-1 font-bold text-sm text-primary underline">Valores de busqueda:</h1>
+            {componentToRender}
+          </div>
+
+          <InfoIcon infoToSearch={action}/>
+        </div>
+      </div>
       <Table
         aria-label="tabla"
         bottomContent={
@@ -245,4 +261,63 @@ const SpamComponent = ({ numberPage, currentPage }) => {
   )
 }
 
+const decideComponentToRender = (text) => {
+  switch (text) {
+    case 'appointments':
+      return <AppointmentComponentInfo />;
+    case 'users':
+      return <UserComponentInfo />;
+    case 'doctors':
+      return <DoctorComponentInfo />;
+    case 'patients':
+      return <PatientComponentInfo />;
+    default:
+      return <div>No matching component found</div>;
+  }
+};
 
+const AppointmentComponentInfo = () => {
+  return (
+    <div className='mt-2'>
+      <h1 className='font-semibold text-sm ml-1'>▶ Id paciente</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Estatus</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Descripción</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Fecha</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Fecha creación</h1>
+    </div>
+  )
+}
+
+const UserComponentInfo = () => {
+  return (
+    <div className='mt-2'>
+      <h1 className='font-semibold text-sm ml-1'>▶ Nombre</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Tipo usuario</h1>
+    </div>
+  )
+}
+
+const DoctorComponentInfo = () => {
+  return (
+    <div className='mt-2'>
+      <h1 className='font-semibold text-sm ml-1'>▶ Nombre</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Apellido</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Cedúla</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Correo</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Especialidad</h1>
+    </div>
+  )
+}
+const PatientComponentInfo = () => {
+  return (
+    <div className='mt-2'>
+      <h1 className='font-semibold text-sm ml-1'>▶ Nombre</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Apellido</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Cedúla</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Correo</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Dirección</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Género</h1>
+      <h1 className='font-semibold text-sm ml-1'>▶ Telefono</h1>
+    </div>
+  )
+}
