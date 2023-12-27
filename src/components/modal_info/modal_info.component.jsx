@@ -116,7 +116,7 @@ const DetalleCita = () => {
   const { cita } = useSelector( state => state.detalles)
   const { doctor } = useSelector( state => state.saveDoctors)
   var dateObject2 = new Date(cita.date);
-  const name = `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}}`
+  const name = `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}`
   const date = `${fechaHora(cita.date, 'fecha')} a las ${' '} ${fechaHora(cita.date, 'hora')}`;
   return (
     <>
