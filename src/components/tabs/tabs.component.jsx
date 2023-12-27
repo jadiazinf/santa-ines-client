@@ -1,10 +1,6 @@
-import { DatatableComponent, DoctorInfo } from '..';
-import { useState } from 'react';
-import { TableComponent } from '../table/table.component';
-import { useSelector } from 'react-redux';
+import { InfoIcon } from "../../assets";
 
 export const TabsComponent = ({tabs, activeTab, setActiveTab}) => {
-const { doctor } = useSelector( state => state.saveDoctors)
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
@@ -22,8 +18,13 @@ const { doctor } = useSelector( state => state.saveDoctors)
           ))}
         </ul>
         <div>
+          <div className="absolute bg-red-400">
+            <div className="w-5 h-5 bg-white  border-black z-50 absolute"></div>
+            <InfoIcon infoToSearch={'users'} className={'absolute z-10'} />
+          </div>
+
           {tabs.map((tab) => (
-          <div className={`${activeTab === tab.id ? "block" : "hidden"}`} id={tab.id} role="tabpanel" aria-labelledby={`${tab.id}-tab`} key={tab.id}>
+            <div className={`${activeTab === tab.id ? "block" : "hidden"}`} id={tab.id} role="tabpanel" aria-labelledby={`${tab.id}-tab`} key={tab.id}>
               {tab.component}
             </div>
           ))}
