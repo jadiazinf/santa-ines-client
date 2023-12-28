@@ -33,7 +33,7 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
 
   return (
     <>
-      <Modal  backdrop={'blur'} isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={true}  className=' bg-slate-50 p-2 rounded-lg' size={detalles.includes(accion) ? '' : '2xl'}>
+      <Modal  backdrop={'blur'} isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={true}  className=' bg-slate-50 pt-2 pr-2 pl-2 pb-3 rounded-lg' size={detalles.includes(accion) ? '' : '2xl'}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -98,16 +98,18 @@ const ModalEdicionesComponent = ({ accion, handleClick, onClose, setReset }) => 
 const ModalViewInfoComponent = ({ accion, handleClick, onClose }) => {
   return(
     <>
-      <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline">Información de {accion}:</ModalHeader>
+      <ModalHeader className="flex flex-col gap-1 font-bold text-lg text-primary underline ">Información de {accion}:</ModalHeader>
       <ModalBody>
         { accion === 'cita' ? <DetalleCita /> : null }
         { accion === 'usuario' ? <DetalleUsuario /> : null }
         { accion === 'doctor' ? <DetalleDoctor /> : null }
         { accion === 'paciente' ? <DetallePaciente /> : null }
       </ModalBody>
+      
+      {/* Por alguna razon este boton da un error con una funcion en detalle cita
       <ModalFooter>
         <FilledButton onClick={() => { handleClick(); onClose(); }} class={`bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded w-[100px]`} text={'Cerrar'}/>
-      </ModalFooter>
+      </ModalFooter> */}
     </>
   )
 }
