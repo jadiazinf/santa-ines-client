@@ -51,10 +51,14 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
   const [calendarTouched, setCalendarTouched] = useState(touch)
   // Dia actual
   let today = startOfToday()
+
+  //--------> Cambio para que empiece un dia despues de la fecha actual
+  let tomorrow = addDays(startOfToday(), 1);
+
   // Estado mes actual
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"))
   // Dia seleccionado
-  let [selectedDay, setSelectedDay] = useState(today)
+  let [selectedDay, setSelectedDay] = useState(tomorrow)  //--------> Cambio para que empiece un dia despues de la fecha actual
   // Primer dia del mes
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date())
   // Obtenemos los dias del mes
@@ -208,10 +212,10 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
                       "w-12 h-12 flex flex-col p-2 justify-center items-center rounded-xl gap-0 group bg-gray-50 relative group",
                       isEqual(day, selectedDay) &&
                         "bg-orange-100 text-slate-900 text-lg",
-                        isEqual(today, day) && "text-blue-900 bg-blue-50",
-                        (isBefore(day, today) || day.getDay() === 6 || day.getDay() === 0) &&"text-red-800 bg-red-50 cursor-not-allowed", //Bloqueamos el cursor
-                        isEqual(today, day) && "text-blue-900 bg-blue-50",
-                        (isBefore(day, today) || day.getDay() === 6 || day.getDay() === 0) && "cursor-not-allowed", //Bloqueamos el cursor los
+                        isEqual(tomorrow, day) && "text-blue-900 bg-blue-50",
+                        (isBefore(day, tomorrow) || day.getDay() === 6 || day.getDay() === 0) &&"text-red-800 bg-red-50 cursor-not-allowed", //Bloqueamos el cursor
+                        isEqual(tomorrow, day) && "text-blue-900 bg-blue-50",
+                        (isBefore(day, tomorrow) || day.getDay() === 6 || day.getDay() === 0) && "cursor-not-allowed", //Bloqueamos el cursor los
                         isEqual(day, selectedDay) &&
                         isToday(day) &&
                         "bg-blue-200",
@@ -224,7 +228,7 @@ export const Calendar = ({ touch, dateEditable, dateEditable1 }) => {
                         isSameMonth(day, firstDayCurrentMonth) &&
                         "text-gray-900"
                     )}
-                    disabled={isBefore(day, today) || day.getDay() === 6 || day.getDay() === 0} // Bloquea los días anteriores y los fines de semana
+                    disabled={isBefore(day, tomorrow) || day.getDay() === 6 || day.getDay() === 0} // Bloquea los días anteriores y los fines de semana
                   >
                     {isAfter(day, startOfYesterday()) && day.getDay() !== 6 && day.getDay() !== 0 && ( //Ya no se muestra el mensaje de available en los fines
                       <span className="hidden group-hover:flex absolute top-0 -translate-x-.5 -translate-y-4 z-10 text-[11px] bg-slate-900 text-slate-100 px-1 rounded-md gap-1">
