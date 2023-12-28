@@ -1,3 +1,5 @@
+export * from './searchBar/searchBar.component';
+export * from './pagination/pagination.component';
 export * from './buttons/filledbutton.component';
 export * from './buttons/unfilledbutton.component';
 export * from './doctor-form/doctor-form.component';
