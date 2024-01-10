@@ -26,7 +26,8 @@ export const LoginForm = () => {
             if (response.data.value) {
               dispatch(authenticateUser({
                 username: values.username,
-                role: 'authenticated'
+                role: 'authenticated',
+                idUser: response.data.user_id
               }));
               resolve('¡Bienvenido!'); // Resuelve la promesa si la solicitud es exitosa
               navigate(`/${values.username}/dashboard`);
