@@ -10,7 +10,7 @@ export const doctorsApi = createApi({
       query: (data) => {
         return {
           url: `${import.meta.env.VITE_API_DOCTOR_GET_BY_USERID}`,
-          method: 'GET',
+          method: 'POST',
           body: data
         }
       }
