@@ -8,6 +8,8 @@ export const doctorsApi = createApi({
   endpoints: builder => ({
     getDoctors: builder.mutation({
       query: (data) => {
+        console.log("🚀 ~ ENTRO EN EL GETDOCTORSSSSS:")
+        console.log("🚀 ~ data:", data)
         return {
           url: `${import.meta.env.VITE_API_DOCTOR_GET_BY_USERID}`,
           method: 'POST',
