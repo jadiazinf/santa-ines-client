@@ -59,7 +59,8 @@ export const DoctorSelector = () => {
       <div className=''>
         {searchedDatas.length === 0
           ? <div className='flex flex-col justify-center items-center mt-10'>
-              <h1 className='font-bold text-lg text-primary'>No se ha encontrado ningún doctor con las características especificadas.</h1>
+              <h1 className='font-bold text-lg text-primary'>No se ha encontrado ningún doctor asociado a este usuario. Por favor, solicite al </h1>
+              <h1 className='font-bold text-lg text-primary'>administrador que le asigne el doctor correspondiente.</h1>
             </div>
           :<>
             <div className={`grid xs:grid-cols-1 ${searchedDatas.length !== 0 ? 'smm:grid-cols-2' : 'smm:grid-cols-1'} gap-5  m-10`}>
