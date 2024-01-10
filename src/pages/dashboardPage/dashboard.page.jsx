@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
 import { DoctorSelector, FilledButton } from '../../components'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useGetDoctors1Mutation, useGetPatientsMutation } from '../../api';
+import { useGetDoctorsMutation, useGetPatientsMutation } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { savedoctors, savepatients } from '../../store/reducers/doctors.reducer';
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
-  const  { userName } = useParams();
   const dispatch = useDispatch();
   const { doctor } = useSelector( state => state.saveDoctors)
-
+  const { idUser } = useSelector( state => state.authenticatedUser)
   const onClick = e => {
     if (Object.keys(doctor).length === 0) {
       toast.error('Debe seleccionar un doctor');
@@ -23,18 +22,19 @@ export const DashboardPage = () => {
     }
   }
 
-  const [getDoctors1, { isLoading, isError }] = useGetDoctors1Mutation();
+  const [getDoctors, { isLoading, isError }] = useGetDoctorsMutation();
   const [getPatients] = useGetPatientsMutation();
 
   useEffect(() => {
-    Promise.all([getDoctors1(userName),  getPatients()])//TODO -> RECORDAR CAMBIAR ESTO PARA QUE ME TRAIGA LOS DOCTORES DE UN USUARIO EN CONCRETO
+    Promise.all([getDoctors({ id_user: idUser }),  getPatients()])//TODO -> RECORDAR CAMBIAR ESTO PARA QUE ME TRAIGA LOS DOCTORES DE UN USUARIO EN CONCRETO
       .then(([doctorsResponse, patientsResponse]) => {
-        dispatch(savedoctors(doctorsResponse.data));
+        if(!doctorsResponse.error) {
+          dispatch(savedoctors(doctorsResponse.data));
+        }else{
+          dispatch(savedoctors([]));
+        }
         dispatch(savepatients(patientsResponse.data));
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
   }, [])
 
   return (
