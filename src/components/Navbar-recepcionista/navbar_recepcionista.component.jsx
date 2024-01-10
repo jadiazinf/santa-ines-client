@@ -25,7 +25,8 @@ export const NavbarRecepcionistaComponent = () => {
       path = '/login';
       dispatch(authenticateUser({
         username: '',
-        role: 'not-authenticated'
+        role: 'not-authenticated',
+        idUser: ''
       }))
     }
     navigate('perfil');
