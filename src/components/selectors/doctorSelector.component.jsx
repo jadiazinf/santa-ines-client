@@ -46,7 +46,6 @@ export const DoctorSelector = () => {
   const [page, setPage] = useState(1);
   const rowsPerPage = 6;
   const totalItems = doctors.length;
-
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
