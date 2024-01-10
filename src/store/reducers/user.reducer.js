@@ -13,7 +13,7 @@ const userSlice = createSlice({
   reducers: {
     authenticateUser: (state, action) => {
       state.username = action.payload.username;
-      state.idUser = action.payload.id;
+      state.idUser = action.payload.idUser.toString();
       state.role = action.payload.role
     },
     editUser: (state, action) => {
