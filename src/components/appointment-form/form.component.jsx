@@ -7,7 +7,7 @@ import ConfirmationComponent from '../confirmation-appointment/confirmationApoin
 import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '../../api';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { crearCitaDate, crearCitaDescripcion, crearPatient, descripcionError } from '../../store/reducers/crearCita.reducer';
+import { crearCitaDate, crearCitaDescripcion, crearCitaHecha, crearPatient, descripcionError } from '../../store/reducers/crearCita.reducer';
 import { useDisclosure } from '@nextui-org/react';
 
 export const AppointmentCreateForm = ({ action }) => {
@@ -44,6 +44,7 @@ export const AppointmentCreateForm = ({ action }) => {
       if (componentToShow < 3) {
         setComponentToShow(componentToShow + 1);
       } else {
+        dispatch(crearCitaHecha(true));
         toast.promise(
           new Promise((resolve, reject) => {
             const info = {
