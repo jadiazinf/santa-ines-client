@@ -5,12 +5,15 @@ import toast from 'react-hot-toast';
 import { useGetDoctorsMutation, useGetPatientsMutation } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { savedoctors, savepatients } from '../../store/reducers/doctors.reducer';
+import { crearCitaHecha } from '../../store/reducers/crearCita.reducer';
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { doctor } = useSelector( state => state.saveDoctors)
   const { idUser } = useSelector( state => state.authenticatedUser)
+  const { creada } = useSelector( state => state.createAppointment)
+
   const onClick = e => {
     if (Object.keys(doctor).length === 0) {
       toast.error('Debe seleccionar un doctor');
@@ -26,6 +29,9 @@ export const DashboardPage = () => {
   const [getPatients] = useGetPatientsMutation();
 
   useEffect(() => {
+    if(creada){
+      dispatch(crearCitaHecha(false));
+    }
     Promise.all([getDoctors({ id_user: idUser }),  getPatients()])//TODO -> RECORDAR CAMBIAR ESTO PARA QUE ME TRAIGA LOS DOCTORES DE UN USUARIO EN CONCRETO
       .then(([doctorsResponse, patientsResponse]) => {
         if(!doctorsResponse.error) {
