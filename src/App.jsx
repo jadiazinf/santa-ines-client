@@ -5,7 +5,7 @@ import { notAuthenticatedUserRoutes,
           regularUserRoutes,
           superUserRoutes } from "./routes";
 import { Toaster } from "react-hot-toast";
-import { AdminPage, AppointmentFormPage, DashboardPage, DoctorInfoPage, IndexPage, LoginPage, PerfilPage } from "./pages";
+import { AdminPage, AppointmentConsultPage, AppointmentFormPage, DashboardPage, DoctorInfoPage, IndexPage, LoginPage, PerfilPage } from "./pages";
 import { NavbarRecepcionistaComponent } from "./components/Navbar-recepcionista/navbar_recepcionista.component";
 
 export const App = () => {
@@ -36,6 +36,7 @@ export const App = () => {
       {/* <RouterProvider router={userRoutes}/> */}
       <Routes>
         <Route  path="/" element={<IndexPage />} />
+        <Route  path="/consultar-citas" element={<AppointmentConsultPage />} />
         <Route  path="/login" element={<LoginPage />} />
         <Route
           path="/:userName/dashboard/*"
