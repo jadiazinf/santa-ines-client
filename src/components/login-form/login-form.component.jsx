@@ -60,8 +60,9 @@ export const LoginForm = () => {
       <InputComponent id='password' name='password' type='password' placeholder='Contraseña' onChange={handleChange} onBlur={handleBlur} error={errors.password}/>
       <div className='flex flex-col justify-end items-end mt-2 mr-1'>
         {/* <CheckboxComponent id='remember' name='remember' text='Recordarme' onChange={handleChange} onBlur={handleBlur} /> */}
-        <NavLink to='/recuperar-clave' className='hover:text-primary'>¿Olvidó su clave?</NavLink>
-        <NavLink to='/crear-cuenta' className='hover:text-primary'>Crear cuenta</NavLink>
+        {/* <NavLink to='/recuperar-clave' className='hover:text-primary'>¿Olvidó su clave?</NavLink>
+        <NavLink to='/crear-cuenta' className='hover:text-primary'>Crear cuenta</NavLink> */}
+        <br />
       </div>
       <div className=''>
         <FilledButton text={!isLoading ? 'Registrar' : 'Cargando...' } block={isLoading} type='submit'/>
