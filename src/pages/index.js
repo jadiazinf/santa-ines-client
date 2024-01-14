@@ -1,3 +1,4 @@
+export * from './appointmentConsultPage/appointmentConsult.page';
 export * from './perfilPage/perfil.page';
 export * from './indexpage/index.page';
 export * from './loginPage/login.page';
