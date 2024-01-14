@@ -13,11 +13,11 @@ const buttonsActions =[
     color: "bg-dimBlue mm:left-[60%] ss:left-[75%] ",
     link:'https://santainesucab.org.ve/servicios/precios/'
   },
-  {
-    text: "Información",
-    icon: teamIcon,
-    color: "bg-dimYellow mm:hidden ss:block ss:left-[45%]",
-  },
+  // {
+  //   text: "Información",
+  //   icon: teamIcon,
+  //   color: "bg-dimYellow mm:hidden ss:block ss:left-[45%]",
+  // },
 ]
 
 
