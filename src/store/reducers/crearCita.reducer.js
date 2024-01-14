@@ -7,6 +7,7 @@ const initialState = {
   patient: {},
   descripcionError: true,
   appointments: [],
+  creada:false,
 }
 
 const appointmentSlice = createSlice({
@@ -31,9 +32,12 @@ const appointmentSlice = createSlice({
     saveAppointments: (state, action) => {
       state.appointments = action.payload;
     },
+    crearCitaHecha: (state, action) => {
+      state.creada = action.payload;
+    },
   }
 })
 
-export const { crearCitaDoctor, crearCitaDate, crearPatient, crearCitaDescripcion, descripcionError, saveAppointments } = appointmentSlice.actions;
+export const { crearCitaDoctor, crearCitaDate, crearPatient, crearCitaDescripcion, descripcionError, saveAppointments, crearCitaHecha } = appointmentSlice.actions;
 export default appointmentSlice.reducer;
 
