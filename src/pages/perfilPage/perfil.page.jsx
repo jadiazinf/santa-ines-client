@@ -3,12 +3,18 @@ import { ButtonBack, PerfilComponent } from '../../components'
 import { useGetInfoUserMutation } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../store/reducers/user.reducer';
+import { crearCitaHecha } from '../../store/reducers/crearCita.reducer';
 
 export const PerfilPage = ({ action}) => {
   const dispatch = useDispatch();
   const [getInfoUser, { isLoading, isError }] = useGetInfoUserMutation();
   const { username } = useSelector( state => state.authenticatedUser)
+  const { creada } = useSelector( state => state.createAppointment)
+
   useEffect(() => {
+    if(creada){
+      dispatch(crearCitaHecha(false));
+    }
     getInfoUser(username)
     .then((response) => {
       dispatch(editUser(response.data));
