@@ -34,7 +34,7 @@ export const DoctorInfoPage = () => {
     <section className="flex flex-col items-center mt-5 gap-5">
       <div className='flex justify-between w-[80%]'>
         <div className='flex flex-row justify-center items-center gap-5'>
-          <ButtonBack  style={''}/>
+          <ButtonBack backlink={`${window.location.pathname.split('/').slice(0, 3).join('/')}`}  style={''}/>
           <div>
             <h1 className='text-primary text-3xl w-[400px]'>{capitalizeFirstLetter(doctor.nombre.cuerpo)}</h1>
             <p className=''>Por favor, seleccione la pestaña que desee consultar.</p>
