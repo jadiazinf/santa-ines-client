@@ -1,10 +1,16 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const ButtonBack = ({ style, onClick }) => {
+export const ButtonBack = ({ backlink, style, onClick }) => {
   const navigate = useNavigate();
+  const { creada } = useSelector( state => state.createAppointment)
 
   const handleGoBack = () => {
-    navigate(-1); //TODO -> Tratar de cambiar esto para que vaya a una ruta especifica la DASHBOARD
+    if(!creada){
+      navigate(-1);
+    }else{
+      navigate(`../../${backlink}`);
+    }
   };
   return (
     <button onClick={handleGoBack || onClick} type="button" className={`${style} text-primary border border-primary hover:bg-green-600 hover:text-white  font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2`}>
