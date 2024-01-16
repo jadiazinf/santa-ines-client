@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Chip} from "@nextui-org/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
@@ -7,6 +7,7 @@ import { es } from "date-fns/locale";
 import { fechaHora } from '../../helpers/calendar.helper';
 import { resetAccions, setAccion } from '../../store/reducers/detalleCita.reducer';
 import { FilledButton, PatientForm, UserForm, DoctorForm} from '..'
+import { useGetAllDoctorsMutation } from '../../api';
 
 
 const statusColorMap = {
@@ -37,7 +38,7 @@ export const ModalInfoComponent = ({ isOpen, onOpenChange, setReset }) => {
         <ModalContent>
           {(onClose) => (
             <>
-              { detalles.includes(accion) ? <ModalViewInfoComponent accion={accion} handleClick={handleClick} onClose={onClose}/> : null}
+              { detalles.includes(accion) ? <ModalViewInfoComponent accion={accion} handleClick={handleClick} onClose={onClose} /> : null}
               { creaciones.includes(accion) ? <ModalCreacionesComponent accion={accion} handleClick={handleClick} onClose={onClose} setReset={setReset}/> : null}
               { ediciones.includes(accion) ? <ModalEdicionesComponent accion={accion} handleClick={handleClick} onClose={onClose} setReset={setReset} dispatch={dispatch}/> : null}
             </>
@@ -115,11 +116,39 @@ const ModalViewInfoComponent = ({ accion, handleClick, onClose }) => {
 }
 
 const DetalleCita = () => {
-  const { cita } = useSelector( state => state.detalles)
-  const { doctor } = useSelector( state => state.saveDoctors)
+  const { cita } = useSelector(state => state.detalles);
+  const [getAllDoctors] = useGetAllDoctorsMutation();
+  const [doctor, setDoctor] = React.useState('');
+  const [name, setName] = React.useState('');
+  const { doctorId } = useSelector(state => state.saveDoctors);
+  const [cargando, setCargando] = React.useState(true);
+
+  useEffect(() => {           //TODO -> Buena manera de hacer llamado de datos
+    const fetchData = async () => {
+      try {
+        if (doctorId !== '') {
+          const response = await getAllDoctors();
+          const foundDoctor = response.data.find((doctor) => doctor.id.UUID === doctorId);
+          setDoctor(foundDoctor);
+          setName(`${foundDoctor.nombre.cuerpo} ${foundDoctor.apellido.cuerpo}`);
+        } else {
+          const savedDoctor = useSelector(state => state.saveDoctors);
+          setDoctor(savedDoctor);
+          setName(`${savedDoctor.nombre.cuerpo} ${savedDoctor.apellido.cuerpo}`);
+        }
+        setCargando(false);
+      } catch (error) {
+        console.error(error);
+        setCargando(false);
+      }
+    };
+
+    fetchData();
+  }, [doctorId]);
+
   var dateObject2 = new Date(cita.date);
-  const name = `${doctor.nombre.cuerpo} ${doctor.apellido.cuerpo}`
   const date = `${fechaHora(cita.date, 'fecha')} a las ${' '} ${fechaHora(cita.date, 'hora')}`;
+
   return (
     <>
       <DetalleItem key={'Id'} titulo={'Id'} valor={cita.id} />
@@ -143,14 +172,20 @@ const DetalleCita = () => {
 
       <div className='border w-full'></div>
       <h1 className="py-4  flex-initial flex flex-col gap-1 font-bold text-lg text-primary underline">Información del doctor:</h1>
-      <DetalleItem key={'Nombre'} titulo={'Nombre'} valor={name}/>
-      <DetalleItem key={'Cédula'} titulo={'Cédula'} valor={doctor.cedula}/>
-      <DetalleItem key={'Especialidad'} titulo={'Especialidad'} valor={doctor.especialidad}/>
-      <DetalleItem key={'Correo'} titulo={'Correo'} valor={doctor.correo.correo}/>
-      <DetalleItem key={'Teléfono'} titulo={'Teléfono'} valor={doctor.telefono}/>
+      {cargando
+        ? <h1>Cargando...</h1>
+        : <>
+            <DetalleItem key={'Nombre'} titulo={'Nombre'} valor={name} />
+            <DetalleItem key={'Cédula'} titulo={'Cédula'} valor={doctor.cedula} />
+            <DetalleItem key={'Especialidad'} titulo={'Especialidad'} valor={doctor.especialidad} />
+            <DetalleItem key={'Correo'} titulo={'Correo'} valor={doctor.correo.correo} />
+            <DetalleItem key={'Teléfono'} titulo={'Teléfono'} valor={doctor.telefono} />
+          </>
+      }
     </>
   )
 }
+
 
 const DetalleUsuario = () => {
   const { usuario } = useSelector((state) => state.detalles);
