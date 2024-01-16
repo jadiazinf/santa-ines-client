@@ -22,9 +22,6 @@ const fetchFunctions = {
 export const TableComponent = ({columns, id_doctor, action, data, path, setReset}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let totalItems = data.length;
-  console.log('entro');
-  
   const selectedFetchFunction = fetchFunctions[action];
   const [fetchFunction] = selectedFetchFunction();
 
@@ -54,8 +51,8 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
       default:
         break;
     }
-    totalItems = data.length;
-  }, [totalItems]);
+    setPage(1)
+  }, [data]);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -88,6 +85,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
   //------------------> Pagination Config <------------------
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 5;
+  const totalItems = data.length;
 
   //------------------> Pagination Config <------------------
   const [searchValue, setSearchValue] = React.useState('');
