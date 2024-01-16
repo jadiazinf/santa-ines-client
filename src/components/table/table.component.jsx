@@ -10,6 +10,7 @@ import { saveAppointments } from "../../store/reducers/crearCita.reducer";
 import { detalleCita, detalleDoctor2, detallePaciente, detalleUsuario } from "../../store/reducers/detalleCita.reducer";
 import { CustomPagination, ModalInfoComponent, SearchBarComponent} from '../../components'
 import { InfoIcon } from "../../assets";
+import { savedoctorId } from "../../store/reducers/doctors.reducer";
 
 const fetchFunctions = {
   'appointments': useGetDoctorAppointmentsMutation,
@@ -59,6 +60,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
     switch (dataType) {
       case 'appointments':
         onOpen();
+        dispatch(savedoctorId(object.doctorId));
         dispatch(detalleCita(object));
         break;
       case 'users':
