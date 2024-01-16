@@ -31,13 +31,13 @@ export const AppointmentConsultPage = () => {
         loading: 'Consultando...',
         success: (response) => {
           if(response.data.length == 0){
-            return toast.error('No se encontraron citas.')
+            return <b>No se encontraron citas para el paciente de cédula {searchValue}</b>
           }else{
             setAppointments(response.data)
             return <b>Citas encontradas para el paciente de cédula {searchValue}</b>
           }
         },
-        error: <b>Could not save.</b>,
+        error: <b>Ocurrio un error, intente de nuevo.</b>,
       }
     );
     setSearchValue('')
