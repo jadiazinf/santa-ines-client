@@ -31,7 +31,7 @@ export const AppointmentConsultPage = () => {
         loading: 'Consultando...',
         success: (response) => {
           if(response.data.length == 0){
-            return toast.error('No se encontraron citas para el paciente de cédula {searchValue}')
+            return <b>No se encontraron citas para el paciente de cédula {searchValue}</b>
           }else{
             setAppointments(response.data)
             return <b>Citas encontradas para el paciente de cédula {searchValue}</b>
