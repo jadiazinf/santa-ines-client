@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { TableComponent } from '../../components/table/table.component';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
+import { columnsAppointments } from '../../components/constanst';
 
 export const DoctorInfoPage = () => {
   const [activeTab, setActiveTab] = useState('citas');
@@ -16,17 +17,9 @@ export const DoctorInfoPage = () => {
     navigate(`../appointmentForm/create`);
   }
 
-  const columns = [
-    {name: "Id Cita", uid: "idCita"},
-    {name: "Fecha Cita", uid: "fechaCita"},
-    {name: "Hora Cita", uid: "horaCita"},
-    {name: "Id Paciente", uid: "idPaciente"},
-    {name: "Estado", uid: "status"},
-    {name: "Acciones", uid: "actions"},
-  ];
 
   const tabs = [
-    { id: "citas", label: "Citas", component: <TableComponent columns={columns} id_doctor={doctor.id} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/> },
+    { id: "citas", label: "Citas", component: <TableComponent columns={columnsAppointments} id_doctor={doctor.id} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/> },
     { id: "información", label: "Información", component: <DoctorInfo info={doctor} /> },
   ];
 
@@ -42,7 +35,7 @@ export const DoctorInfoPage = () => {
         </div>
         <FilledButton text='Agendar Cita' onClick={() => onClick()} />
       </div>
-      <TabsComponent columns={columns} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
+      <TabsComponent columns={columnsAppointments} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
     </section>
   );
 }
