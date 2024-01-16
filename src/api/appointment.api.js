@@ -34,8 +34,15 @@ export const appointmentsApi = createApi({
           body: appointment
         };
       }
+    }),
+    getUserAppointments: builder.mutation({
+      query: (cedula) => {
+        return {
+          url: `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_PATIENT}${cedula}`,
+        };
+      }
     })
   }),
 });
 
-export const { useCreateAppointmentMutation, useGetDoctorAppointmentsMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation  } = appointmentsApi;
+export const { useCreateAppointmentMutation, useGetDoctorAppointmentsMutation, useDeleteAppointmentMutation, useUpdateAppointmentMutation, useGetUserAppointmentsMutation  } = appointmentsApi;
