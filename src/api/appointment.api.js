@@ -37,6 +37,7 @@ export const appointmentsApi = createApi({
     }),
     getUserAppointments: builder.mutation({
       query: (cedula) => {
+        console.log('Url -> ', `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_PATIENT}${cedula}`);
         return {
           url: `${import.meta.env.VITE_API_APPOINTMENT_GET_BY_ID_PATIENT}${cedula}`,
         };
