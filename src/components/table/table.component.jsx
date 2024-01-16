@@ -23,6 +23,7 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let totalItems = data.length;
+  console.log('entro');
   
   const selectedFetchFunction = fetchFunctions[action];
   const [fetchFunction] = selectedFetchFunction();
