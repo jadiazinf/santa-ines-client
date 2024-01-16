@@ -59,7 +59,7 @@ export const AppointmentConsultPage = () => {
           </div>
         </div>
       </section>
-      <div className='mt-10 w-[70%] mb-16'>
+      <div className='mt-10 w-[70%] mb-20'>
         <TableComponent columns={columnsAppointments1} id_doctor={doctorId} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/>
       </div>
       <FooterComponent />
