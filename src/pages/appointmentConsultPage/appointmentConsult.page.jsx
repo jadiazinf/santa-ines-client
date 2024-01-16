@@ -1,5 +1,5 @@
 import React from 'react'
-import { FilledButton, ModalInfoComponent, NavbarAllUsersComponent, SearchBarComponent, TableComponent } from '../../components'
+import { FilledButton, ModalInfoComponent, NavbarAllUsersComponent, SearchBarComponent, TableComponent, FooterComponent } from '../../components'
 import { SearchIcon } from '../../assets'
 import { columnsAppointments1 } from '../../components/constanst'
 import { useGetUserAppointmentsMutation } from '../../api'
@@ -62,6 +62,7 @@ export const AppointmentConsultPage = () => {
       <div className='mt-10 w-[70%]'>
         <TableComponent columns={columnsAppointments1} id_doctor={doctorId} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/>
       </div>
+      <FooterComponent />
     </div>
   )
 }
