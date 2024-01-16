@@ -56,3 +56,21 @@ export const columnsPatients = [
     {name: "Correo", uid: "email"},
     {name: "Acciones", uid: "actions"},
   ]
+
+export const columnsAppointments = [
+    {name: "Id Cita", uid: "idCita"},
+    {name: "Fecha Cita", uid: "fechaCita"},
+    {name: "Hora Cita", uid: "horaCita"},
+    {name: "Id Paciente", uid: "idPaciente"},
+    {name: "Estado", uid: "status"},
+    {name: "Acciones", uid: "actions"},
+  ];
+
+
+export const columnsAppointments1 = [
+    {name: "Id Cita", uid: "idCita"},
+    {name: "Fecha Cita", uid: "fechaCita"},
+    {name: "Hora Cita", uid: "horaCita"},
+    {name: "Id Paciente", uid: "idPaciente"},
+    {name: "Estado", uid: "status"},
+  ];
