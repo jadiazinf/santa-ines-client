@@ -1,3 +1,5 @@
+export * from './charts/chart_bar.component';
+export * from './charts/chart_pie.component';
 export * from './searchBar/searchBar.component';
 export * from './pagination/pagination.component';
 export * from './buttons/filledbutton.component';
