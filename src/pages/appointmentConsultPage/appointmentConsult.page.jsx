@@ -1,5 +1,5 @@
 import React from 'react'
-import { FilledButton, ModalInfoComponent, NavbarAllUsersComponent, SearchBarComponent, TableComponent } from '../../components'
+import { FilledButton, ModalInfoComponent, NavbarAllUsersComponent, SearchBarComponent, TableComponent, FooterComponent } from '../../components'
 import { SearchIcon } from '../../assets'
 import { columnsAppointments1 } from '../../components/constanst'
 import { useGetUserAppointmentsMutation } from '../../api'
@@ -31,12 +31,13 @@ export const AppointmentConsultPage = () => {
         loading: 'Consultando...',
         success: (response) => {
           if(response.data.length == 0){
-            toast.error('No se encontraron citas.')
+            return <b>No se encontraron citas para el paciente de cédula {searchValue}</b>
+          }else{
+            setAppointments(response.data)
+            return <b>Citas encontradas para el paciente de cédula {searchValue}</b>
           }
-          setAppointments(response.data)
-          return <b>Citas encontradas para el paciente de cédula {searchValue}</b>
         },
-        error: <b>Could not save.</b>,
+        error: <b>Ocurrio un error, intente de nuevo.</b>,
       }
     );
     setSearchValue('')
@@ -58,9 +59,10 @@ export const AppointmentConsultPage = () => {
           </div>
         </div>
       </section>
-      <div className='mt-10 w-[70%]'>
+      <div className='mt-10 w-[70%] mb-28'>
         <TableComponent columns={columnsAppointments1} id_doctor={doctorId} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/>
       </div>
+      <FooterComponent />
     </div>
   )
 }

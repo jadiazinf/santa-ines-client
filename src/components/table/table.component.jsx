@@ -22,7 +22,6 @@ const fetchFunctions = {
 export const TableComponent = ({columns, id_doctor, action, data, path, setReset}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const selectedFetchFunction = fetchFunctions[action];
   const [fetchFunction] = selectedFetchFunction();
 
@@ -52,7 +51,8 @@ export const TableComponent = ({columns, id_doctor, action, data, path, setReset
       default:
         break;
     }
-  }, []);
+    setPage(1)
+  }, [data]);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
