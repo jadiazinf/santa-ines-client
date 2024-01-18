@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
-import { ButtonBack, DoctorInfo, FilledButton, TabsComponent } from '../../components';
+import { ButtonBack, ChartBarComponent, ChartPieComponent, DoctorInfo, FilledButton, TabsComponent } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { TableComponent } from '../../components/table/table.component';
 import { capitalizeFirstLetter } from '../../helpers/capitalize.helper';
 import { columnsAppointments } from '../../components/constanst';
+import { contarCitasPorPaciente, dataToPie } from '../../hooks';
 
 export const DoctorInfoPage = () => {
   const [activeTab, setActiveTab] = useState('citas');
   const { appointments } = useSelector( state => state.createAppointment)
   const { users } = useSelector( state => state.userAdmin)
-  const { doctor } = useSelector( state => state.saveDoctors)
+  const { doctor, patients } = useSelector( state => state.saveDoctors)
 
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`../appointmentForm/create`);
   }
 
-
   const tabs = [
     { id: "citas", label: "Citas", component: <TableComponent columns={columnsAppointments} id_doctor={doctor.id} data={appointments} action={'appointments'} path={'../appointmentForm/update'}/> },
+    { id: "estadisticas", label: "Estadísticas", component:<ChartsComponent appointments={appointments} patients={patients}/> },
     { id: "información", label: "Información", component: <DoctorInfo info={doctor} /> },
   ];
 
@@ -38,4 +39,20 @@ export const DoctorInfoPage = () => {
       <TabsComponent columns={columnsAppointments} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
     </section>
   );
+}
+
+
+const ChartsComponent = ({appointments, patients}) => {
+  return (
+    <div className="flex flex-col justify-center items-center mt-10 w-full space-y-4">
+      <div className='relative space-y-3'>
+        <h1 className='text-primary text-3xl'>Distribución de Estados de Citas</h1>
+        <ChartPieComponent data={dataToPie(appointments)}/>
+      </div>
+      <div className='relative space-y-4'>
+        <h1 className='text-primary text-3xl absolute'>Cantidad de Citas por Paciente</h1>
+        <ChartBarComponent data={contarCitasPorPaciente(appointments, patients)}/>
+      </div>
+    </div>
+  )
 }
