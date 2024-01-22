@@ -23,80 +23,44 @@ Este proyecto se ejecuta bajo la premisa de mejorar la atención médica mediant
 ---
 
 ### Arquitectura del Proyecto
-
 -  **Frontend (ReactJs):**
-
 - Interfaz de usuario construida con ReactJs, JSX y TailwindCSS.
-
 - Implementación de componentes reutilizables para una experiencia visual atractiva.
-
 - Utilización de Redux Toolkit, Formik, Next UI para el manejo de estado, formularios y componentes de interfaz.
-
 ---
-
 
 ### Instalación
 
 Clonación Aplicación **Fronted**:
 
 ```
-
 $ git clone https://github.com/jadiazinf/santa-ines-client.git
-
 $ cd ../santa-ines-client
-
 $ npm install
-
 $ npm run dev
-
 ```
-
 Para luego seguir los siguientes pasos:
-
 >1. Dentro de la carpeta del proyecto **santa-ines-client**, crear un archivo .env para el manejo de las variables de entorno.
-
 >2. Dentro del archivo .env copiar la siguientes variables:
-
 >```
-
 ># BASE URL
-
 >VITE_API_SERVER_BASE_URL=https://santainesapi.onrender.com
-
 >VITE_API_USER_LOGIN=/user/login/
-
 >VITE_API_USER_GET_ALL=/user/all/
-
 >VITE_API_USER_GET_INFO=/user/info/
-
 >VITE_API_USER_CREATE=/user/create/
-
 >VITE_API_USER_UPDATE=/user/update/
-
 >VITE_API_USER_DELETE=/user/delete/
-
 ># DOCTORS
-
 >VITE_API_DOCTOR_GET_ALL=/doctor/findAll/
-
 >VITE_API_DOCTOR_CREATE=/doctor/create
-
 >VITE_API_DOCTOR_UPDATE=/doctor/modificate/
-
 >VITE_API_DOCTOR_DELETE=/doctor/delete/
-
 >VITE_API_DOCTOR_GET_BY_USERID=/doctor/findByIdUser/
-
 ># PATIENT
-
 >VITE_API_PATIENT=/patient/
-
 ># APOINMENTS
-
 >VITE_API_APPOINTMENT=/appointment/
-
 >VITE_API_APPOINTMENT_GET_BY_ID_DOCTOR=/appointment/iddoctor/
-
 >VITE_API_APPOINTMENT_GET_BY_ID_PATIENT=/appointment/idpatient/
-
 >```
