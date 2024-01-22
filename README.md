@@ -2,7 +2,7 @@
 
 <p  align="center">
   <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">  <img width="180" src="https://vitejs.dev/logo.svg" alt="Vite logo">  </a>  
-  <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">  <img width="180" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg 2300px-React-icon.svg.png" alt="React logo">
+  <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">  <img width="180" src="[https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg 2300px-React-icon.svg.png](https://w7.pngwing.com/pngs/79/518/png-transparent-js-react-js-logo-react-react-native-logos-icon-thumbnail.png)" alt="React logo">
   </a>
 </p>
 <br/>
