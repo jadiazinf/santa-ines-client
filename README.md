@@ -2,7 +2,7 @@
 
 <p  align="center">
   <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">  <img width="180" src="https://vitejs.dev/logo.svg" alt="Vite logo">  </a>  
-<a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">  <img width="350" src="https://download.logo.wine/logo/React_(web_framework)/React_(web_framework)-Logo.wine.png" alt="React logo">  </a>
+<a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">  <img width="300" src="https://download.logo.wine/logo/React_(web_framework)/React_(web_framework)-Logo.wine.png" alt="React logo">  </a>
 </p>
 <br/>
 <p  align="center">
