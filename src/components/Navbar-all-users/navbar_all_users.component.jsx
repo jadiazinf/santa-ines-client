@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { logo_SantaInes, menu, close } from "../../assets"
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 /* eslint-disable no-unused-vars */
 const navLinks = [
@@ -8,7 +10,7 @@ const navLinks = [
     title:'Inicio',
   },
   {
-    id: 'somos',
+    id: 'quienes-somos',
     title:'¿Quiénes Somos?'
   },
   {
@@ -19,24 +21,32 @@ const navLinks = [
     id: 'doctores',
     title:'Doctores'
   },
-  {
-    id: 'sesión',
-    title:'Iniciar Sesión'
-  },
 ]
 
-const NavbarComponent = () => {
+export const NavbarAllUsersComponent = ({ consult }) => {
+
+  const { role } = useSelector(state => state.authenticatedUser);
+
   const [toggle, setToggle] = useState(false);
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-6 justify-between items-center navbar px-10">
       <img src={ logo_SantaInes } alt="logo" className="" />
-      <ul className="list-none md:flex hidden justify-end items-center flex-1">
-        {navLinks.map((link, index) => (
-          <li key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mr-10'} text-primary`}>
-            <a href={`#${link.id}`} className="text-[20px]">{link.title}</a>
-          </li>
-        ))}
-      </ul>
+      {consult
+        ?  <ul className="list-none md:flex hidden justify-end items-center flex-1">
+            {navLinks.map((link, index) => (
+              <NavLink to={`/#${link.id}`} key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mr-10'} text-primary text-[20px]`}>
+                {link.title}
+              </NavLink>
+            ))}
+          </ul>
+        : <ul className="list-none md:flex hidden justify-end items-center flex-1">
+            {navLinks.map((link, index) => (
+              <li key={link.id} className={`font-normal cursor-pointer ${index === navLinks.length -1 ? 'mr-0' : 'mr-10'} text-primary`}>
+                <a href={`#${link.id}`} className="text-[20px]">{link.title}</a>
+              </li>
+            ))}
+          </ul>
+      }
 
       <div className="md:hidden flex flex-1 justify-end items-center">
         <img src={toggle ? close : menu} alt="menu" className="w-[28px] h-[28px] object-contain cursor-pointer" onClick={() => setToggle((prev) => !prev)}/>
@@ -53,13 +63,3 @@ const NavbarComponent = () => {
     </nav>
   )
 }
-
-export default NavbarComponent
-
-
-//De esta manera se coloca en el contenedor padre
-{/* <div className={`w-full sm:px-16 px-6 flex justify-center items-center `}>
-  <div className={`xl:max-w-[1280px] w-full`}>
-    <Navbar/>
-  </div>
-</div> */}

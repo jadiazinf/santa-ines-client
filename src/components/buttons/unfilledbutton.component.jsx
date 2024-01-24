@@ -1,25 +1,27 @@
 import React from 'react';
 import classNames from 'classnames';
 
-function UnfilledButton(props) {
+export const UnfilledButton = props => {
   const buttonClasses = classNames(
+    'py-2', 'px-4', 'rounded',
     'm-5',
     'bg-dimWhite',
-    'hover:bg-dimWhite',
+    'hover:border-green-600',
+    'hover:text-green-600',
     'border',
     'border-primary',
     'border-2',
     'text-primary',
     'font-poppins',
-    'py-6',
-    'px-14'
   );
 
   return (
-    <button className={buttonClasses} onClick={props.onClick}>
+    <button className={`${props.class ? props.class : buttonClasses} ${props.block ? 'cursor-not-allowed opacity-50' : ''}`} onClick={props.onClick} type={props.type} style={{height: props.buttonHeight, width: props.buttonWidth, fontSize: props.textSize, textAlign: 'center'}}>
       {props.text}
     </button>
   );
 }
 
-export default UnfilledButton;
+{/*
+  <UnfilledButton text="Crear Cuenta" buttonHeight={40} buttonWidth={90} textSize={10} onClick='' />
+*/}
